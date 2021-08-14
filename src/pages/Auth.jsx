@@ -23,10 +23,10 @@ export default function Auth({setIsLoading}) {
           <div>
             <p className="text-base grid grid-cols-1 font-bold text-blue-800">
               <span>
-                Clinica
-                <span style={{ color: "rgba(62,196,182,1)" }}> Diagnostica</span>
+                Clinica de
+                <span style={{ color: "rgba(62,196,182,1)" }}> Diagnostico</span>
               </span>
-              <span>Veterinaria</span>
+              <span>Veterinario</span>
             </p>
             <div className="mt-6">
                <div className="flex w-full justify-center">

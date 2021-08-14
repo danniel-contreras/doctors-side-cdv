@@ -57,7 +57,7 @@ const Login = ({ setIsLoading }) => {
         <input
           name="password"
           onChange={formik.handleChange}
-          type="pasword"
+          type="password"
           placeholder="Escribe tu password"
           className={
             "border-0 text-xs py-1 mt-2 border-b-2 w-full outline-none " +

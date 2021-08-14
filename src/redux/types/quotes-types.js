@@ -1,4 +1,9 @@
 export const types = {
+    //quotes
     readQuotesByDoctor: "[Quotes] readByDoctor",
-    readQuotesById:"[Quotes] readById"
+
+    //quote
+    readQuoteById:"[Quote] readById"
+
+
 }
