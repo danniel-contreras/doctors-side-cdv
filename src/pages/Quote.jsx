@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { readQuoteById } from "../redux/actions/quote";
 import { showImage } from "../services/patients";
 import Info from "../components/Quote/Info";
-import Form from "../components/Quote/Form";
+import BreadCrums from "../components/Quote/BreadCrums";
 
 const Quote = () => {
   const { id } = useParams();
@@ -16,6 +16,7 @@ const Quote = () => {
     dispatch(readQuoteById(id));
   }, [id, dispatch]);
   const newqt = quote ? quote.quotes : {};
+
   return (
     <Layout>
       <div className="p-8">
@@ -41,7 +42,7 @@ const Quote = () => {
             </p>
           </div>
         </div>
-        <Form id={id} />
+        <BreadCrums patient={newqt.patients} quote={newqt} id={id} patientsId={newqt.patients?.id} />
       </div>
     </Layout>
   );

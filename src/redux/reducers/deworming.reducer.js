@@ -1,15 +1,15 @@
-import { types } from "../types/quotes-types";
+import { types } from "../types/deworming-types";
 
 const initialState = {};
 
-export const quotesReducer = (state = initialState, action) => {
+export const dewormingReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.readQuotesByDoctor:
+    case types.addDeworming:
       return {
         ...state,
         data: action.payload,
       };
-    case types.readQuotesByPatient:
+      case types.readDewormingsByPatient:
       return {
         ...state,
         data: action.payload,

@@ -8,3 +8,8 @@ export const addNewResult = async (values) => {
   });
   return response.json();
 };
+
+export const getResultsByQuote = async (id) => {
+  const response = await fetch(`${API}/results/${id}`);
+  return response.json();
+};

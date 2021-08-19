@@ -1,15 +1,15 @@
-import { types } from "../types/quotes-types";
+import { types } from "../types/vaccination-types";
 
 const initialState = {};
 
-export const quotesReducer = (state = initialState, action) => {
+export const vaccinationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.readQuotesByDoctor:
+    case types.addVaccination:
       return {
         ...state,
         data: action.payload,
       };
-    case types.readQuotesByPatient:
+    case types.readVaccinationByPatient:
       return {
         ...state,
         data: action.payload,
