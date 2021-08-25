@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { readVaccinationsByPatient } from "../../../redux/actions/vaccination";
 import { formatRelative, subDays } from "date-fns";
 import { es } from "date-fns/locale";
-import { formatDate } from "../../../utils/dates";
 
 const Vaccinations = ({ id }) => {
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ const Vaccinations = ({ id }) => {
                   <p className="text-xl font-thin">
                     <span className="font-normal">Fecha:</span>{" "}
                     {formatRelative(
-                      subDays(formatDate(vac.date), 0),
+                      subDays(new Date(vac.date), 0),
                       new Date(),
                       {
                         locale: es,
@@ -57,7 +56,7 @@ const Vaccinations = ({ id }) => {
                   <p className="text-xl font-thin">
                     <span className="font-normal">Fecha:</span>{" "}
                     {formatRelative(
-                      subDays(formatDate(vac.date), 0),
+                      subDays(new Date(vac.date), 0),
                       new Date(),
                       {
                         locale: es,

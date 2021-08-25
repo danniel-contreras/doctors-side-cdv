@@ -2,12 +2,14 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { newLoggout } from "../redux/actions/auth";
 import { createPopper } from "@popperjs/core";
+import { Link } from "react-router-dom";
 
 export default function Layout({ children }) {
   const dispatch = useDispatch();
   const handleLoggout = () => {
     dispatch(newLoggout());
   };
+  const auth = useSelector((state) => state.auth);
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
   const popoverDropdownRef = React.createRef();
@@ -31,6 +33,21 @@ export default function Layout({ children }) {
             Clinica de Diagnostico Veterinario
           </span>
           <div className="float-right">
+            <Link to="/">
+              <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
+                Inicio
+              </span>
+            </Link>
+            <Link to="/quotes">
+              <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
+                Consultas
+              </span>
+            </Link>
+            <Link to="/clinical-services">
+              <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
+                Servicios clinicos
+              </span>
+            </Link>
             <span
               ref={btnDropdownRef}
               onClick={() => {
@@ -51,7 +68,7 @@ export default function Layout({ children }) {
               style={{ minWidth: "12rem" }}
             >
               <span className="text-gray-600 px-4 mt-2 text-sm cursor-pointer font-medium mr-8">
-                Mi cuenta
+                {auth && auth.user?.email}
               </span>
               <span
                 onClick={handleLoggout}
@@ -60,9 +77,6 @@ export default function Layout({ children }) {
                 Cerrar Sesion
               </span>
             </div>
-            <span className="text-white text-sm cursor-pointer font-medium mr-8">
-              Mis consultas
-            </span>
           </div>
         </div>
         <div className="p-10 w-full h-full overflow-y-scroll">{children}</div>

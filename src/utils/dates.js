@@ -1,12 +1,41 @@
-export const returnDateNow = () => {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return month < 10 ? `${year}-0${month}-${day}` : `${year}-${month}-${day}`;
-};
-
-export const formatDate = (date) => {
-  var d2 = new Date();
-  return d2.setTime(date);
+export const filterDates = (quotes, option) => {
+  if (Number(option) === 1) {
+    const date = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 5);
+    const salesfilter =
+      quotes &&
+      quotes.filter(
+        (qt) =>
+          new Date(qt.date).valueOf() >= date.valueOf() &&
+          new Date(qt.date).valueOf() < tomorrow.valueOf()
+      );
+    return salesfilter;
+  }
+  if (Number(option) === 2) {
+    const date = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 8);
+    const salesfilter =
+      quotes &&
+      quotes.filter(
+        (qt) =>
+          new Date(qt.date).valueOf() >= date.valueOf() &&
+          new Date(qt.date).valueOf() < tomorrow.valueOf()
+      );
+    return salesfilter;
+  }
+  if (Number(option) === 3) {
+    const date = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 30);
+    const salesfilter =
+      quotes &&
+      quotes.filter(
+        (qt) =>
+          new Date(qt.date).valueOf() >= date.valueOf() &&
+          new Date(qt.date).valueOf() < tomorrow.valueOf()
+      );
+    return salesfilter;
+  }
 };

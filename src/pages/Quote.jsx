@@ -1,11 +1,13 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Layout from "../layout/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { readQuoteById } from "../redux/actions/quote";
 import { showImage } from "../services/patients";
 import Info from "../components/Quote/Info";
 import BreadCrums from "../components/Quote/BreadCrums";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Quote = () => {
   const { id } = useParams();
@@ -16,11 +18,15 @@ const Quote = () => {
     dispatch(readQuoteById(id));
   }, [id, dispatch]);
   const newqt = quote ? quote.quotes : {};
-
+  const router = useHistory()
+  const goBack = ()=>{
+    router.goBack()
+  }
   return (
     <Layout>
-      <div className="p-8">
-        <div className="grid grid-cols-2">
+      <div className="px-8">
+        <span onClick={goBack} className="font-thin text-base cursor-pointer"><FontAwesomeIcon icon={faArrowLeft}/> Atras</span>
+        <div className="grid grid-cols-2 mt-4">
           <div>
             <span className="text-2xl font-thin">
               Nombre del paciente:{" "}

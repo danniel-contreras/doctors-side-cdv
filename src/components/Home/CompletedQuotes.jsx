@@ -8,7 +8,6 @@ const QuoteList = ({ quotes }) => {
   const filterQuotes =
     quotes?.quotes &&
     quotes?.quotes.map((quote) => quote).filter((quote) => !quote?.state);
-    console.log(filterQuotes)
   return (
     <>
       {filterQuotes &&

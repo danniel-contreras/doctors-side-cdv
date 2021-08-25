@@ -1,17 +1,17 @@
+import React from "react";
+import { showImage } from "../../services/patients";
 import { formatRelative, subDays } from "date-fns";
 import { es } from "date-fns/locale";
-import { showImage } from "../../services/patients";
 import { Link } from "react-router-dom";
-import { memo } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
 
-const QuoteList = ({ quotes }) => {
-  const filterQuotes =
-    quotes?.quotes &&
-    quotes?.quotes.map((quote) => quote).filter((quote) => quote?.state);
+const List = ({ quotes }) => {
+  console.log(quotes);
   return (
-    <>
-      {filterQuotes &&
-        filterQuotes.map((quote) => (
+    <div className="grid grid-cols-3 gap-5">
+      {quotes &&
+        quotes.map((quote) => (
           <div
             key={quote.id}
             className="bg-white shadow flex flex-col rounded w-full h-96 p-6"
@@ -30,6 +30,20 @@ const QuoteList = ({ quotes }) => {
                 locale: es,
               })}
             </span>
+            <p className="text-base font-thin mt-4">
+             <span className=" font-normal">Estado:</span>{" "}
+              {quote.state ? (
+                <span>
+                  Pendiente
+                  <FontAwesomeIcon className="text-gray-500 ml-2" icon={faClock} />
+                </span>
+              ) : (
+                <span>
+                  Completada
+                  <FontAwesomeIcon className="text-green-500 ml-4" icon={faCheck} />
+                </span>
+              )}
+            </p>
             <Link to={`/quote/${quote.id}`}>
               <button className="bg-blue-600 text-white rounded text-xs py-2 w-full mt-6">
                 Revisar
@@ -37,8 +51,8 @@ const QuoteList = ({ quotes }) => {
             </Link>
           </div>
         ))}
-    </>
+    </div>
   );
 };
 
-export default memo(QuoteList);
+export default List;

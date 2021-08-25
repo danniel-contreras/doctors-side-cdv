@@ -21,7 +21,7 @@ export default function PestControlForm({ patientsId }) {
         .required("Desde escribir la duracion del tratamiento"),
     }),
     onSubmit: (values) => {
-      const newValues = { ...values, date: Date.now(), patientsId };
+      const newValues = { ...values, date: new Date(), patientsId };
       addNewPestControl(newValues).then(() => {
         Success("Se agrego el control de plagas");
         dispatch(addPestControl(newValues,patientsId));

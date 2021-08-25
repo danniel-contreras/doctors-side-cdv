@@ -32,7 +32,7 @@ export default function VaccinationForm({ id, patientsId }) {
         .required("Debes seleccionar el tipo de vacuna"),
     }),
     onSubmit: (values) => {
-      const newValues = { ...values, date: Date.now(), patientsId };
+      const newValues = { ...values, date: new Date(), patientsId };
       addNewVaccination(newValues).then(() => {
         Success("Se agrego la vacunacion");
         dispatch(addVaccination(newValues,patientsId));

@@ -10,7 +10,8 @@ export default function QuoteResult({ id, quoteId }) {
     return dispatch(readQuotesByPatient(id));
   }, [id, dispatch]);
   const completed =
-    quotes?.quotes && quotes?.quotes.filter((qt) => Number(quoteId) !== qt.id);
+    quotes?.quotes &&
+    quotes?.quotes.filter((qt) => !qt.state);
   console.log(completed);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">

@@ -94,7 +94,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
               Control de plagas
             </span>
           </li>
-          {patient?.sexesId === 2 && (
+          {/* patient?.sexesId === 2 && (
             <>
               <li>
                 <span className="mx-4">/</span>
@@ -123,12 +123,12 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
                 </span>
               </li>
             </>
-          )}
+                )*/}
         </ol>
       </nav>
       {showCG && (
         <div>
-          {quote.state && <Form id={id} />}
+          {quote.state && <Form quote={quote} id={id} />}
           <p className="text-2xl font-thin mt-12">
             Listado de consultas del paciente
           </p>

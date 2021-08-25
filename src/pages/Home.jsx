@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readDoctorById } from "../redux/actions/doctors";
@@ -6,19 +6,43 @@ import { readQuotesByDoctor } from "../redux/actions/quotes";
 import io from "socket.io-client";
 import QuoteList from "../components/Home/QuoteList";
 import CompletedQuotes from "../components/Home/CompletedQuotes";
+import { Success } from "../components/Global/Alerts/Success";
 
 export default function Home() {
   //redux logic
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const quotes = useSelector((state) => state.quotes.data);
-
+  const [isReload, setisReload] = useState(false);
+  const [online, setOnline] = useState(false);
   //socket.io logic
   const serverURL = "http://localhost:8000";
-  const socket = io(serverURL, {
-    withCredentials: true,
-  });
-  //react useEffect logic
+  const socket = useMemo(
+    () =>
+      io.connect(serverURL, {
+        transports: ["websocket"],
+      }),
+    [serverURL]
+  );
+  //when a new quote is added use a useCallback with socket
+  const callSocket = useCallback(() => {
+    socket.on("reload", () => {
+      Success("Se registro una nueva consulta")
+      setisReload(true);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket, dispatch]);
+  //socket connect with useEffect
+  useEffect(() => {
+    socket.on("connect", () => setOnline(true));
+  }, [socket]);
+
+  //socket discconect with useEffect
+  useEffect(() => {
+    socket.on("disconnect", () => setOnline(false));
+  }, [socket]);
+
+  //get doctor with the id of current logged user
   useEffect(() => {
     return dispatch(readDoctorById(auth.user?.userid));
   }, [dispatch, auth]);
@@ -28,26 +52,23 @@ export default function Home() {
   useEffect(() => {
     const readQuotes = () => {
       if (doctors) {
-        dispatch(readQuotesByDoctor(doctors.doctors?.id));
+        dispatch(readQuotesByDoctor(doctors.doctor?.id));
       }
     };
     return readQuotes();
   }, [doctors, dispatch]);
 
   useEffect(() => {
-    socket.on("reload", () => {
-      console.log("hola mundo");
-      if (doctors) {
-        dispatch(readQuotesByDoctor(doctors.doctors?.id));
-      }
-    });
-    return () => {
-      socket.off("reload", () => {
-        console.log("se desconecta");
-      });
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [doctors]);
+    return callSocket();
+  }, [callSocket]);
+  useEffect(() => {
+    if (doctors) {
+      dispatch(readQuotesByDoctor(doctors.doctor?.id));
+    }
+    setisReload(false)
+    return;
+  }, [isReload, dispatch, doctors]);
+  console.log(online ? "Conectado" : "Desconectado");
   return (
     <Layout>
       <div className="home mx-10">

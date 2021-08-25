@@ -13,6 +13,8 @@ import { dewormingReducer } from "./reducers/deworming.reducer";
 import { dewormingTypesReducer } from "./reducers/deworming-type.reducer";
 import { pestControlTypesReducer } from "./reducers/pest-control-type.reducer";
 import { pestControlReducer } from "./reducers/pest-control";
+import { clinicalServiceReducer } from "./reducers/clinical-service";
+import { serviceReducer } from "./reducers/service.reducer";
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -27,7 +29,9 @@ const reducers = combineReducers({
   deworming: dewormingReducer,
   dewormingType: dewormingTypesReducer,
   pestControlType: pestControlTypesReducer,
-  pestControl:pestControlReducer
+  pestControl:pestControlReducer,
+  clinicalService:clinicalServiceReducer,
+  service:serviceReducer
 });
 
 const composeEnhancers =

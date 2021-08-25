@@ -1,9 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { addNewResult } from "../../services/results";
+import { addNewResult, editQuote } from "../../services/results";
+import { Success } from "../Global/Alerts/Success";
+import { useHistory } from "react-router-dom";
 
-export default function Form({ id }) {
+export default function Form({ id, quote }) {
+  const router = useHistory();
   const formik = useFormik({
     initialValues: { symptomatology: "", diagnosis: "", treatment: "" },
     validationSchema: yup.object({
@@ -13,8 +16,11 @@ export default function Form({ id }) {
     }),
     onSubmit: (values) => {
       const newValues = { ...values, date: Date.now(), quoteId: id };
-      addNewResult(newValues).then((res) => {
-        console.log(res);
+      addNewResult(newValues).then(() => {
+        editQuote(id, quote).then(() => {
+          Success("Se completo la consulta");
+          router.push("/");
+        });
       });
     },
   });
