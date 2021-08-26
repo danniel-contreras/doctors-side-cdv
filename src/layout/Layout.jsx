@@ -38,6 +38,11 @@ export default function Layout({ children }) {
                 Inicio
               </span>
             </Link>
+            <Link to="/patients">
+              <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
+               Pacientes
+              </span>
+            </Link>
             <Link to="/quotes">
               <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
                 Consultas

@@ -1,21 +1,14 @@
 import { useState } from "react";
-import DewormingForm from "./DewormingForm";
-import Form from "./Form";
-import PestControlForm from "./PestControlForm";
-import Deworming from "./Results/Deworming";
-import PestControl from "./Results/PestControl";
-import QuoteResult from "./Results/QuoteResult";
-import Vaccinations from "./Results/Vaccinations";
-import VaccinationForm from "./VaccinationForm";
-import ClinicalServices from "./Results/ClinicalServices";
+import Deworming from "../Quote/Results/Deworming";
+import PestControl from "../Quote/Results/PestControl";
+import QuoteResult from "../Quote/Results/QuoteResult";
+import Vaccinations from "../Quote/Results/Vaccinations";
 
-export default function BreadCrums({ id, patientsId, quote, patient }) {
-  console.log(patient);
+export default function BreadCrums({ id }) {
   const [showCG, setShowCG] = useState(true);
   const [showVac, setShowVac] = useState(false);
   const [showDesp, setShowDesp] = useState(false);
   const [showCP, setShowCP] = useState(false);
-  const [showCS, setShowCS] = useState(false)
   const handleShowCG = () => {
     setShowCG(true);
     setShowVac(false);
@@ -44,7 +37,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
     setShowCP(true);
   };
   return (
-    <>
+    <div>
       <nav className="bg-grey-light p-3 rounded font-sans w-full m-4 mt-16">
         <ol className="list-reset flex text-grey-dark">
           <li onClick={handleShowCG} className="cursor-pointer">
@@ -96,82 +89,40 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
               Control de plagas
             </span>
           </li>
-          {/* patient?.sexesId === 2 && (
-            <>
-              <li>
-                <span className="mx-4">/</span>
-              </li>
-              <li onClick={handleShowCP} className="cursor-pointer">
-                <span
-                  className={
-                    "text-blue-500 text-xl " +
-                    (showCP ? "font-medium" : "font-thin")
-                  }
-                >
-                  Cruse
-                </span>
-              </li>
-              <li>
-                <span className="mx-4">/</span>
-              </li>
-              <li onClick={handleShowCP} className="cursor-pointer">
-                <span
-                  className={
-                    "text-blue-500 text-xl " +
-                    (showCP ? "font-medium" : "font-thin")
-                  }
-                >
-                  
-                </span>
-              </li>
-            </>
-                )*/}
         </ol>
       </nav>
       {showCG && (
         <div>
-          {quote.state && <Form patientsId={patientsId} quote={quote} id={id} />}
           <p className="text-2xl font-thin mt-12">
             Listado de consultas del paciente
           </p>
-          <QuoteResult quoteId={id} id={patientsId} />
+          <QuoteResult id={id} />
         </div>
       )}
       {showVac && (
         <div>
-          <VaccinationForm id={id} patientsId={patientsId} />
           <p className="text-2xl font-thin mt-12">
             Listado de vacunaciones del paciente
           </p>
-          <Vaccinations id={patientsId} />
+          <Vaccinations id={id} />
         </div>
       )}
-      {showCP && (
+       {showCP && (
         <div>
-          <PestControlForm patientsId={patientsId} />
           <p className="text-2xl font-thin mt-12">
             Listado de controles de plagas del paciente
           </p>
-          <PestControl id={patientsId} />
+          <PestControl id={id} />
         </div>
       )}
-      {showDesp && (
+       {showDesp && (
         <div>
-          <DewormingForm patientsId={patientsId} />
           <p className="text-2xl font-thin mt-12">
             Listado de desparacitaciones del paciente
           </p>
-          <Deworming id={patientsId} />
+          <Deworming id={id} />
         </div>
       )}
-       {showCS && (
-        <div>
-          <p className="text-2xl font-thin mt-12">
-            Listado de servicios clinicos del paciente
-          </p>
-          <ClinicalServices id={patientsId} />
-        </div>
-      )}
-    </>
+    </div>
   );
 }

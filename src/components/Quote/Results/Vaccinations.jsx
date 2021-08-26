@@ -15,7 +15,7 @@ const Vaccinations = ({ id }) => {
   console.log(vaccinations);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
-      {vaccinations?.vaccination &&
+      {vaccinations?.vaccination ? (
         vaccinations?.vaccination.map((vac, index) => (
           <div key={vac.id} className=" shadow-md flex border rounded-lg">
             {index % 2 === 0 || index === 0 ? (
@@ -84,7 +84,10 @@ const Vaccinations = ({ id }) => {
               </>
             )}
           </div>
-        ))}
+        ))
+      ) : (
+        <p className="text-xl font-thin">No hay vacunas que mostrar... </p>
+      )}
     </div>
   );
 };

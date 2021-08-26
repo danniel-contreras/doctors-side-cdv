@@ -4,9 +4,13 @@ import * as yup from "yup";
 import { addNewResult, editQuote } from "../../services/results";
 import { Success } from "../Global/Alerts/Success";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { readQuoteById } from "../../redux/actions/quote";
+import { readQuotesByPatient } from "../../redux/actions/quotes";
 
-export default function Form({ id, quote }) {
+export default function Form({ id, quote,patientsId }) {
   const router = useHistory();
+  const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: { symptomatology: "", diagnosis: "", treatment: "" },
     validationSchema: yup.object({
@@ -14,12 +18,13 @@ export default function Form({ id, quote }) {
       diagnosis: yup.string().required("Debes escribir el diagnostico"),
       treatment: yup.string().required("Desde escribir el tratamiento"),
     }),
-    onSubmit: (values) => {
+    onSubmit: (values,{resetForm}) => {
       const newValues = { ...values, date: Date.now(), quoteId: id };
       addNewResult(newValues).then(() => {
         editQuote(id, quote).then(() => {
           Success("Se completo la consulta");
-          router.push("/");
+          dispatch(readQuotesByPatient(patientsId))
+            resetForm({})
         });
       });
     },

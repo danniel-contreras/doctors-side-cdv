@@ -21,7 +21,7 @@ export default function Quotes() {
   useEffect(() => {
     const readQuotes = () => {
       if (doctors) {
-        dispatch(readQuotesByDoctor(doctors.doctors?.id));
+        dispatch(readQuotesByDoctor(doctors.doctor?.id));
       }
     };
     return readQuotes();

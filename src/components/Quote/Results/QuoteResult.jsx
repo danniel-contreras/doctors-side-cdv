@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { readQuotesByPatient } from "../../../redux/actions/quotes";
 import QuoteInfo from "./QuoteInfo";
 
-export default function QuoteResult({ id, quoteId }) {
+export default function QuoteResult({ id }) {
   const dispatch = useDispatch();
   const quotes = useSelector((state) => state.quotes.data);
   useEffect(() => {
     return dispatch(readQuotesByPatient(id));
   }, [id, dispatch]);
+  
   const completed =
     quotes?.quotes &&
     quotes?.quotes.filter((qt) => !qt.state);

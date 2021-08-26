@@ -9,6 +9,7 @@ export const getServiceById = async (id) => {
   return response.json();
 };
 
+
 export const addPhotoToService = async (file, id) => {
   const formData = new FormData();
   formData.append("foto", file);

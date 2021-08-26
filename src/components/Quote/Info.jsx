@@ -4,7 +4,7 @@ import { readPatientById } from "../../redux/actions/patients";
 
 export default function Info({ id }) {
   const dispatch = useDispatch();
-  const patient = useSelector((state) => state.patient.data);
+  const patient = useSelector((state) => state.pt.data);
   useEffect(() => {
     return dispatch(readPatientById(id));
   }, [id, dispatch]);

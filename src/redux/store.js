@@ -4,7 +4,8 @@ import { doctorReducer } from "./reducers/doctor.reducer";
 import { authReducer } from "./reducers/auth.reducer";
 import { quotesReducer } from "./reducers/quotes.reducer";
 import { quoteReducer } from "./reducers/quote.reducer";
-import { patientReducer } from "./reducers/patients.reducer";
+import { patientsReducer } from "./reducers/patients.reducer";
+import { patientReducer } from "./reducers/patient.reducer";
 import { resultReducer } from "./reducers/result.reducer";
 import { vaccinationDoseReducer } from "./reducers/vaccination-dose.reducer";
 import { vaccinationTypeReducer } from "./reducers/vaccination-type.reducer";
@@ -20,8 +21,9 @@ const reducers = combineReducers({
   auth: authReducer,
   doctor: doctorReducer,
   quotes: quotesReducer,
-  patient: patientReducer,
+  patient: patientsReducer,
   qt: quoteReducer,
+  pt: patientReducer,
   result: resultReducer,
   vaccinationDose: vaccinationDoseReducer,
   vaccinationType: vaccinationTypeReducer,
@@ -29,9 +31,9 @@ const reducers = combineReducers({
   deworming: dewormingReducer,
   dewormingType: dewormingTypesReducer,
   pestControlType: pestControlTypesReducer,
-  pestControl:pestControlReducer,
-  clinicalService:clinicalServiceReducer,
-  service:serviceReducer
+  pestControl: pestControlReducer,
+  clinicalService: clinicalServiceReducer,
+  service: serviceReducer,
 });
 
 const composeEnhancers =

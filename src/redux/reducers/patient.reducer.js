@@ -2,9 +2,9 @@ import { types } from "../types/patients-types";
 
 const initialState = {};
 
-export const patientsReducer = (state = initialState, action) => {
+export const patientReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.readPatients:
+    case types.readPatientById:
       return {
         ...state,
         data: action.payload,

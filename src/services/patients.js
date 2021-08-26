@@ -6,5 +6,12 @@ export const getPatientById = async (id) => {
 };
 
 export const showImage = (name) => {
-    return `${API}/patients/view-image?name=${name}`;
-  };
+  return `${API}/patients/view-image?name=${name}`;
+};
+
+export const getAllPatients = async (page, name, custom, limit) => {
+  const response = await fetch(
+    `${API}/patients?names=${name}&limit=${limit}&page=${page}&nameCustomer=${custom}`
+  );
+  return response.json();
+};

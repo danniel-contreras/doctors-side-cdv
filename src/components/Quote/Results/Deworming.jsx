@@ -15,7 +15,7 @@ const Deworming = ({ id }) => {
   }, [id, dispatch]);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
-      {dewormings?.deworming &&
+      {dewormings?.deworming ? (
         dewormings?.deworming.map((dwm, index) => (
           <div key={dwm.id} className=" shadow-md flex border rounded-lg">
             {index % 2 === 0 || index === 0 ? (
@@ -73,7 +73,10 @@ const Deworming = ({ id }) => {
               </>
             )}
           </div>
-        ))}
+        ))
+      ) : (
+        <p className="text-xl font-thin">No hay desparacitaciones que mostrar... </p>
+      )}
     </div>
   );
 };
