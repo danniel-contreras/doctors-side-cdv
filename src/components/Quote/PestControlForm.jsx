@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,6 +11,8 @@ import { Success } from "../Global/Alerts/Success";
 
 export default function PestControlForm({ patientsId }) {
   const dispatch = useDispatch();
+  const inputDuration = useRef(null);
+  const inputType = useRef(null);
   const pestControlTypes = useSelector((state) => state.pestControlType.data);
   const formik = useFormik({
     initialValues: { pestControlTypeId: "", duration: "" },
@@ -24,7 +26,9 @@ export default function PestControlForm({ patientsId }) {
       const newValues = { ...values, date: new Date(), patientsId };
       addNewPestControl(newValues).then(() => {
         Success("Se agrego el control de plagas");
-        dispatch(addPestControl(newValues,patientsId));
+        dispatch(addPestControl(newValues, patientsId));
+        inputDuration.current.value = "";
+        inputType.current.value = "DEFAULT";
       });
     },
   });
@@ -40,6 +44,7 @@ export default function PestControlForm({ patientsId }) {
               Tipo de control de plagas
             </label>
             <select
+              ref={inputType}
               name="pestControlTypeId"
               onChange={formik.handleChange}
               className={
@@ -74,6 +79,7 @@ export default function PestControlForm({ patientsId }) {
             <label className="font-thin text-xl text-gray-500">Duracion</label>
             <input
               name="duration"
+              ref={inputDuration}
               onChange={formik.handleChange}
               className={
                 "border px-2 py-1 outline-none rounded text-gray-500 mt-1 " +

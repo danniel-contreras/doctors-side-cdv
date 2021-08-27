@@ -4,7 +4,7 @@ import { showImage } from "../../services/patients";
 
 export default function List({ patients }) {
   return (
-    <div className="grid grid-cols-3 gap-5 mt-8 ">
+    <div className="grid grid-cols-4 gap-5 mt-8 ">
       {patients?.patients &&
         patients?.patients.map((patient) => (
           <div key={patient?.id} className="p-5 shadow-md rounded border">

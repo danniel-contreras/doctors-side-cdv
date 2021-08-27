@@ -15,7 +15,6 @@ export default function Patients() {
   useEffect(() => {
     return dispatch(readAllPatients(page, search.name, search.custom, 8));
   }, [dispatch,page,search]);
-  console.log(patients);
   return (
     <Layout>
       <div className="px-8">

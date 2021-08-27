@@ -7,7 +7,7 @@ import { showImage } from "../services/patients";
 import Info from "../components/Quote/Info";
 import BreadCrums from "../components/Quote/BreadCrums";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Quote = () => {
   const { id } = useParams();
@@ -32,7 +32,7 @@ const Quote = () => {
               Nombre del paciente:{" "}
               <span className="text-xl">{newqt.patients?.names}</span>
             </span>
-            <div className="shadow w-80 mt-4">
+            <div className="shadow-md border w-80 mt-4">
               <img
                 className=" p-4"
                 src={showImage(newqt.patients?.img)}

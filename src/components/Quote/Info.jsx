@@ -8,7 +8,6 @@ export default function Info({ id }) {
   useEffect(() => {
     return dispatch(readPatientById(id));
   }, [id, dispatch]);
-  console.log(patient);
   return (
     <div className="flex flex-col mt-6">
       {patient && (

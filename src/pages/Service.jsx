@@ -50,9 +50,7 @@ export default function Service() {
       onDrop: onDropImage,
     });
   const router = useHistory();
-  console.log(newService);
   const saveImage = () => {
-    console.log("hola: ", newService);
     if (!serviceFile) {
       putClinicalService(newService, id).then(() => {
         Warning("Se completo sin una imagen");

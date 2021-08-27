@@ -8,7 +8,6 @@ export default function ClinicalServices({id}) {
     useEffect(() => {
         return dispatch(readClinicalServices())
     }, [dispatch])
-    console.log(clinicalServices)
     return (
         <div>
             

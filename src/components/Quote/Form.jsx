@@ -1,16 +1,12 @@
-import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { addNewResult, editQuote } from "../../services/results";
 import { Success } from "../Global/Alerts/Success";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { readQuoteById } from "../../redux/actions/quote";
 import { readQuotesByPatient } from "../../redux/actions/quotes";
 
-export default function Form({ id, quote,patientsId }) {
-  const router = useHistory();
-  const dispatch = useDispatch()
+export default function Form({ id, quote, patientsId, setShowForm }) {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: { symptomatology: "", diagnosis: "", treatment: "" },
     validationSchema: yup.object({
@@ -18,13 +14,13 @@ export default function Form({ id, quote,patientsId }) {
       diagnosis: yup.string().required("Debes escribir el diagnostico"),
       treatment: yup.string().required("Desde escribir el tratamiento"),
     }),
-    onSubmit: (values,{resetForm}) => {
+    onSubmit: (values, { resetForm }) => {
       const newValues = { ...values, date: Date.now(), quoteId: id };
       addNewResult(newValues).then(() => {
         editQuote(id, quote).then(() => {
           Success("Se completo la consulta");
-          dispatch(readQuotesByPatient(patientsId))
-            resetForm({})
+          dispatch(readQuotesByPatient(patientsId));
+          setShowForm(false);
         });
       });
     },
@@ -42,8 +38,9 @@ export default function Form({ id, quote,patientsId }) {
               rows={4}
               name="symptomatology"
               onChange={formik.handleChange}
+              placeholder="Escribe el sintomatologia para el paciente"
               className={
-                "border text-gray-500 rounded mt-1 outline-none px-2 py-1 " +
+                "border text-gray-500 shadow-md rounded mt-1 outline-none px-2 py-1 " +
                 (formik.errors.symptomatology && formik.touched.symptomatology
                   ? "border-red-400"
                   : "border")
@@ -66,8 +63,9 @@ export default function Form({ id, quote,patientsId }) {
               rows={4}
               name="diagnosis"
               onChange={formik.handleChange}
+              placeholder="Escribe el diagnostico para el paciente"
               className={
-                "border text-gray-500 rounded mt-1 outline-none px-2 py-1 " +
+                "border text-gray-500 shadow-md rounded mt-1 outline-none px-2 py-1 " +
                 (formik.errors.diagnosis && formik.touched.diagnosis
                   ? "border-red-400"
                   : "border")
@@ -84,12 +82,13 @@ export default function Form({ id, quote,patientsId }) {
               Tratamiento
             </label>
             <textarea
+            placeholder="Escribe el tratamiento para el paciente"
               cols={3}
               rows={4}
               name="treatment"
               onChange={formik.handleChange}
               className={
-                "border text-gray-500 rounded mt-1 outline-none px-2 py-1 " +
+                "border text-gray-500 shadow-md rounded mt-1 outline-none px-2 py-1 " +
                 (formik.errors.treatment && formik.touched.treatment
                   ? "border-red-400"
                   : "border")

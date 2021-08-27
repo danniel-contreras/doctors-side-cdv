@@ -14,7 +14,7 @@ const QuoteList = ({ quotes }) => {
         filterQuotes.map((quote) => (
           <div
             key={quote.id}
-            className="bg-white shadow flex flex-col rounded w-full h-96 p-6"
+            className="bg-white border shadow-md flex flex-col rounded w-full p-6"
           >
             <div className="w-44 shadow rounded  p-3">
               <img

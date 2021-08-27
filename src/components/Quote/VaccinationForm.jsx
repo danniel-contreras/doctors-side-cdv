@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -14,7 +14,8 @@ export default function VaccinationForm({ id, patientsId }) {
   const dispatch = useDispatch();
   const vaccinationDoses = useSelector((state) => state.vaccinationDose.data);
   const vaccinationTypes = useSelector((state) => state.vaccinationType.data);
-
+  const inputDose = useRef(null);
+  const inputType = useRef(null);
   useEffect(() => {
     dispatch(readVaccinationDoses());
     dispatch(readVaccinationTypes());
@@ -31,11 +32,13 @@ export default function VaccinationForm({ id, patientsId }) {
         .number()
         .required("Debes seleccionar el tipo de vacuna"),
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       const newValues = { ...values, date: new Date(), patientsId };
       addNewVaccination(newValues).then(() => {
         Success("Se agrego la vacunacion");
-        dispatch(addVaccination(newValues,patientsId));
+        dispatch(addVaccination(newValues, patientsId));
+        inputDose.current.value = "DEFAULT"
+        inputType.current.value = "DEFAULT"
       });
     },
   });
@@ -49,10 +52,11 @@ export default function VaccinationForm({ id, patientsId }) {
             </label>
             <select
               defaultValue={"DEFAULT"}
+              ref={inputType}
               name="vaccinationTypeId"
               onChange={formik.handleChange}
               className={
-                "border px-2 py-1 rounded outline-none text-gray-500 mt-1 " +
+                "border px-2 py-1 shadow-md rounded outline-none text-gray-500 mt-1 " +
                 (formik.errors.vaccinationTypeId &&
                 formik.touched.vaccinationTypeId
                   ? "border-red-400"
@@ -81,10 +85,11 @@ export default function VaccinationForm({ id, patientsId }) {
           <div className="flex flex-col">
             <label className="font-thin text-xl text-gray-500">Dosis</label>
             <select
+              ref={inputDose}
               name="vaccinationDoseId"
               onChange={formik.handleChange}
               className={
-                "border px-2 py-1 outline-none rounded text-gray-500 mt-1 " +
+                "border px-2 py-1 shadow-md outline-none rounded text-gray-500 mt-1 " +
                 (formik.errors.vaccinationDoseId &&
                 formik.touched.vaccinationDoseId
                   ? "border-red-400"
@@ -111,7 +116,10 @@ export default function VaccinationForm({ id, patientsId }) {
           </div>
         </div>
       </div>
-      <button type="submit" className="text-xl ml-6 px-16 rounded font-thin text-white bg-blue-500">
+      <button
+        type="submit"
+        className="text-xl ml-6 px-16 rounded font-thin text-white bg-blue-500"
+      >
         Guardar
       </button>
     </form>

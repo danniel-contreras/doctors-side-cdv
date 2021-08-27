@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +12,7 @@ import { Success } from "../Global/Alerts/Success";
 export default function DewormingForm({ patientsId }) {
   const dewormingTypes = useSelector((state) => state.dewormingType.data);
   const dispatch = useDispatch();
+  const inputType = useRef(null)
   const formik = useFormik({
     initialValues: { dewormingTypeId: "" },
     validationSchema: yup.object({
@@ -24,6 +25,7 @@ export default function DewormingForm({ patientsId }) {
       addNewDeworming(newValues).then(() => {
         dispatch(addDeworming(newValues, patientsId));
         Success("Se guardo la desparacitacion");
+        inputType.current.value = "DEFAULT"
       });
     },
   });
@@ -40,6 +42,7 @@ export default function DewormingForm({ patientsId }) {
             <select
               onChange={formik.handleChange}
               defaultValue={"DEFAULT"}
+              ref={inputType}
               name="dewormingTypeId"
               className={
                 "border px-2 py-1 outline-none rounded text-gray-500 mt-1 " +

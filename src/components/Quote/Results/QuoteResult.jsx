@@ -13,7 +13,6 @@ export default function QuoteResult({ id }) {
   const completed =
     quotes?.quotes &&
     quotes?.quotes.filter((qt) => !qt.state);
-  console.log(completed);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
       {completed && completed.length ? (

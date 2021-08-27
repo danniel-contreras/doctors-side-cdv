@@ -14,7 +14,6 @@ export default function Patient() {
   useEffect(() => {
     return dispatch(readPatientById(id));
   }, [id, dispatch]);
-  console.log(patient);
   return (
     <Layout>
       <div className="mx-8">

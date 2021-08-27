@@ -6,7 +6,6 @@ export default function List({ clinicalServices, patId }) {
     clinicalServices &&
     clinicalServices.length &&
     clinicalServices.filter((cl) => cl.patientsId === Number(patId));
-  console.log(filter);
   return (
     <div className="grid grid-cols-2 gap-5 mt-5">
       {filter &&

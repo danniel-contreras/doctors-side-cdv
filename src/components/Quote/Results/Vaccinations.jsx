@@ -12,7 +12,6 @@ const Vaccinations = ({ id }) => {
   useEffect(() => {
     return dispatch(readVaccinationsByPatient(id));
   }, [dispatch, id]);
-  console.log(vaccinations);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
       {vaccinations?.vaccination ? (

@@ -68,16 +68,15 @@ export default function Home() {
     setisReload(false)
     return;
   }, [isReload, dispatch, doctors]);
-  console.log(online ? "Conectado" : "Desconectado");
   return (
     <Layout>
       <div className="home mx-10">
         <p className="mb-4 text-2xl font-thin">Citas pendientes</p>
-        <div className="grid grid-cols-3 gap-20 mt-4">
+        <div className="grid grid-cols-4 gap-5 mt-4">
           <QuoteList quotes={quotes} />
         </div>
         <p className="mb-4 text-2xl mt-8 font-thin">Citas completadas</p>
-        <div className="grid grid-cols-3 gap-20 mt-4">
+        <div className="grid grid-cols-4 gap-5 mt-4">
           <CompletedQuotes quotes={quotes} />
         </div>
       </div>

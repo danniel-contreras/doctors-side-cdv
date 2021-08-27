@@ -7,14 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const List = ({ quotes }) => {
-  console.log(quotes);
   return (
-    <div className="grid grid-cols-3 gap-5">
+    <div className="grid grid-cols-4 gap-5">
       {quotes &&
         quotes.map((quote) => (
           <div
             key={quote.id}
-            className="bg-white shadow flex flex-col rounded w-full h-96 p-6"
+            className="bg-white shadow-md border flex flex-col rounded w-full h-96 p-6"
           >
             <div className="w-44 shadow rounded  p-3">
               <img
@@ -31,16 +30,22 @@ const List = ({ quotes }) => {
               })}
             </span>
             <p className="text-base font-thin mt-4">
-             <span className=" font-normal">Estado:</span>{" "}
+              <span className=" font-normal">Estado:</span>{" "}
               {quote.state ? (
                 <span>
                   Pendiente
-                  <FontAwesomeIcon className="text-gray-500 ml-2" icon={faClock} />
+                  <FontAwesomeIcon
+                    className="text-gray-500 ml-2"
+                    icon={faClock}
+                  />
                 </span>
               ) : (
                 <span>
                   Completada
-                  <FontAwesomeIcon className="text-green-500 ml-4" icon={faCheck} />
+                  <FontAwesomeIcon
+                    className="text-green-500 ml-4"
+                    icon={faCheck}
+                  />
                 </span>
               )}
             </p>

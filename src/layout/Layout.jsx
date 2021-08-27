@@ -2,11 +2,13 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { newLoggout } from "../redux/actions/auth";
 import { createPopper } from "@popperjs/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Layout({ children }) {
   const dispatch = useDispatch();
+  const router = useHistory()
   const handleLoggout = () => {
+    router.replace("/")
     dispatch(newLoggout());
   };
   const auth = useSelector((state) => state.auth);
@@ -23,7 +25,7 @@ export default function Layout({ children }) {
     setDropdownPopoverShow(false);
   };
   return (
-    <div className="w-screen h-screen bg-gray-100 p-8">
+    <div className="w-screen h-screen bg-gray-400 p-8">
       <div className=" bg-white h-full flex flex-col rounded shadow">
         <div
           style={{ background: "rgba(62,196,182,1)" }}
@@ -84,7 +86,7 @@ export default function Layout({ children }) {
             </div>
           </div>
         </div>
-        <div className="p-10 w-full h-full overflow-y-scroll">{children}</div>
+        <div className="p-10 bg-gray-50 w-full h-full overflow-y-scroll">{children}</div>
       </div>
     </div>
   );

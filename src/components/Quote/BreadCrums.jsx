@@ -7,15 +7,13 @@ import PestControl from "./Results/PestControl";
 import QuoteResult from "./Results/QuoteResult";
 import Vaccinations from "./Results/Vaccinations";
 import VaccinationForm from "./VaccinationForm";
-import ClinicalServices from "./Results/ClinicalServices";
 
 export default function BreadCrums({ id, patientsId, quote, patient }) {
-  console.log(patient);
+  const [showForm, setShowForm] = useState(true);
   const [showCG, setShowCG] = useState(true);
   const [showVac, setShowVac] = useState(false);
   const [showDesp, setShowDesp] = useState(false);
   const [showCP, setShowCP] = useState(false);
-  const [showCS, setShowCS] = useState(false)
   const handleShowCG = () => {
     setShowCG(true);
     setShowVac(false);
@@ -130,7 +128,9 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
       </nav>
       {showCG && (
         <div>
-          {quote.state && <Form patientsId={patientsId} quote={quote} id={id} />}
+          {quote.state && showForm  && (
+            <Form setShowForm={setShowForm} patientsId={patientsId} quote={quote} id={id} />
+          )}
           <p className="text-2xl font-thin mt-12">
             Listado de consultas del paciente
           </p>
@@ -162,14 +162,6 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
             Listado de desparacitaciones del paciente
           </p>
           <Deworming id={patientsId} />
-        </div>
-      )}
-       {showCS && (
-        <div>
-          <p className="text-2xl font-thin mt-12">
-            Listado de servicios clinicos del paciente
-          </p>
-          <ClinicalServices id={patientsId} />
         </div>
       )}
     </>
