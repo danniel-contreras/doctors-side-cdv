@@ -16,7 +16,7 @@ export default function Home() {
   const [isReload, setisReload] = useState(false);
   const [online, setOnline] = useState(false);
   //socket.io logic
-  const serverURL = "http://localhost:8000";
+  const serverURL = "http://137.184.41.16:8000";
   const socket = useMemo(
     () =>
       io.connect(serverURL, {
