@@ -8,7 +8,7 @@ export default function List({ clinicalServices }) {
   return (
     <>
       {clinicalServices &&
-        clinicalServices.length &&
+        clinicalServices.length ?
         clinicalServices.map((cser) => (
           <div
             key={cser.id}
@@ -46,7 +46,7 @@ export default function List({ clinicalServices }) {
               </button>
             </Link>
           </div>
-        ))}
+        )) : <p className="text-base font-thin py-3 px-4">No se an registrado servicios clinicos...</p>}
     </>
   );
 }

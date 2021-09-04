@@ -30,7 +30,7 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
       <div className="grid grid-cols-2 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-thin text-xl text-gray-500">
+            <label className="font-normal text-xl text-gray-700">
               Sintomatologia
             </label>
             <textarea

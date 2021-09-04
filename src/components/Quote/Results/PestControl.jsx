@@ -10,10 +10,15 @@ export default function PestControl({ id }) {
   }, [id, dispatch]);
   return (
     <div className="grid grid-cols-1 w-full">
-      {pestControls?.pestControl ?
+      {pestControls?.pestControl ? (
         pestControls?.pestControl.map((pest) => (
-          <div>duracion: {pest.duration}</div>
-        )):<p className="text-xl font-thin">No hay control de plagas que mostrar... </p>}
+          <div className="">duracion: {pest.duration}</div>
+        ))
+      ) : (
+        <p className="text-xl font-thin">
+          No hay control de plagas que mostrar...{" "}
+        </p>
+      )}
     </div>
   );
 }

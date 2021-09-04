@@ -10,7 +10,7 @@ const QuoteList = ({ quotes }) => {
     quotes?.quotes.map((quote) => quote).filter((quote) => quote?.state);
   return (
     <>
-      {filterQuotes &&
+      {filterQuotes && filterQuotes.length ? (
         filterQuotes.map((quote) => (
           <div
             key={quote.id}
@@ -26,7 +26,7 @@ const QuoteList = ({ quotes }) => {
               {quote.patients?.names}
             </span>
             <span className="text-base font-light mt-8">
-              {formatRelative(subDays(new Date(quote.date), -1), new Date(), {
+              {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                 locale: es,
               })}
             </span>
@@ -36,7 +36,10 @@ const QuoteList = ({ quotes }) => {
               </button>
             </Link>
           </div>
-        ))}
+        ))
+      ) : (
+        <p className="text-base font-thin">No hay citas pendientes...</p>
+      )}
     </>
   );
 };

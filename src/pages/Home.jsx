@@ -7,6 +7,7 @@ import io from "socket.io-client";
 import QuoteList from "../components/Home/QuoteList";
 import CompletedQuotes from "../components/Home/CompletedQuotes";
 import { Success } from "../components/Global/Alerts/Success";
+import { SOCKET_URL } from "../utils/constant";
 
 export default function Home() {
   //redux logic
@@ -16,7 +17,7 @@ export default function Home() {
   const [isReload, setisReload] = useState(false);
   const [online, setOnline] = useState(false);
   //socket.io logic
-  const serverURL = "http://137.184.41.16:8000";
+  const serverURL = SOCKET_URL;
   const socket = useMemo(
     () =>
       io.connect(serverURL, {
@@ -31,7 +32,8 @@ export default function Home() {
       setisReload(true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socket, dispatch]);
+  }, [socket]);
+
   //socket connect with useEffect
   useEffect(() => {
     socket.on("connect", () => setOnline(true));
@@ -65,18 +67,18 @@ export default function Home() {
     if (doctors) {
       dispatch(readQuotesByDoctor(doctors.doctor?.id));
     }
-    setisReload(false)
+    setisReload(false);
     return;
-  }, [isReload, dispatch, doctors]);
+  }, [isReload, dispatch, doctors, online]);
   return (
     <Layout>
       <div className="home mx-10">
         <p className="mb-4 text-2xl font-thin">Citas pendientes</p>
-        <div className="grid grid-cols-4 gap-5 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
           <QuoteList quotes={quotes} />
         </div>
         <p className="mb-4 text-2xl mt-8 font-thin">Citas completadas</p>
-        <div className="grid grid-cols-4 gap-5 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
           <CompletedQuotes quotes={quotes} />
         </div>
       </div>

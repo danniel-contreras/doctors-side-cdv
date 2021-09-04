@@ -10,7 +10,7 @@ const QuoteList = ({ quotes }) => {
     quotes?.quotes.map((quote) => quote).filter((quote) => !quote?.state);
   return (
     <>
-      {filterQuotes &&
+      {filterQuotes && filterQuotes.length ? (
         filterQuotes.map((quote) => (
           <div
             key={quote.id}
@@ -36,7 +36,10 @@ const QuoteList = ({ quotes }) => {
               </button>
             </Link>
           </div>
-        ))}
+        ))
+      ) : (
+        <p className="text-base font-thin">No has completado ninguna cita...</p>
+      )}
     </>
   );
 };
