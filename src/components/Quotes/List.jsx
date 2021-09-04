@@ -8,8 +8,8 @@ import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const List = ({ quotes }) => {
   return (
-    <>
-      {quotes && quotes.length ? (
+    <>.
+.      {quotes && quotes.length ? (
         <div className="grid grid-cols-4 gap-5">
           {quotes.map((quote) => (
             <div
@@ -26,7 +26,7 @@ const List = ({ quotes }) => {
                 {quote.patients?.names}
               </span>
               <span className="text-base font-light mt-8">
-                {formatRelative(subDays(new Date(quote.date), -1), new Date(), {
+                {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                   locale: es,
                 })}
               </span>

@@ -26,7 +26,7 @@ const QuoteList = ({ quotes }) => {
               {quote.patients?.names}
             </span>
             <span className="text-base font-light mt-8">
-              {formatRelative(subDays(new Date(quote.date), -1), new Date(), {
+              {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                 locale: es,
               })}
             </span>
