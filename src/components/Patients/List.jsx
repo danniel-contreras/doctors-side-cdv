@@ -10,7 +10,7 @@ export default function List({ patients }) {
           <div key={patient?.id} className="p-5 shadow-md rounded border">
             <div>
               <img
-                className="w-8/12 border p-1"
+                className="w-28 border p-1"
                 src={showImage(patient?.img)}
                 alt="none"
               />

@@ -8,6 +8,7 @@ import QuoteList from "../components/Home/QuoteList";
 import CompletedQuotes from "../components/Home/CompletedQuotes";
 import { Success } from "../components/Global/Alerts/Success";
 import { SOCKET_URL } from "../utils/constant";
+import { filterDates } from "../utils/dates";
 
 export default function Home() {
   //redux logic
@@ -63,6 +64,7 @@ export default function Home() {
   useEffect(() => {
     return callSocket();
   }, [callSocket]);
+  
   useEffect(() => {
     if (doctors) {
       dispatch(readQuotesByDoctor(doctors.doctor?.id));
@@ -75,11 +77,11 @@ export default function Home() {
       <div className="home mx-10">
         <p className="mb-4 text-2xl font-thin">Citas pendientes</p>
         <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
-          <QuoteList quotes={quotes} />
+          <QuoteList quotes={filterDates(quotes?.quotes,1)} />
         </div>
         <p className="mb-4 text-2xl mt-8 font-thin">Citas completadas</p>
         <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
-          <CompletedQuotes quotes={quotes} />
+          <CompletedQuotes quotes={filterDates(quotes?.quotes,1)} />
         </div>
       </div>
     </Layout>

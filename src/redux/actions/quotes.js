@@ -1,4 +1,8 @@
-import { getQuotesByDoctor, getQuotesByPatient } from "../../services/quotes";
+import {
+  getQuotesByDoctor,
+  getQuotesByPatient,
+  getQuotesInterval,
+} from "../../services/quotes";
 import { types } from "../types/quotes-types";
 
 export const readQuotesByDoctor = (id) => {
@@ -25,9 +29,31 @@ export const readQuotesByPatient = (id) => {
   };
 };
 
+export const readQuotesByInterval = (id, consult,page) => {
+  return (dispatch) => {
+    if(consult !== ""){
+      page = 1
+    }
+    getQuotesInterval(id, consult,page).then((res) => {
+      if (!res.ok) {
+        dispatch(readByInterval({}));
+        return;
+      }
+      dispatch(readByInterval(res));
+    });
+  };
+};
+
 export function readByDoctor(data) {
   return {
     type: types.readQuotesByDoctor,
+    payload: data,
+  };
+}
+
+export function readByInterval(data) {
+  return {
+    type: types.readQuoteByInterval,
     payload: data,
   };
 }

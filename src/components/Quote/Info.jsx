@@ -13,12 +13,12 @@ export default function Info({ id }) {
       {patient && (
         <>
           <span className="font-thin text-gray-700  mt-3 text-xl">
-            <span className="font-normal">Edad:</span> {patient.patients?.age}
+            <span className="font-normal">Edad:</span> {patient?.patients?.age}
           </span>
           <span className="font-thin text-gray-700 mt-3 text-xl">
             <span className="font-normal text-gray-700">Dueño de la mascota:</span>{" "}
-            {patient.patients?.customers?.names}{" "}
-            {patient.patients?.customers?.lastname}
+            {patient?.patients?.customers?.names}{" "}
+            {patient?.patients?.customers?.lastname}
           </span>
         </>
       )}

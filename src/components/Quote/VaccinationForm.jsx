@@ -47,7 +47,7 @@ export default function VaccinationForm({ id, patientsId }) {
       <div className="grid grid-cols-2 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-thin text-xl text-gray-500">
+            <label className="font-normal text-xl text-gray-700">
               Tipo de vacuna
             </label>
             <select
@@ -83,7 +83,7 @@ export default function VaccinationForm({ id, patientsId }) {
         </div>
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-thin text-xl text-gray-500">Dosis</label>
+            <label className="font-normal text-xl text-gray-700">Dosis</label>
             <select
               ref={inputDose}
               name="vaccinationDoseId"

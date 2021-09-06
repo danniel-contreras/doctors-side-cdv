@@ -86,7 +86,7 @@ export default function Layout({ children }) {
             </div>
           </div>
         </div>
-        <div className="p-10 bg-gray-50 w-full h-full overflow-y-scroll">{children}</div>
+        <div className="p-10 bg-gray-100 w-full h-full overflow-y-scroll">{children}</div>
       </div>
     </div>
   );

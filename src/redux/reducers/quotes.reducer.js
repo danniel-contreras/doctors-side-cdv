@@ -14,6 +14,11 @@ export const quotesReducer = (state = initialState, action) => {
         ...state,
         data: action.payload,
       };
+    case types.readQuoteByInterval:
+      return {
+        ...state,
+        data: action.payload,
+      };
     default:
       return state;
   }

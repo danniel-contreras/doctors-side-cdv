@@ -8,15 +8,14 @@ import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const List = ({ quotes }) => {
   return (
-    <>.
-.      {quotes && quotes.length ? (
+    <>     {quotes && quotes.length ? (
         <div className="grid grid-cols-4 gap-5">
           {quotes.map((quote) => (
             <div
               key={quote.id}
-              className="bg-white shadow-md border flex flex-col rounded w-full p-6"
+              className="bg-gray-50 shadow-md border flex flex-col rounded w-full p-6"
             >
-              <div className="w-44 shadow rounded  p-3">
+              <div className="w-28 shadow rounded  p-3">
                 <img
                   src={showImage(quote.patients && quote.patients?.img)}
                   alt="null"

@@ -9,8 +9,8 @@ export const addNewVaccination = async (values) => {
   return response.json();
 };
 
-export const getVaccinationByPatient = async (id) => {
-  const response = await fetch(`${API}/vaccination/patient/${id}`);
+export const getVaccinationByPatient = async (id,page) => {
+  const response = await fetch(`${API}/vaccination/patient/${id}?page=${page}`);
   return response.json();
 };
 

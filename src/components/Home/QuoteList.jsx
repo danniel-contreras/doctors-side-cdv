@@ -6,8 +6,8 @@ import { memo } from "react";
 
 const QuoteList = ({ quotes }) => {
   const filterQuotes =
-    quotes?.quotes &&
-    quotes?.quotes.map((quote) => quote).filter((quote) => quote?.state);
+    quotes &&
+    quotes?.map((quote) => quote).filter((quote) => quote?.state);
   return (
     <>
       {filterQuotes && filterQuotes.length ? (
@@ -16,7 +16,7 @@ const QuoteList = ({ quotes }) => {
             key={quote.id}
             className="shadow border flex flex-col rounded w-full p-6"
           >
-            <div className="w-44 shadow rounded  p-3">
+            <div className="w-28 shadow rounded  p-3">
               <img
                 src={showImage(quote.patients && quote.patients?.img)}
                 alt="null"

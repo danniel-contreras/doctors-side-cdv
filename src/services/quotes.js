@@ -10,8 +10,17 @@ export const getQUoteById = async (id) => {
   return response.json();
 };
 
+export const getQuotesByPatient = async (id) => {
+  const response = await fetch(`${API}/quotes/patients/${id}`);
+  return response.json();
+};
 
-export const getQuotesByPatient = async (id)=>{
-  const response = await fetch(`${API}/quotes/patients/${id}`)
-  return response.json()
-}
+export const getQuotesInterval = async (id, consult, page) => {
+  const response =
+    consult !== ""
+      ? await fetch(
+          `${API}/quotes/interval/${id}?consult=${consult}&page=${page}`
+        )
+      : await fetch(`${API}/quotes/interval/${id}?page=${page}`);
+  return response.json();
+};

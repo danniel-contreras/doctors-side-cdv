@@ -5,9 +5,9 @@ import {
 } from "../../services/vaccination";
 import { types } from "../types/vaccination-types";
 
-export const readVaccinationsByPatient = (id) => {
+export const readVaccinationsByPatient = (id,page=1) => {
   return (dispatch) => {
-    getVaccinationByPatient(id).then((res) => {
+    getVaccinationByPatient(id,page).then((res) => {
       if (res.msg) {
         dispatch(readByPatient({}));
         return;

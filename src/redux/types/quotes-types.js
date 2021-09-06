@@ -4,7 +4,8 @@ export const types = {
     readQuotesByPatient: "[Quotes] readQuotesByPatient",
 
     //quote
-    readQuoteById:"[Quote] readById"
+    readQuoteById:"[Quote] readById",
+    readQuoteByInterval:"[Quote] readByInterval"
 
 
 }
