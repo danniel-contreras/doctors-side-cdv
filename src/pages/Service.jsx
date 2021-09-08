@@ -62,8 +62,7 @@ export default function Service() {
     }
     addPhotoToService(serviceFile, id).then(() => {
       putClinicalService(newService, id).then(() => {
-        Warning("Se completo el servicio clinico");
-        router.push("/clinical-services");
+        Success("Se completo el servicio clinico");
         dispatch(readServiceById(id));
         dispatch(readClinicalServices());
       });
@@ -78,7 +77,7 @@ export default function Service() {
               Nombre del paciente:
               <span className="text-xl">{newService.patients?.names}</span>
             </span>
-            <div className="shadow w-80 mt-4">
+            <div className="shadow bg-white rounded w-80 mt-4">
               <img
                 className=" p-4"
                 src={showImage(newService.patients?.img)}
@@ -94,7 +93,7 @@ export default function Service() {
               <span className="font-normal">Servicio adquirido:</span>{" "}
               {newService.clinicalServicesType?.type}{" "}
             </p>
-            {newService.img === "servicios.png" && (
+            {newService.img === "clinicalService.png" && (
               <button
                 onClick={saveImage}
                 type="submit"
@@ -104,8 +103,8 @@ export default function Service() {
               </button>
             )}
           </div>
-          <div className="w-full flex flex-col border mt-5 p-5">
-            <div className=" max-h-96 h-96 border flex justify-center items-center">
+          <div className="w-full bg-white flex flex-col border mt-5 p-5">
+            <div className="max-h-96 h-96 border flex justify-center items-center">
               <div
                 {...getRootImgProps()}
                 className="w-full flex items-center justify-center p-2"

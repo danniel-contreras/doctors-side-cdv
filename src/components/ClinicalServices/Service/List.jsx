@@ -11,7 +11,7 @@ export default function List({ clinicalServices, patId }) {
       {filter &&
         filter.length &&
         filter.map((cs) => (
-          <div key={cs.id} className="border rounded p-5">
+          <div key={cs.id} className="border bg-white rounded p-5">
             <p className="text-xl font-thin">
               <span className="font-normal">Servicio:</span>{" "}
               {cs.clinicalServicesType.type}{" "}

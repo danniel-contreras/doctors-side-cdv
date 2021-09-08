@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const List = ({ quotes }) => {
+  console.log(quotes)
   return (
     <>     {quotes && quotes.length ? (
         <div className="grid grid-cols-4 gap-5">
@@ -24,7 +25,10 @@ const List = ({ quotes }) => {
               <span className="text-xl font-light mt-8">
                 {quote.patients?.names}
               </span>
-              <span className="text-base font-light mt-8">
+              <span className="font-light mt-8">
+                <span className="font-normal">Tipo de consulta: </span> {quote.quotesType?.type}
+              </span>
+              <span className="text-base font-light mt-4">
                 {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                   locale: es,
                 })}

@@ -12,18 +12,18 @@ export default function List({ clinicalServices }) {
         clinicalServices.map((cser) => (
           <div
             key={cser.id}
-            className="bg-white shadow flex flex-col rounded w-full h-96 p-6"
+            className="bg-white shadow flex flex-col rounded w-full p-6"
           >
-            <div className="w-44 shadow rounded  p-3">
+            <div className="w-28 border shadow rounded  p-3">
               <img
                 src={showImage(cser.patients && cser.patients?.img)}
                 alt="null"
               />
             </div>
-            <span className="text-xl font-light mt-8">
+            <span className="text-xl font-thin mt-8">
               {cser.patients?.names}
             </span>
-            <p className="text-xl font-light mt-4">
+            <p className="text-xl font-thin mt-4">
               {cser.clinicalServicesType?.type}
             </p>
            {/*} <p className="text-base font-thin mt-4">

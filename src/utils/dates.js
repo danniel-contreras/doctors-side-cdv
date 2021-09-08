@@ -1,5 +1,3 @@
-import { setDate } from "date-fns";
-
 export const filterDates = (quotes, option) => {
   const date = new Date();
   const tomorrow = new Date();
@@ -46,7 +44,7 @@ export const nowDates = (quotes) => {
   return salesfilter;
 };
 
-export const intervalDates = (initial, final, quotes) => {
+export const intervalDates = (initial, final, quotes, consult = "") => {
   const ini = `${initial}T00:00`;
   const fn = `${final}T00:00`;
   const filter =
@@ -54,7 +52,24 @@ export const intervalDates = (initial, final, quotes) => {
     quotes.filter(
       (qt) =>
         new Date(qt?.date).valueOf() >= new Date(ini).valueOf() &&
-        new Date(qt?.date).valueOf() <= new Date(fn).valueOf()
+        new Date(qt?.date).valueOf() <= new Date(fn).valueOf() &&
+        qt?.quotesType?.type.includes(consult)
     );
   return filter;
+};
+
+export const getEspecificDate = (date, quotes) => {
+  const date_initial = new Date(`${date}T00:00`);
+  const year = date_initial.getFullYear();
+  const month = date_initial.getMonth();
+  const day = date_initial.getDate();
+  const filterQuotes =
+    quotes &&
+    quotes.filter(
+      (qt) =>
+        new Date(qt?.date).getFullYear() === year &&
+        new Date(qt?.date).getMonth() === month &&
+        new Date(qt?.date).getDate() === day
+    );
+  return filterQuotes;
 };

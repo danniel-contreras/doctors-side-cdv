@@ -7,7 +7,7 @@ export default function List({ patients }) {
     <div className="grid grid-cols-4 gap-5 mt-8 ">
       {patients?.patients &&
         patients?.patients.map((patient) => (
-          <div key={patient?.id} className="p-5 shadow-md rounded border">
+          <div key={patient?.id} className="p-5 bg-white shadow-md rounded border">
             <div>
               <img
                 className="w-28 border p-1"

@@ -14,7 +14,7 @@ export default function ClinicalServices() {
     <Layout>
       <div className=" mx-10">
         <p className="mb-4 text-2xl font-thin">Listado de servicios clinicos</p>
-        <div className="grid grid-cols-3 gap-20 mt-4">
+        <div className="grid grid-cols-4 gap-8 mt-4">
           <List clinicalServices={clinicalServices} />
         </div>
       </div>

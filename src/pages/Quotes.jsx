@@ -5,9 +5,10 @@ import Layout from "../layout/Layout";
 import SearchInput from "../components/Global/SearchInput";
 import { readDoctorById } from "../redux/actions/doctors";
 import { readQuotesByInterval } from "../redux/actions/quotes";
-import { filterDates, intervalDates } from "../utils/dates";
+import { filterDates, getEspecificDate, intervalDates } from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
 import Pagination from "../components/Global/Pagination";
+import InputSearch from "../components/Global/SearchInput";
 
 export default function Quotes() {
   const dispatch = useDispatch();
@@ -26,11 +27,11 @@ export default function Quotes() {
   useEffect(() => {
     const readQuotes = () => {
       if (doctors) {
-        dispatch(readQuotesByInterval(doctors.doctor?.id, consult, page));
+        dispatch(readQuotesByInterval(doctors.doctor?.id, "", page));
       }
     };
     return readQuotes();
-  }, [doctors, dispatch, consult, page]);
+  }, [doctors, dispatch, page]);
 
   const handleChange = (option) => {
     const quotesA = filterDates(quotes.quotes, option);
@@ -50,23 +51,33 @@ export default function Quotes() {
     }
     setQuotesState(intervalDates(dates.initial, dates.final, quotes?.quotes));
   };
-  console.log(quotes);
+  const especificDate = (date) => {
+    console.log(new Date(date))
+    setQuotesState(getEspecificDate(date, quotes?.quotes));
+  };
   return (
     <Layout>
       <div className="px-6 flex flex-col">
         <div className="">
           <div className="grid grid-cols-2 gap-5">
             <p className="text-3xl font-thin">Listado consultas</p>
-            <SearchInput
-              handleChange={(e) => setConsult(e.currentTarget.value)}
-              label="Buscar por tipo de consulta"
-              placeholder="Escribe el tipo de consulta"
-            />
+            <div className="flex">
+              <label className="font-thin whitespace-nowrap text-xl">
+                Filtrar por fecha especifica
+              </label>
+              <input
+                onChange={(e) => especificDate(e.currentTarget.value)}
+                className="border bg-white shadow ml-2 px-2 w-full rounded font-thin text-gray-700"
+                type="date"
+              />
+            </div>
           </div>
-          <div className="flex mt-3">
+          <div className="flex mt-4">
             <div className="flex">
               <div className="flex">
-                <label className="font-thin text-xl">Fecha inicial</label>
+                <label className="font-thin whitespace-nowrap text-xl">
+                  Fecha inicial
+                </label>
                 <input
                   onChange={(e) =>
                     setDates({ ...dates, initial: e.currentTarget.value })
@@ -75,8 +86,10 @@ export default function Quotes() {
                   type="date"
                 />
               </div>
-              <div className="pl-4">
-                <label className="font-thin text-xl">Fecha final</label>
+              <div className="pl-4 flex">
+                <label className="font-thin whitespace-nowrap text-xl">
+                  Fecha final
+                </label>
                 <input
                   onChange={(e) =>
                     setDates({ ...dates, final: e.currentTarget.value })
@@ -95,7 +108,7 @@ export default function Quotes() {
             <label className="font-thin text-xl ml-4">Rangos</label>
             <select
               onChange={(e) => handleChange(e.currentTarget.value)}
-              className="border bg-white shadow outline-none font-thin py-1 ml-4  px-2 pr-16 float-right"
+              className="border bg-white shadow outline-none font-thin py-1 ml-4  w-full pr-16 float-right"
               defaultValue={"DEFAULT"}
             >
               <option value={"DEFAULT"} disabled>
