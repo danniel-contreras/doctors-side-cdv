@@ -10,3 +10,10 @@ export const login = async (data) => {
   });
   return response.json();
 };
+
+export const checkIsDoctor = async (id, token) => {
+  const response = await fetch(`${API}/doctors/users/${id}`, {
+    headers: { token: token },
+  });
+  return response.json();
+};

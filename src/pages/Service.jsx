@@ -73,17 +73,17 @@ export default function Service() {
       <div className="px-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <span className="text-xl text-gray-700 font-thin">
-              Nombre del paciente:
-              <span className="text-xl">{newService.patients?.names}</span>
-            </span>
-            <div className="shadow bg-white rounded w-80 mt-4">
+            <div className="shadow bg-white rounded w-32 mt-4">
               <img
                 className=" p-4"
                 src={showImage(newService.patients?.img)}
                 alt="null"
               />
             </div>
+            <span className="text-xl mt-5 text-gray-700 font-normal">
+              Nombre del paciente:
+              <span className="text-xl font-thin">{newService.patients?.names}</span>
+            </span>
             <Info id={newService.patientsId} />
             <p className="font-thin text-gray-700 mt-3 text-xl">
               <span className="font-normal">Observacion:</span>{" "}

@@ -1,11 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { login } from "../../services/auth";
+import { checkIsDoctor, login } from "../../services/auth";
 import { Error } from "../../components/Global/Alerts/Error";
 import { Success } from "../../components/Global/Alerts/Success";
 import { useDispatch } from "react-redux";
 import { newLogin } from "../../redux/actions/auth";
+import { decodeToken } from "../../services/token";
 
 const Login = ({ setIsLoading }) => {
   const dispatch = useDispatch();
@@ -27,9 +28,17 @@ const Login = ({ setIsLoading }) => {
           Error("Correo o contraseña incorrecta");
           return;
         }
-        dispatch(newLogin(res.token));
-        Success("Los datos son correctos bienvenido!!");
-        setIsLoading(true);
+        const token = res.token;
+        const user = decodeToken(token);
+        checkIsDoctor(user?.userid, res.token).then((res) => {
+          if (res.doctor) {
+            dispatch(newLogin(token));
+            Success("Los datos son correctos bienvenido!!");
+            setIsLoading(true);
+            return;
+          }
+          Error("No estas autorizado para acceder");
+        });
       });
     },
   });

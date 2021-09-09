@@ -9,7 +9,7 @@ export default function Info({ id }) {
     return dispatch(readPatientById(id));
   }, [id, dispatch]);
   return (
-    <div className="flex flex-col mt-6">
+    <div className="flex flex-col">
       {patient && (
         <>
           <span className="font-thin text-gray-700  mt-3 text-xl">
