@@ -10,9 +10,16 @@ export default function Result({ id }) {
   }, [id, dispatch]);
   return (
     <div className="mt-2">
-      <p className="font-thin text-xl mt-2"><span className="font-normal">Sintomatologia:</span> {result?.symptomatology}</p>
-      <p className="font-thin text-xl mt-2"><span className="font-normal">Diagnostico:</span> {result?.diagnosis}</p>
-      <p className="font-thin text-xl mt-2"><span className="font-normal">Tratamiento:</span> {result?.treatment}</p>
+      <p className="font-thin text-xl mt-2">
+        <span className="font-normal">Sintomatologia:</span>{" "}
+        {result?.symptomatology}
+      </p>
+      <p className="font-thin text-xl mt-2">
+        <span className="font-normal">Diagnostico:</span> {result?.diagnosis}
+      </p>
+      <p className="font-thin text-xl mt-2">
+        <span className="font-normal">Tratamiento:</span> {result?.treatment}
+      </p>
     </div>
   );
 }

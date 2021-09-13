@@ -8,7 +8,11 @@ import { readQuotesByPatient } from "../../redux/actions/quotes";
 export default function Form({ id, quote, patientsId, setShowForm }) {
   const dispatch = useDispatch();
   const formik = useFormik({
-    initialValues: { symptomatology: "", diagnosis: "", treatment: "" },
+    initialValues: {
+      symptomatology: "N/A",
+      diagnosis: "N/A",
+      treatment: "N/A",
+    },
     validationSchema: yup.object({
       symptomatology: yup.string().required("Debes escribir la sintomatologia"),
       diagnosis: yup.string().required("Debes escribir el diagnostico"),
@@ -82,7 +86,7 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
               Tratamiento
             </label>
             <textarea
-            placeholder="Escribe el tratamiento para el paciente"
+              placeholder="Escribe el tratamiento para el paciente"
               cols={3}
               rows={4}
               name="treatment"

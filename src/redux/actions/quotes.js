@@ -29,13 +29,10 @@ export const readQuotesByPatient = (id) => {
   };
 };
 
-export const readQuotesByInterval = (id, consult,page) => {
+export const readQuotesByInterval = (id, state) => {
   return (dispatch) => {
-    if(consult !== ""){
-      page = 1
-    }
-    getQuotesInterval(id, consult,page).then((res) => {
-      if (!res.ok) {
+    getQuotesInterval(id,state).then((res) => {
+      if (res.msg) {
         dispatch(readByInterval({}));
         return;
       }

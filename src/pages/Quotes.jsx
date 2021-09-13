@@ -2,21 +2,17 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Quotes/List";
 import Layout from "../layout/Layout";
-import SearchInput from "../components/Global/SearchInput";
 import { readDoctorById } from "../redux/actions/doctors";
 import { readQuotesByInterval } from "../redux/actions/quotes";
 import { filterDates, getEspecificDate, intervalDates } from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
-import Pagination from "../components/Global/Pagination";
-import InputSearch from "../components/Global/SearchInput";
 
 export default function Quotes() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const quotes = useSelector((state) => state.quotes.data);
   const [dates, setDates] = useState({ initial: "", final: "" });
-  const [consult, setConsult] = useState("");
-  const [page, setPage] = useState(1);
+  const [state, setState] = useState(false);
   const [quotesState, setQuotesState] = useState();
   useEffect(() => {
     return dispatch(readDoctorById(auth.user?.userid));
@@ -27,11 +23,11 @@ export default function Quotes() {
   useEffect(() => {
     const readQuotes = () => {
       if (doctors) {
-        dispatch(readQuotesByInterval(doctors.doctor?.id, "", page));
+        dispatch(readQuotesByInterval(doctors.doctor?.id, state ? 0 : 1));
       }
     };
     return readQuotes();
-  }, [doctors, dispatch, page]);
+  }, [doctors, dispatch, state]);
 
   const handleChange = (option) => {
     const quotesA = filterDates(quotes.quotes, option);
@@ -52,7 +48,7 @@ export default function Quotes() {
     setQuotesState(intervalDates(dates.initial, dates.final, quotes?.quotes));
   };
   const especificDate = (date) => {
-    console.log(new Date(date))
+    console.log(new Date(date));
     setQuotesState(getEspecificDate(date, quotes?.quotes));
   };
   return (
@@ -122,10 +118,31 @@ export default function Quotes() {
             </select>
           </div>
         </div>
+        <div className="mt-4 flex">
+          <label className="font-thin text-2xl">Mostrar</label>
+          <div className="text-xl font-semibold flex mt-1">
+            <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+              <input
+                type="checkbox"
+                nameName="toggle"
+                id="toggle"
+                defaultChecked={state}
+                onChange={() => setState(!state)}
+                className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
+              />
+              <label
+                for="toggle"
+                className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+              ></label>
+            </div>
+            <span className="font-thin text-xl">
+              {state ? "Completadas" : "Pendientes"}
+            </span>
+          </div>
+        </div>
         <div className="mt-10">
           <List quotes={quotesState ? quotesState : quotes?.quotes} />
         </div>
-        {!quotesState && <Pagination method={setPage} data={quotes} />}
       </div>
     </Layout>
   );

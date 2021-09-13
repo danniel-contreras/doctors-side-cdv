@@ -22,15 +22,9 @@ export const getQuotesByPatient = async (id) => {
   return response.json();
 };
 
-export const getQuotesInterval = async (id, consult, page) => {
-  const response =
-    consult !== ""
-      ? await fetch(
-          `${API}/quotes/interval/${id}?consult=${consult}&page=${page}`,
-          { headers: { token: getToken() } }
-        )
-      : await fetch(`${API}/quotes/interval/${id}?page=${page}`, {
-          headers: { token: getToken() },
-        });
+export const getQuotesInterval = async (id, state) => {
+  const response = await fetch(`${API}/quotes/interval/${id}?state=${state}`, {
+    headers: { token: getToken() },
+  });
   return response.json();
 };

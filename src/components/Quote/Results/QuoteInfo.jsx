@@ -2,6 +2,8 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Result from "./Result";
+import { formatRelative, subDays } from "date-fns";
+import { es } from "date-fns/locale";
 
 export default function QuoteInfo({ index, quote }) {
   const [showResult, setShowResult] = useState(false);
@@ -45,7 +47,10 @@ export default function QuoteInfo({ index, quote }) {
           </div>
           <div style={{ width: "90%" }} className="p-6">
             <p className="text-xl font-thin">
-              <span className="font-normal">Fecha:</span> {quote.date}
+              <span className="font-normal">Fecha:</span>{" "}
+              {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
+                locale: es,
+              })}
             </p>
             <p className="text-xl mt-3 font-thin">
               <span className="font-normal">Problema:</span> {quote.issue}
@@ -57,14 +62,16 @@ export default function QuoteInfo({ index, quote }) {
         <>
           <div style={{ width: "90%" }} className="p-6">
             <p className="text-xl font-thin">
-              <span className="font-normal">Fecha:</span> {quote.date}
+              <span className="font-normal">Fecha:</span>{" "}
+              {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
+                locale: es,
+              })}
             </p>
             <p className="text-xl mt-3 font-thin">
               <span className="font-normal">Problema:</span> {quote.issue}
             </p>
             {showResult && (
               <div className="border-t mt-2">
-
                 <p className="text-2xl font-normal mt-4">Resultados</p>
                 <Result id={quote.id} />
               </div>
