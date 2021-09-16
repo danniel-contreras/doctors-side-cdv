@@ -61,11 +61,9 @@ export default function Service() {
       return;
     }
     addPhotoToService(serviceFile, id).then(() => {
-      putClinicalService(newService, id).then(() => {
         Success("Se completo el servicio clinico");
         dispatch(readServiceById(id));
         dispatch(readClinicalServices());
-      });
     });
   };
   return (
@@ -93,7 +91,7 @@ export default function Service() {
               <span className="font-normal">Servicio adquirido:</span>{" "}
               {newService.clinicalServicesType?.type}{" "}
             </p>
-            {newService.img === "clinicalService.png" && (
+            {newService.img === "servicios.png" && (
               <button
                 onClick={saveImage}
                 type="submit"

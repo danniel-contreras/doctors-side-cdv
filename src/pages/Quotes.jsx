@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Quotes/List";
 import Layout from "../layout/Layout";
@@ -8,6 +8,10 @@ import { filterDates, getEspecificDate, intervalDates } from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
 
 export default function Quotes() {
+  const select = useRef(null);
+  const initialDate = useRef(null);
+  const finalDate = useRef(null);
+  const specific = useRef(null);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const quotes = useSelector((state) => state.quotes.data);
@@ -24,6 +28,11 @@ export default function Quotes() {
     const readQuotes = () => {
       if (doctors) {
         dispatch(readQuotesByInterval(doctors.doctor?.id, state ? 0 : 1));
+        setQuotesState(readQuotesByInterval(doctors.doctor?.id, state ? 0 : 1));
+        select.current.value = "DEFAULT";
+        initialDate.current.value = null;
+        finalDate.current.value = null;
+        specific.current.vañue = null;
       }
     };
     return readQuotes();
@@ -48,7 +57,6 @@ export default function Quotes() {
     setQuotesState(intervalDates(dates.initial, dates.final, quotes?.quotes));
   };
   const especificDate = (date) => {
-    console.log(new Date(date));
     setQuotesState(getEspecificDate(date, quotes?.quotes));
   };
   return (
@@ -62,6 +70,7 @@ export default function Quotes() {
                 Filtrar por fecha especifica
               </label>
               <input
+                ref={specific}
                 onChange={(e) => especificDate(e.currentTarget.value)}
                 className="border bg-white shadow ml-2 px-2 w-full rounded font-thin text-gray-700"
                 type="date"
@@ -75,6 +84,7 @@ export default function Quotes() {
                   Fecha inicial
                 </label>
                 <input
+                  ref={initialDate}
                   onChange={(e) =>
                     setDates({ ...dates, initial: e.currentTarget.value })
                   }
@@ -87,6 +97,7 @@ export default function Quotes() {
                   Fecha final
                 </label>
                 <input
+                  ref={finalDate}
                   onChange={(e) =>
                     setDates({ ...dates, final: e.currentTarget.value })
                   }
@@ -104,6 +115,7 @@ export default function Quotes() {
             <label className="font-thin text-xl ml-4">Rangos</label>
             <select
               onChange={(e) => handleChange(e.currentTarget.value)}
+              ref={select}
               className="border bg-white shadow outline-none font-thin py-1 ml-4  w-full pr-16 float-right"
               defaultValue={"DEFAULT"}
             >

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ClinicalServices from "../Quote/Results/ClinicalServices";
 import Deworming from "../Quote/Results/Deworming";
 import PestControl from "../Quote/Results/PestControl";
 import QuoteResult from "../Quote/Results/QuoteResult";
@@ -9,11 +10,13 @@ export default function BreadCrums({ id }) {
   const [showVac, setShowVac] = useState(false);
   const [showDesp, setShowDesp] = useState(false);
   const [showCP, setShowCP] = useState(false);
+  const [showSC, setShowSC] = useState(false);
   const handleShowCG = () => {
     setShowCG(true);
     setShowVac(false);
     setShowDesp(false);
     setShowCP(false);
+    setShowSC(false);
   };
 
   const handleShowVac = () => {
@@ -21,6 +24,7 @@ export default function BreadCrums({ id }) {
     setShowVac(true);
     setShowDesp(false);
     setShowCP(false);
+    setShowSC(false);
   };
 
   const handleShowDesp = () => {
@@ -28,6 +32,7 @@ export default function BreadCrums({ id }) {
     setShowVac(false);
     setShowDesp(true);
     setShowCP(false);
+    setShowSC(false);
   };
 
   const handleShowCP = () => {
@@ -35,6 +40,15 @@ export default function BreadCrums({ id }) {
     setShowVac(false);
     setShowDesp(false);
     setShowCP(true);
+    setShowSC(false);
+  };
+
+  const handleShowSC = () => {
+    setShowCG(false);
+    setShowVac(false);
+    setShowDesp(false);
+    setShowCP(false);
+    setShowSC(true);
   };
   return (
     <div>
@@ -89,6 +103,19 @@ export default function BreadCrums({ id }) {
               Control de plagas
             </span>
           </li>
+          <li>
+            <span className="mx-4">/</span>
+          </li>
+          <li onClick={handleShowSC} className="cursor-pointer">
+            <span
+              className={
+                "text-blue-500 text-xl " +
+                (showSC ? "font-medium" : "font-thin")
+              }
+            >
+              Servicios clinicos
+            </span>
+          </li>
         </ol>
       </nav>
       {showCG && (
@@ -107,7 +134,7 @@ export default function BreadCrums({ id }) {
           <Vaccinations id={id} />
         </div>
       )}
-       {showCP && (
+      {showCP && (
         <div>
           <p className="text-2xl font-thin mt-12">
             Listado de controles de plagas del paciente
@@ -115,12 +142,20 @@ export default function BreadCrums({ id }) {
           <PestControl id={id} />
         </div>
       )}
-       {showDesp && (
+      {showDesp && (
         <div>
           <p className="text-2xl font-thin mt-12">
             Listado de desparacitaciones del paciente
           </p>
           <Deworming id={id} />
+        </div>
+      )}
+       {showSC && (
+        <div>
+          <p className="text-2xl font-thin mt-12">
+            Listado de servicos clinicos del paciente
+          </p>
+          <ClinicalServices id={id} />
         </div>
       )}
     </div>

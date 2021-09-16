@@ -94,6 +94,19 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
               Control de plagas
             </span>
           </li>
+          <li>
+            <span className="mx-4">/</span>
+          </li>
+          <li onClick={handleShowCP} className="cursor-pointer">
+            <span
+              className={
+                "text-blue-500 text-xl " +
+                (showCP ? "font-medium" : "font-thin")
+              }
+            >
+              Servicios clinicos
+            </span>
+          </li>
           {/* patient?.sexesId === 2 && (
             <>
               <li>

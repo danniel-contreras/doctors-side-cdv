@@ -6,7 +6,7 @@ export const filterDates = (quotes, option) => {
       quotes &&
       quotes.filter(
         (qt) =>
-          new Date(qt.date).getDay() === date.getDay() &&
+          new Date(qt.date).getDate() === date.getDate() &&
           new Date(qt.date).getMonth() === date.getMonth() &&
           new Date(qt.date).getFullYear() === date.getFullYear()
       );
@@ -37,14 +37,14 @@ export const nowDates = (quotes) => {
     quotes &&
     quotes.filter(
       (qt) =>
-        new Date(qt.date).getDay() === date.getDay() &&
+        new Date(qt.date).getDate() === date.getDate() &&
         new Date(qt.date).getMonth() === date.getMonth() &&
         new Date(qt.date).getFullYear() === date.getFullYear()
     );
   return salesfilter;
 };
 
-export const intervalDates = (initial, final, quotes, consult = "") => {
+export const intervalDates = (initial, final, quotes) => {
   const ini = `${initial}T00:00`;
   const fn = `${final}T00:00`;
   const filter =
@@ -52,8 +52,7 @@ export const intervalDates = (initial, final, quotes, consult = "") => {
     quotes.filter(
       (qt) =>
         new Date(qt?.date).valueOf() >= new Date(ini).valueOf() &&
-        new Date(qt?.date).valueOf() <= new Date(fn).valueOf() &&
-        qt?.quotesType?.type.includes(consult)
+        new Date(qt?.date).valueOf() <= new Date(fn).valueOf()
     );
   return filter;
 };

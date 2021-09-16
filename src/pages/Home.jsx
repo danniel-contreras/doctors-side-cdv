@@ -11,6 +11,7 @@ import { SOCKET_URL } from "../utils/constant";
 import { filterDates } from "../utils/dates";
 
 export default function Home() {
+  console.log(new Date().getDate())
   //redux logic
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);

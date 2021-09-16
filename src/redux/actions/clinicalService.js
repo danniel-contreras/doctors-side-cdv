@@ -1,4 +1,4 @@
-import { getAllClinicalServices } from "../../services/clinical-services";
+import { getAllClinicalServices, getServiceByPatient } from "../../services/clinical-services";
 import { types } from "../types/clinical-services";
 
 export const readClinicalServices = () => {
@@ -12,6 +12,19 @@ export const readClinicalServices = () => {
     });
   };
 };
+
+export const readClinicalServicesByPatient = (id) => {
+  return (dispatch) => {
+    getServiceByPatient(id).then((res) => {
+      if (res.msg) {
+        dispatch(read({}));
+        return;
+      }
+      dispatch(read(res.clinicalService));
+    });
+  };
+};
+
 
 export function read(data) {
   return {
