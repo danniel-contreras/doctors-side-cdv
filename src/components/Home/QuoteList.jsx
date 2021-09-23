@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { memo } from "react";
 
 const QuoteList = ({ quotes }) => {
+  console.log(quotes);
   const filterQuotes =
-    quotes &&
-    quotes?.map((quote) => quote).filter((quote) => quote?.state);
+    quotes && quotes?.map((quote) => quote).filter((quote) => quote?.state);
   return (
     <>
       {filterQuotes && filterQuotes.length ? (
@@ -25,6 +25,12 @@ const QuoteList = ({ quotes }) => {
             <span className="text-xl font-light mt-8">
               {quote.patients?.names}
             </span>
+            <p className="text-xl mt-2">
+              Tipo de consulta:{" "}
+              <span className="text-base font-thin">
+                {quote.quotesType?.type}
+              </span>
+            </p>
             <span className="text-base font-light mt-8">
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                 locale: es,

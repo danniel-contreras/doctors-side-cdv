@@ -32,7 +32,7 @@ export const readQuotesByPatient = (id) => {
 export const readQuotesByInterval = (id, state) => {
   return (dispatch) => {
     getQuotesInterval(id,state).then((res) => {
-      if (res.msg) {
+      if (!res.ok) {
         dispatch(readByInterval({}));
         return;
       }

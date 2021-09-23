@@ -26,3 +26,18 @@ export const editQuote = async (id, quote) => {
   });
   return response.json();
 };
+
+export const addPhotoToResult = async (file, id) => {
+  const formData = new FormData();
+  formData.append("foto", file);
+  const response = await fetch(`${API}/results/image/${id}`, {
+    headers: { token: getToken() },
+    method: "POST",
+    body: formData,
+  });
+  return response.json();
+};
+
+export const showImage = (name) => {
+  return `${API}/results/view-image?name=${name}`;
+};

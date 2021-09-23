@@ -28,15 +28,10 @@ export default function Quotes() {
     const readQuotes = () => {
       if (doctors) {
         dispatch(readQuotesByInterval(doctors.doctor?.id, state ? 0 : 1));
-        setQuotesState(readQuotesByInterval(doctors.doctor?.id, state ? 0 : 1));
-        select.current.value = "DEFAULT";
-        initialDate.current.value = null;
-        finalDate.current.value = null;
-        specific.current.vañue = null;
       }
     };
     return readQuotes();
-  }, [doctors, dispatch, state]);
+  }, [doctors, dispatch, state, quotes]);
 
   const handleChange = (option) => {
     const quotesA = filterDates(quotes.quotes, option);

@@ -1,12 +1,13 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { checkIsDoctor, login } from "../../services/auth";
+import { checkIsAdmin, checkIsDoctor, login } from "../../services/auth";
 import { Error } from "../../components/Global/Alerts/Error";
 import { Success } from "../../components/Global/Alerts/Success";
 import { useDispatch } from "react-redux";
 import { newLogin } from "../../redux/actions/auth";
 import { decodeToken } from "../../services/token";
+import { checkRole } from "../../utils/auth";
 
 const Login = ({ setIsLoading }) => {
   const dispatch = useDispatch();
@@ -30,6 +31,15 @@ const Login = ({ setIsLoading }) => {
         }
         const token = res.token;
         const user = decodeToken(token);
+        checkIsAdmin(user?.userid, token).then((res) => {
+          if (checkRole(res?.users) === 1) {
+            dispatch(newLogin(token));
+            Success("Los datos son correctos bienvenido!!");
+            setIsLoading(true);
+            console.log("is Admin");
+            return;
+          }
+        });
         checkIsDoctor(user?.userid, res.token).then((res) => {
           if (res.doctor) {
             dispatch(newLogin(token));

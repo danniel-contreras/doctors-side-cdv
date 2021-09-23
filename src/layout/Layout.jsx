@@ -1,20 +1,22 @@
-import React from "react";
+import { useEffect, createRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { newLoggout } from "../redux/actions/auth";
 import { createPopper } from "@popperjs/core";
 import { Link, useHistory } from "react-router-dom";
+import { readEmployeById } from "../redux/actions/employee";
+import { checkRole } from "../utils/auth";
 
 export default function Layout({ children }) {
   const dispatch = useDispatch();
-  const router = useHistory()
+  const router = useHistory();
   const handleLoggout = () => {
-    router.replace("/")
+    router.replace("/");
     dispatch(newLoggout());
   };
   const auth = useSelector((state) => state.auth);
-  const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
-  const btnDropdownRef = React.createRef();
-  const popoverDropdownRef = React.createRef();
+  const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
+  const btnDropdownRef = createRef();
+  const popoverDropdownRef = createRef();
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
@@ -24,6 +26,11 @@ export default function Layout({ children }) {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  const user = useSelector((state) => state.employee.data);
+  useEffect(() => {
+    return dispatch(readEmployeById(auth?.user?.userid));
+  }, [dispatch, auth]);
   return (
     <div className="w-screen h-screen bg-gray-400 p-8">
       <div className=" bg-white h-full flex flex-col rounded shadow">
@@ -35,26 +42,25 @@ export default function Layout({ children }) {
             Clinica de Diagnostico Veterinario
           </span>
           <div className="float-right">
-            <Link to="/">
-              <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
-                Inicio
-              </span>
-            </Link>
+            {checkRole(user?.users) !== 1 && (
+              <Link to="/">
+                <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
+                  Inicio
+                </span>
+              </Link>
+            )}
             <Link to="/patients">
               <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
-               Pacientes
+                Pacientes
               </span>
             </Link>
-            <Link to="/quotes">
-              <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
-                Consultas
-              </span>
-            </Link>
-            <Link to="/clinical-services">
-              <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
-                Servicios clinicos
-              </span>
-            </Link>
+            {checkRole(user?.users) !== 1 && (
+              <Link to="/quotes">
+                <span className="text-white hover:opacity-75 text-sm cursor-pointer font-medium mr-8">
+                  Consultas
+                </span>
+              </Link>
+            )}
             <span
               ref={btnDropdownRef}
               onClick={() => {
@@ -86,7 +92,9 @@ export default function Layout({ children }) {
             </div>
           </div>
         </div>
-        <div className="p-10 bg-gray-100 w-full h-full overflow-y-scroll">{children}</div>
+        <div className="p-10 bg-gray-100 w-full h-full overflow-y-scroll">
+          {children}
+        </div>
       </div>
     </div>
   );
