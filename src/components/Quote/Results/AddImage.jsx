@@ -5,20 +5,27 @@ import { useDropzone } from "react-dropzone";
 import File from "../../../assets/file.png";
 import { addPhotoToResult } from "../../../services/results";
 import { Warning } from "../../Global/Alerts/Warning";
-import { Success } from "../../Global/Alerts/Success";
+import { Success } from "../../Global/Alerts/Success"
+import imageCompression from "browser-image-compression";
 
 export default function AddImage({ id, setreload, setShowModal }) {
   const [petImage, setPetimage] = useState(File);
   const [petFile, setPetFile] = useState();
   const onDropImage = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
+    console.log(file);
     setPetimage(URL.createObjectURL(file));
     setPetFile(file);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const options = {
+    maxSizeMB: 1, // (default: Number.POSITIVE_INFINITY)
+    maxWidthOrHeight: 1024, // but, automatically reduce the size to smaller than the maximum Canvas size supported by each browser    // optional, a function takes one progress argument (percentage from 0 to 100)
+    useWebWorker: true, // optional, use multer
+  };
   const { getRootProps: getRootImgProps, getInputProps: getInputImgProps } =
     useDropzone({
-      accept: "image/jpeg, image/png",
+      accept: "image/jpeg, image/png, image/jpg",
       noKeyboard: true,
       multiple: false,
       onDrop: onDropImage,
@@ -28,10 +35,12 @@ export default function AddImage({ id, setreload, setShowModal }) {
       Warning("Debes elegir una imagen");
       return;
     }
-    addPhotoToResult(petFile, id).then((res) => {
-      setreload(true);
-      setShowModal(false);
-      Success("Se agrego la imagen con exito");
+    imageCompression(petFile, options).then((file) => {
+      addPhotoToResult(file, id).then(() => {
+        setreload(true);
+        setShowModal(false);
+        Success("Se agrego la imagen con exito");
+      });
     });
   };
   return (
