@@ -4,9 +4,12 @@ import { readResultsByQuote } from "../../../redux/actions/result";
 import { showImage } from "../../../services/results";
 import Modal from "../../Global/Modal";
 import AddImage from "./AddImage";
+import AddPDF from "./AddPDF";
+import SinglePage from "./pdf/Single";
 
 export default function Result({ id }) {
   const [showModal, setShowModal] = useState(false);
+  const [showModalPDF, setShowModalPDF] = useState(false);
   const [reload, setreload] = useState(false);
   const dispatch = useDispatch();
   const result = useSelector((state) => state.result.data);
@@ -26,12 +29,22 @@ export default function Result({ id }) {
         <p className="font-thin text-xl mt-2">
           <span className="font-normal">Tratamiento:</span> {result?.treatment}
         </p>
-        <button
-          onClick={() => setShowModal(true)}
-          className="bg-green-500 text-white px-6 py-1 rounded mt-4"
-        >
-          {result?.img === "results.svg" ? "Agregar Imagen" : "Cambiar Imagen"}
-        </button>
+        <div className="flex">
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-green-500 text-sm text-white px-4 py-1 rounded mt-4"
+          >
+            {result?.img === "results.svg"
+              ? "Agregar Imagen"
+              : "Cambiar Imagen"}
+          </button>
+          <button
+            onClick={() => setShowModalPDF(true)}
+            className="bg-blue-500 text-white px-4 ml-4 text-sm py-1 rounded mt-4"
+          >
+            Agregar PDF
+          </button>
+        </div>
         <Modal
           showModal={showModal}
           setShowModal={setShowModal}
@@ -43,15 +56,32 @@ export default function Result({ id }) {
             id={result?.id}
           />
         </Modal>
-      </div>
-      {result?.img !== "results.svg" && (
-        <div className="flex justify-center items-center w-full content-center">
-          <img
-            className="rounded max-w-96 max-h-96"
-            alt=""
-            src={showImage(result?.img)}
+        <Modal
+          showModal={showModalPDF}
+          setShowModal={setShowModalPDF}
+          title="Agregar documento PDF"
+        >
+          <AddPDF
+            setreload={setreload}
+            setShowModal={setShowModalPDF}
+            id={result?.id}
           />
+        </Modal>
+      </div>
+      {result?.img.includes("pdf") ? (
+        <div className="flex flex-col w-full justify-center items-center content-center">
+          <SinglePage pdf={showImage(result?.img)} />
         </div>
+      ) : (
+        result?.img !== "results.svg" && (
+          <div className="flex justify-center items-center w-full content-center">
+            <img
+              className="rounded max-w-96 max-h-96"
+              alt=""
+              src={showImage(result?.img)}
+            />
+          </div>
+        )
       )}
     </div>
   );
