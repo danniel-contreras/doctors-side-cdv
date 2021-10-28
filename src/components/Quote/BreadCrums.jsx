@@ -48,7 +48,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <li onClick={handleShowCG} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
+                "text-blue-500 text-base " +
                 (showCG ? "font-medium" : "font-thin")
               }
             >
@@ -61,7 +61,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <li onClick={handleShowVac} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
+                "text-blue-500 text-base " +
                 (showVac ? "font-medium" : "font-thin")
               }
             >
@@ -74,7 +74,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <li onClick={handleShowDesp} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
+                "text-blue-500 text-base " +
                 (showDesp ? "font-medium" : "font-thin")
               }
             >
@@ -87,7 +87,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <li onClick={handleShowCP} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
+                "text-blue-500 text-base " +
                 (showCP ? "font-medium" : "font-thin")
               }
             >
@@ -100,7 +100,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <li onClick={handleShowCP} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
+                "text-blue-500 text-base " +
                 (showCP ? "font-medium" : "font-thin")
               }
             >

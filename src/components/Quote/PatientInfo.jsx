@@ -10,14 +10,9 @@ export default function PatientInfo({ id }) {
   }, [id, dispatch]);
   return (
     <>
-      <p className="text-xl text-gray-800 font-normal mt-3">
+      <p className="text-base text-gray-800 font-normal mt-3">
         Nombre del paciente:{" "}
-        <span className="text-xl font-thin">{patient?.patients?.names}</span>
-      </p>
-      <p className="font-thin text-gray-800 mt-3 text-xl">
-        <span className="font-normal text-gray-700">Dueño de la mascota:</span>{" "}
-        {patient?.patients?.customers?.names}{" "}
-        {patient?.patients?.customers?.lastname}
+        <span className="text-lg font-thin">{patient?.patients?.names}</span>
       </p>
     </>
   );

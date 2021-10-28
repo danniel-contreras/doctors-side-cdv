@@ -19,3 +19,6 @@ export const getAllPatients = async (page, name, custom, limit) => {
   );
   return response.json();
 };
+export const showPDF = (name) => {
+  return `${API}/patients/view-pdf?name=${name}`;
+};
