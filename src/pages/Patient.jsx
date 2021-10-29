@@ -53,7 +53,7 @@ export default function Patient() {
             </div>
           </div>
           <div>
-            {patient?.patients.expPdf === "expediente.pdf" ? (
+            {patient?.patients?.expPdf === "expediente.pdf" ? (
               ""
             ) : (
               <SinglePage pdf={showPDF(patient?.patients?.expPdf)} />
