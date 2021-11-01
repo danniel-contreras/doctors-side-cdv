@@ -38,20 +38,20 @@ export default function DewormingForm({ patientsId }) {
       <div className="grid grid-cols-1 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-thin text-xl text-gray-500">Dosis</label>
+            <label className="font-semibold text-xs text-gray-600">Dosis</label>
             <select
               onChange={formik.handleChange}
               defaultValue={"DEFAULT"}
               ref={inputType}
               name="dewormingTypeId"
               className={
-                "border px-2 py-1 outline-none rounded text-gray-500 mt-1 " +
+                "border px-2 text-xs font-semibold py-1 outline-none rounded text-gray-500 mt-1 " +
                 (formik.errors.dewormingTypeId && formik.touched.dewormingTypeId
                   ? "border-red-400"
                   : "border")
               }
             >
-              <option value={"DEFAULT"} disabled>
+              <option className="text-xs font-semibold" value={"DEFAULT"} disabled>
                 Selecciona el tipo de desparacitacion
               </option>
               {dewormingTypes &&
@@ -72,7 +72,7 @@ export default function DewormingForm({ patientsId }) {
       </div>
       <button
         type="submit"
-        className="text-xl ml-6 px-16 rounded font-thin text-white bg-blue-500"
+        className="text-sm py-1 ml-6 px-16 rounded font-semibold text-white bg-blue-500"
       >
         Guardar
       </button>

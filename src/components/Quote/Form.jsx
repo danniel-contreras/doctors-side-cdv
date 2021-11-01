@@ -34,17 +34,17 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
       <div className="grid grid-cols-2 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-normal text-xl text-gray-700">
+            <label className="font-semibold text-xs text-gray-600">
               Sintomatologia
             </label>
             <textarea
               cols={3}
-              rows={4}
+              rows={5}
               name="symptomatology"
               onChange={formik.handleChange}
               placeholder="Escribe el sintomatologia para el paciente"
               className={
-                "border text-gray-500 shadow-md rounded mt-1 outline-none px-2 py-1 " +
+                "border shadow-md rounded mt-1 font-semibold text-xs text-gray-600 outline-none px-2 py-1 " +
                 (formik.errors.symptomatology && formik.touched.symptomatology
                   ? "border-red-400"
                   : "border")
@@ -59,17 +59,17 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
         </div>
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-normal text-xl text-gray-700">
+          <label className="font-semibold text-xs text-gray-600">
               Diagnostico
             </label>
             <textarea
               cols={3}
-              rows={4}
+              rows={5}
               name="diagnosis"
               onChange={formik.handleChange}
               placeholder="Escribe el diagnostico para el paciente"
               className={
-                "border text-gray-500 shadow-md rounded mt-1 outline-none px-2 py-1 " +
+                "border font-semibold text-xs text-gray-600shadow-md rounded mt-1 outline-none px-2 py-1 " +
                 (formik.errors.diagnosis && formik.touched.diagnosis
                   ? "border-red-400"
                   : "border")
@@ -82,17 +82,17 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
         </div>
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-normal text-xl text-gray-700">
+          <label className="font-semibold text-xs text-gray-600">
               Tratamiento
             </label>
             <textarea
               placeholder="Escribe el tratamiento para el paciente"
               cols={3}
-              rows={4}
+              rows={5}
               name="treatment"
               onChange={formik.handleChange}
               className={
-                "border text-gray-500 shadow-md rounded mt-1 outline-none px-2 py-1 " +
+                "border font-semibold text-xs text-gray-600 shadow-md rounded mt-1 outline-none px-2 py-1 " +
                 (formik.errors.treatment && formik.touched.treatment
                   ? "border-red-400"
                   : "border")
@@ -104,7 +104,7 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
           </div>
         </div>
       </div>
-      <button className="text-xl ml-6 px-16 rounded font-thin text-white bg-blue-500">
+      <button className="text-sm ml-6 px-16 py-1 rounded font-semibold text-white bg-blue-500">
         Guardar
       </button>
     </form>

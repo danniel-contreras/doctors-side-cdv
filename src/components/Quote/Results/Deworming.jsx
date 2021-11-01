@@ -30,8 +30,8 @@ const Deworming = ({ id }) => {
                   />
                 </div>
                 <div style={{ width: "90%" }} className="p-6">
-                  <p className="text-xl font-thin">
-                    <span className="font-normal">Fecha:</span>{" "}
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Fecha:</span>{" "}
                     {formatRelative(
                       subDays(new Date(dwm.date), 0),
                       new Date(),
@@ -40,8 +40,8 @@ const Deworming = ({ id }) => {
                       }
                     )}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">
                       Tipo de desparacitacion:
                     </span>{" "}
                     {dwm.dewormingType?.type}
@@ -51,11 +51,18 @@ const Deworming = ({ id }) => {
             ) : (
               <>
                 <div style={{ width: "90%" }} className="p-6">
-                  <p className="text-xl font-thin">
-                    <span className="font-normal">Fecha:</span> {dwm.date}
+                <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Fecha:</span>{" "}
+                    {formatRelative(
+                      subDays(new Date(dwm.date), 0),
+                      new Date(),
+                      {
+                        locale: es,
+                      }
+                    )}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">
                       Tipo de desparacitacion:
                     </span>{" "}
                     {dwm.dewormingType?.type}
@@ -75,7 +82,9 @@ const Deworming = ({ id }) => {
           </div>
         ))
       ) : (
-        <p className="text-xl font-thin">No hay desparacitaciones que mostrar... </p>
+        <p className="text-xs font-semibold text-gray-600">
+          No hay desparacitaciones que mostrar...{" "}
+        </p>
       )}
     </div>
   );

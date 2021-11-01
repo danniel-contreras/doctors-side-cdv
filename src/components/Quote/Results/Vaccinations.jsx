@@ -16,30 +16,6 @@ const Vaccinations = ({ id }) => {
   }, [dispatch, id, page]);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
-      {/*<span className="text-xl">Filtrar vacunas</span>
-      <div className="w-8/12 flex">
-        <div className="flex">
-          <div className="flex">
-            <label className="font-thin text-xl">Fecha inicial</label>
-            <input
-              className="border bg-white shadow ml-2 px-1 rounded font-thin text-gray-700"
-              type="date"
-            />
-          </div>
-          <div className="pl-4">
-            <label className="font-thin text-xl">Fecha final</label>
-            <input
-              className="border bg-white shadow ml-2 px-1 rounded font-thin text-gray-700"
-              type="date"
-            />
-          </div>
-          <button
-            className="bg-green-500 px-4 ml-3 rounded text-white "
-          >
-            Filtrar
-          </button>
-        </div>
-  </div>*/}
       <div className="w-full border my-3" />
       {vaccinations?.vaccination ? (
         vaccinations?.vaccination.map((vac, index) => (
@@ -56,8 +32,8 @@ const Vaccinations = ({ id }) => {
                   />
                 </div>
                 <div style={{ width: "90%" }} className="p-6">
-                  <p className="text-xl font-thin">
-                    <span className="font-normal">Fecha:</span>{" "}
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Fecha:</span>{" "}
                     {formatRelative(
                       subDays(new Date(vac.date), 0),
                       new Date(),
@@ -66,12 +42,14 @@ const Vaccinations = ({ id }) => {
                       }
                     )}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">Tipo de vacunacion:</span>
+                  <p className="text-sm font-normal mt-3">
+                    <span className="font-semibold text-base">
+                      Tipo de vacunacion:
+                    </span>
                     {vac.vaccinationType?.type}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">Dosis:</span>
+                  <p className="text-sm font-normal mt-3">
+                    <span className="font-semibold text-base">Dosis:</span>
                     {vac.vaccinationDose?.type}
                   </p>
                 </div>
@@ -79,8 +57,8 @@ const Vaccinations = ({ id }) => {
             ) : (
               <>
                 <div style={{ width: "90%" }} className="p-6">
-                  <p className="text-xl font-thin">
-                    <span className="font-normal">Fecha:</span>{" "}
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Fecha:</span>{" "}
                     {formatRelative(
                       subDays(new Date(vac.date), 0),
                       new Date(),
@@ -89,12 +67,14 @@ const Vaccinations = ({ id }) => {
                       }
                     )}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">Tipo de vacunacion: </span>
+                  <p className="text-sm font-normal mt-3">
+                    <span className="font-semibold text-base">
+                      Tipo de vacunacion:
+                    </span>
                     {vac.vaccinationType?.type}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">Dosis: </span>
+                  <p className="text-sm font-normal mt-3">
+                    <span className="font-semibold text-base">Dosis:</span>
                     {vac.vaccinationDose?.type}
                   </p>
                 </div>
@@ -112,8 +92,11 @@ const Vaccinations = ({ id }) => {
           </div>
         ))
       ) : (
-        <p className="text-xl font-thin">No hay vacunas que mostrar... </p>
+        <p className="text-xs font-semibold text-gray-600">
+          No hay vacunas que mostrar...{" "}
+        </p>
       )}
+
       <Pagination data={vaccinations} method={setPage} />
     </div>
   );

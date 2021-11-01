@@ -16,7 +16,7 @@ export default function Quotes() {
   const auth = useSelector((state) => state.auth);
   const quotes = useSelector((state) => state.quotes.data);
   const [dates, setDates] = useState({ initial: "", final: "" });
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(true);
   const [quotesState, setQuotesState] = useState();
   useEffect(() => {
     return dispatch(readDoctorById(auth.user?.userid));
@@ -54,20 +54,21 @@ export default function Quotes() {
   const especificDate = (date) => {
     setQuotesState(getEspecificDate(date, quotes?.quotes));
   };
+  console.log(quotes)
   return (
     <Layout>
       <div className="px-6 flex flex-col">
         <div className="">
           <div className="grid grid-cols-2 gap-5">
-            <p className="text-3xl font-thin">Listado consultas</p>
+            <p className="text-base font-semibold">Listado consultas</p>
             <div className="flex">
-              <label className="font-thin whitespace-nowrap text-xl">
+              <label className="font-semibold text-xs whitespace-nowrap text-gray-600">
                 Filtrar por fecha especifica
               </label>
               <input
                 ref={specific}
                 onChange={(e) => especificDate(e.currentTarget.value)}
-                className="border bg-white shadow ml-2 px-2 w-full rounded font-thin text-gray-700"
+                className=" bg-white border ml-2 px-2 w-full rounded text-xs font-semibold text-gray-700"
                 type="date"
               />
             </div>
@@ -75,7 +76,7 @@ export default function Quotes() {
           <div className="flex mt-4">
             <div className="flex">
               <div className="flex">
-                <label className="font-thin whitespace-nowrap text-xl">
+                <label className="font-semibold text-xs whitespace-nowrap mt-1 text-gray-600">
                   Fecha inicial
                 </label>
                 <input
@@ -83,12 +84,12 @@ export default function Quotes() {
                   onChange={(e) =>
                     setDates({ ...dates, initial: e.currentTarget.value })
                   }
-                  className="border bg-white shadow ml-2 px-1 rounded font-thin text-gray-700"
+                  className="border bg-white shadow ml-2 px-1 text-xs rounded font-semibold text-gray-600"
                   type="date"
                 />
               </div>
               <div className="pl-4 flex">
-                <label className="font-thin whitespace-nowrap text-xl">
+                <label className="font-semibold text-xs whitespace-nowrap mt-1 text-gray-600">
                   Fecha final
                 </label>
                 <input
@@ -96,22 +97,22 @@ export default function Quotes() {
                   onChange={(e) =>
                     setDates({ ...dates, final: e.currentTarget.value })
                   }
-                  className="border bg-white shadow ml-2 px-1 rounded font-thin text-gray-700"
+                  className="border bg-white shadow ml-2 px-1 rounded font-semibold text-xs text-gray-700"
                   type="date"
                 />
               </div>
               <button
                 onClick={handleFilter}
-                className="bg-green-500 px-4 ml-3 rounded text-white "
+                className="bg-green-500 text-xs font-semibold px-4 ml-3 rounded text-white "
               >
                 Filtrar
               </button>
             </div>
-            <label className="font-thin text-xl ml-4">Rangos</label>
+            <label className="font-semibold text-xs whitespace-nowrap mt-1 ml-4 text-gray-600">Rangos</label>
             <select
               onChange={(e) => handleChange(e.currentTarget.value)}
               ref={select}
-              className="border bg-white shadow outline-none font-thin py-1 ml-4  w-full pr-16 float-right"
+              className="border bg-white shadow outline-none font-semibold text-xs text-gray-600 py-1 ml-4  w-full pr-16 float-right"
               defaultValue={"DEFAULT"}
             >
               <option value={"DEFAULT"} disabled>
@@ -126,7 +127,7 @@ export default function Quotes() {
           </div>
         </div>
         <div className="mt-4 flex">
-          <label className="font-thin text-2xl">Mostrar</label>
+          <label className="font-semibold text-xs mt-1">Mostrar</label>
           <div className="text-xl font-semibold flex mt-1">
             <div className="relative mt-1 ml-3 inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
               <input
@@ -142,7 +143,7 @@ export default function Quotes() {
                 className="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
               ></label>
             </div>
-            <span className="font-thin text-xl">
+            <span className="font-semibold text-xs mt-1">
               {state ? "Completadas" : "Pendientes"}
             </span>
           </div>

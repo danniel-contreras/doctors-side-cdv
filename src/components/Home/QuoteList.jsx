@@ -14,37 +14,37 @@ const QuoteList = ({ quotes }) => {
         filterQuotes.map((quote) => (
           <div
             key={quote.id}
-            className="shadow border flex flex-col rounded w-full p-6"
+            className="bg-white border shadow-md flex flex-col rounded w-full p-6"
           >
-            <div className="w-28 shadow rounded  p-3">
+            <div className="w-20 shadow rounded  p-3">
               <img
                 src={showImage(quote.patients && quote.patients?.img)}
                 alt="null"
               />
             </div>
-            <span className="text-xl font-light mt-8">
+            <span className="text-base font-semibold mt-4">
               {quote.patients?.names}
             </span>
-            <p className="text-xl mt-2">
-              Tipo de consulta:{" "}
-              <span className="text-base font-thin">
-                {quote.quotesType?.type}
-              </span>
-            </p>
-            <span className="text-base font-light mt-8">
+            <span className="font-normal text-sm mt-1">
+              <span className="font-semibold text-base">
+                Tipo de consulta:{" "}
+              </span>{" "}
+              {quote.quotesType?.type}
+            </span>
+            <span className="text-sm font-semibold mt-4">
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                 locale: es,
               })}
             </span>
             <Link to={`/quote/${quote.id}`}>
-              <button className="bg-blue-600 text-white rounded text-xs py-2 w-full mt-6">
+              <button className="bg-blue-600 text-white rounded text-xs py-1 font-semibold w-full mt-6">
                 Revisar
               </button>
             </Link>
           </div>
         ))
       ) : (
-        <p className="text-base font-thin">No hay citas pendientes...</p>
+        <p className="text-xs font-normal">No hay citas pendientes...</p>
       )}
     </>
   );

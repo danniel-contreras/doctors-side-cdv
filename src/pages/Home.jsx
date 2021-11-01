@@ -76,11 +76,11 @@ export default function Home() {
   return (
     <Layout>
       <div className="home mx-10">
-        <p className="mb-4 text-2xl font-thin">Citas pendientes</p>
+        <p className="mb-4 text-base font-semibold">Citas pendientes</p>
         <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
           <QuoteList quotes={filterDates(quotes?.quotes,1)} />
         </div>
-        <p className="mb-4 text-2xl mt-8 font-thin">Citas completadas</p>
+        <p className="text-base font-semibold my-4">Citas completadas</p>
         <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
           <CompletedQuotes quotes={filterDates(quotes?.quotes,1)} />
         </div>

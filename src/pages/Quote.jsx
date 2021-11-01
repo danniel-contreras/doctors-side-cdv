@@ -28,11 +28,11 @@ const Quote = () => {
   return (
     <Layout>
       <div className="px-8">
-        <span onClick={goBack} className="font-thin text-base cursor-pointer">
+        <span onClick={goBack} className="font-semibold text-gray-600 text-base cursor-pointer">
           <FontAwesomeIcon icon={faArrowLeft} /> Atras
         </span>
-        <div className="grid grid-cols-2 mt-4">
-          <div>
+        <div className="flex flex-col xl:flex-row mt-4">
+          <div className="pr-20 w-full">
             <div className="shadow-md border w-36 my-4">
               <img
                 className=" p-4"
@@ -43,13 +43,13 @@ const Quote = () => {
             <PatientInfo id={newqt.patientsId} />
             <div>
               <Info id={newqt.patientsId} />
-              <p className="font-thin mt-3 text-base">
-                <span className="font-normal">Detalles de consulta:</span>{" "}
+              <p className="font-normal mt-3 text-sm text-gray-600">
+                <span className="font-semibold text-base">Detalles de consulta:</span>{" "}
                 {newqt.issue}
               </p>
             </div>
           </div>
-          <div>
+          <div className="flex max-w-full max-h-full flex-col items-center content-center justify-center">
             <PatientExp id={newqt.patientsId} />
           </div>
         </div>

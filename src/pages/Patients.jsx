@@ -4,7 +4,7 @@ import List from "../components/Patients/List";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readAllPatients } from "../redux/actions/patients";
-import Pagination from "../components/Global/Pagination";
+import Pagination from "../components/Global/Pag";
 
 export default function Patients() {
   const [page, setPage] = useState(1);
@@ -14,7 +14,7 @@ export default function Patients() {
 
   useEffect(() => {
     return dispatch(readAllPatients(page, search.name, search.custom, 8));
-  }, [dispatch,page,search]);
+  }, [dispatch, page, search]);
   return (
     <Layout>
       <div className="px-8">
@@ -36,7 +36,14 @@ export default function Patients() {
           />
         </div>
         <List patients={patients} />
-        <Pagination data={patients?.ok && patients} method={setPage} />
+        <Pagination
+          last={patients?.totalpages}
+          className="pagination-bar"
+          onPageChange={setPage}
+          totalCount={patients?.totalItems}
+          currentPage={patients?.currentPage}
+          pageSize={patients?.take}
+        />
       </div>
     </Layout>
   );

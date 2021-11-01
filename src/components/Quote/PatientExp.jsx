@@ -12,7 +12,7 @@ export default function PatientExp({ id }) {
   }, [id, dispatch]);
   return (
     <>
-      {patient?.patients.expPdf === "expediente.pdf" ? (
+      {patient?.patients?.expPdf === "expediente.pdf" ? (
         ""
       ) : (
         <SinglePage pdf={showPDF(patient?.patients?.expPdf)} />

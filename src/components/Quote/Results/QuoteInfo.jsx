@@ -19,7 +19,7 @@ export default function QuoteInfo({ index, quote }) {
         setShowResult(false); // using optional chaining here, change to onClose && onClose(), if required
       }
     },
-    [ref.current]
+    []
   );
   useEffect(() => {
     // Attach the listeners on component mount.
@@ -30,6 +30,7 @@ export default function QuoteInfo({ index, quote }) {
       document.removeEventListener("click", clickListener);
       document.removeEventListener("keyup", escapeListener);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div ref={ref} className="flex">
@@ -46,36 +47,31 @@ export default function QuoteInfo({ index, quote }) {
             />
           </div>
           <div style={{ width: "90%" }} className="p-6">
-            <p className="text-xl font-thin">
-              <span className="font-normal">Fecha:</span>{" "}
+            <p className="text-sm font-normal text-gray-600">
+              <span className="font-semibold text-base">Fecha:</span>{" "}
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                 locale: es,
               })}
             </p>
-            <p className="text-xl mt-3 font-thin">
-              <span className="font-normal">Problema:</span> {quote.issue}
+            <p className="text-sm font-normal text-gray-600">
+              <span className="font-semibold text-base">Problema:</span> {quote.issue}
             </p>
             {showResult && <Result id={quote.id} />}
           </div>
         </>
       ) : (
         <>
-          <div style={{ width: "90%" }} className="p-6">
-            <p className="text-xl font-thin">
-              <span className="font-normal">Fecha:</span>{" "}
+           <div style={{ width: "90%" }} className="p-6">
+            <p className="text-sm font-normal text-gray-600">
+              <span className="font-semibold text-base">Fecha:</span>{" "}
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                 locale: es,
               })}
             </p>
-            <p className="text-xl mt-3 font-thin">
-              <span className="font-normal">Problema:</span> {quote.issue}
+            <p className="text-sm font-normal text-gray-600">
+              <span className="font-semibold text-base">Problema:</span> {quote.issue}
             </p>
-            {showResult && (
-              <div className="border-t mt-2">
-                <p className="text-2xl font-normal mt-4">Resultados</p>
-                <Result id={quote.id} />
-              </div>
-            )}
+            {showResult && <Result id={quote.id} />}
           </div>
           <div
             style={{ width: "10%" }}

@@ -47,7 +47,7 @@ export default function VaccinationForm({ id, patientsId }) {
       <div className="grid grid-cols-2 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-normal text-xl text-gray-700">
+            <label className="font-semibold text-xs text-gray-600">
               Tipo de vacuna
             </label>
             <select
@@ -56,19 +56,19 @@ export default function VaccinationForm({ id, patientsId }) {
               name="vaccinationTypeId"
               onChange={formik.handleChange}
               className={
-                "border px-2 py-1 shadow-md rounded outline-none text-gray-500 mt-1 " +
+                "border px-2 py-1 shadow-md rounded outline-none font-semibold text-xs text-gray-600 mt-1 " +
                 (formik.errors.vaccinationTypeId &&
                 formik.touched.vaccinationTypeId
                   ? "border-red-400"
                   : "border")
               }
             >
-              <option disabled value={"DEFAULT"}>
+              <option className="font-semibold text-xs text-gray-600" disabled value={"DEFAULT"}>
                 Selecciona el tipo de vacuna
               </option>
               {vaccinationTypes &&
                 vaccinationTypes.map((vct) => (
-                  <option value={vct.id} key={vct.id}>
+                  <option className="font-semibold text-xs text-gray-600" value={vct.id} key={vct.id}>
                     {vct.type}
                   </option>
                 ))}
@@ -83,13 +83,13 @@ export default function VaccinationForm({ id, patientsId }) {
         </div>
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-normal text-xl text-gray-700">Dosis</label>
+            <label className="font-semibold text-xs text-gray-600">Dosis</label>
             <select
               ref={inputDose}
               name="vaccinationDoseId"
               onChange={formik.handleChange}
               className={
-                "border px-2 py-1 shadow-md outline-none rounded text-gray-500 mt-1 " +
+                "border px-2 py-1 shadow-md outline-none rounded font-semibold text-xs text-gray-600 mt-1 " +
                 (formik.errors.vaccinationDoseId &&
                 formik.touched.vaccinationDoseId
                   ? "border-red-400"
@@ -97,12 +97,12 @@ export default function VaccinationForm({ id, patientsId }) {
               }
               defaultValue={"DEFAULT"}
             >
-              <option disabled value={"DEFAULT"}>
+              <option className="font-semibold text-xs text-gray-600" disabled value={"DEFAULT"}>
                 Selecciona la dosis de la vacuna
               </option>
               {vaccinationDoses &&
                 vaccinationDoses.map((vcd) => (
-                  <option value={vcd.id} key={vcd.id}>
+                  <option className="font-semibold text-xs text-gray-600" value={vcd.id} key={vcd.id}>
                     {vcd.type}
                   </option>
                 ))}

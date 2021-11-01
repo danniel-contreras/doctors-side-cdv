@@ -14,27 +14,27 @@ const List = ({ quotes }) => {
           {quotes.map((quote) => (
             <div
               key={quote.id}
-              className="bg-gray-50 shadow-md border flex flex-col rounded w-full p-6"
+              className="bg-gray-50 shadow border flex flex-col rounded w-full p-6"
             >
-              <div className="w-28 shadow rounded  p-3">
+              <div className="w-20 shadow rounded  p-3">
                 <img
                   src={showImage(quote.patients && quote.patients?.img)}
                   alt="null"
                 />
               </div>
-              <span className="text-xl font-light mt-8">
+              <span className="text-nomal font-semibold mt-3">
                 {quote.patients?.names}
               </span>
-              <span className="font-light mt-8">
-                <span className="font-normal">Tipo de consulta: </span> {quote.quotesType?.type}
+              <span className="font-normal text-sm mt-1">
+                <span className="font-semibold text-base">Tipo de consulta: </span> {quote.quotesType?.type}
               </span>
-              <span className="text-base font-light mt-4">
+              <span className="text-sm font-semibold mt-2">
                 {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
                   locale: es,
                 })}
               </span>
-              <p className="text-base font-thin mt-4">
-                <span className=" font-normal">Estado:</span>{" "}
+              <p className="text-sm font-normal mt-1">
+                <span className=" font-semibold text-base">Estado:</span>{" "}
                 {quote.state ? (
                   <span>
                     Pendiente
@@ -54,7 +54,7 @@ const List = ({ quotes }) => {
                 )}
               </p>
               <Link to={`/quote/${quote.id}`}>
-                <button className="bg-blue-600 text-white rounded text-xs py-2 w-full mt-6">
+                <button className="bg-blue-600 text-white text-xs rounded font-semibold py-1 w-full mt-4">
                   Revisar
                 </button>
               </Link>

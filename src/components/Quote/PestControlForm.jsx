@@ -40,7 +40,7 @@ export default function PestControlForm({ patientsId }) {
       <div className="grid grid-cols-2 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-thin text-xl text-gray-500">
+            <label className="font-semibold text-xs text-gray-600">
               Tipo de control de plagas
             </label>
             <select
@@ -48,7 +48,7 @@ export default function PestControlForm({ patientsId }) {
               name="pestControlTypeId"
               onChange={formik.handleChange}
               className={
-                "border px-2 py-1 outline-none rounded text-gray-500 mt-1 " +
+                "border px-2 py-1 outline-none rounded font-semibold text-xs text-gray-600 mt-1 " +
                 (formik.errors.pestControlTypeId &&
                 formik.touched.pestControlTypeId
                   ? "border-red-400"
@@ -56,12 +56,20 @@ export default function PestControlForm({ patientsId }) {
               }
               defaultValue={"DEFAULT"}
             >
-              <option value={"DEFAULT"} disabled>
+              <option
+                className="font-semibold text-xs text-gray-600"
+                value={"DEFAULT"}
+                disabled
+              >
                 Selecciona el tipo de control de plagas
               </option>
               {pestControlTypes &&
                 pestControlTypes.map((pctypes) => (
-                  <option value={pctypes.id} key={pctypes.id}>
+                  <option
+                    className="font-semibold text-xs text-gray-600"
+                    value={pctypes.id}
+                    key={pctypes.id}
+                  >
                     {pctypes.type}
                   </option>
                 ))}
@@ -76,13 +84,15 @@ export default function PestControlForm({ patientsId }) {
         </div>
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-thin text-xl text-gray-500">Duracion</label>
+            <label className="font-semibold text-xs text-gray-600">
+              Duracion
+            </label>
             <input
               name="duration"
               ref={inputDuration}
               onChange={formik.handleChange}
               className={
-                "border px-2 py-1 outline-none rounded text-gray-500 mt-1 " +
+                "border px-2 py-1 outline-none rounded font-semibold text-xs text-gray-600 mt-1 " +
                 (formik.errors.duration && formik.touched.duration
                   ? "border-red-400"
                   : "border")

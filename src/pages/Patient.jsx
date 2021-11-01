@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layout/Layout";
@@ -7,6 +7,7 @@ import { showImage, showPDF } from "../services/patients";
 import Info from "../components/Quote/Info";
 import BreadCrums from "../components/Patients/BreadCrums";
 import SinglePage from "../components/Quote/Results/pdf/Single";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 export default function Patient() {
   const { id } = useParams();
@@ -19,12 +20,15 @@ export default function Patient() {
   return (
     <Layout>
       <div className="mx-8">
-        <div className="grid grid-cols-2 mt-4">
-          <div>
-            <span className="text-lg font-thin">
+        <div className="flex flex-col xl:flex-row mt-4">
+          <div className="pr-20 w-full">
+            <p className="text-base font-semibold">
               Nombre del paciente:{" "}
-              <span className="text-lg">{patient?.patients?.names}</span>
-            </span>
+              <span className="text-sm font-normal">
+                {patient?.patients?.names}
+              </span>
+            </p>
+
             <div className="shadow border w-36 mt-4">
               <img
                 className=" p-2"
@@ -34,25 +38,27 @@ export default function Patient() {
             </div>
             <div>
               <Info id={patient?.patients?.id} />
-              <p className="font-thin text-gray-700  mt-3 text-lg">
-                <span className="font-normal">Raza:</span>{" "}
+              <p className="font-normal text-gray-600  mt-3 text-sm">
+                <span className="font-semibold text-base">Raza:</span>{" "}
                 {patient?.patients?.breeds?.type}
               </p>
-              <p className="font-thin text-gray-700  mt-3 text-lg">
-                <span className="font-normal">Tipo de paciente:</span>{" "}
+              <p className="font-normal text-gray-600  mt-3 text-sm">
+                <span className="font-semibold text-base">
+                  Tipo de paciente:
+                </span>{" "}
                 {patient?.patients?.patientstype?.type}
               </p>
-              <p className="font-thin text-gray-700  mt-3 text-lg">
-                <span className="font-normal">Sexo:</span>{" "}
+              <p className="font-normal text-gray-600  mt-3 text-sm">
+                <span className="font-semibold text-base">Sexo:</span>{" "}
                 {patient?.patients?.sexes?.type}
               </p>
-              <p className="font-thin text-gray-700  mt-3 text-lg">
-                <span className="font-normal">Color:</span>{" "}
+              <p className="font-normal text-gray-600  mt-3 text-sm">
+                <span className="font-semibold text-base">Color:</span>{" "}
                 {patient?.patients?.colors?.type}
               </p>
             </div>
           </div>
-          <div>
+          <div className="flex max-w-full max-h-full flex-col items-center content-center justify-center">
             {patient?.patients?.expPdf === "expediente.pdf" ? (
               ""
             ) : (

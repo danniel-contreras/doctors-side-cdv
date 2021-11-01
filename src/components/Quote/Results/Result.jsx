@@ -16,33 +16,28 @@ export default function Result({ id }) {
   useEffect(() => {
     return dispatch(readResultsByQuote(id));
   }, [id, dispatch, reload]);
+  console.log(result)
   return (
     <div className="mt-2 grid grid-cols-2 w-full">
       <div>
-        <p className="font-thin text-xl mt-2">
-          <span className="font-normal">Sintomatologia:</span>{" "}
+        <p className="text-sm font-normal text-gray-600">
+          <span className="font-semibold text-base">Sintomatologia:</span>{" "}
           {result?.symptomatology}
         </p>
-        <p className="font-thin text-xl mt-2">
-          <span className="font-normal">Diagnostico:</span> {result?.diagnosis}
+        <p className="text-sm font-normal text-gray-600">
+          <span className="font-semibold text-base">Diagnostico:</span> {result?.diagnosis}
         </p>
-        <p className="font-thin text-xl mt-2">
-          <span className="font-normal">Tratamiento:</span> {result?.treatment}
+        <p className="text-sm font-normal text-gray-600">
+          <span className="font-semibold text-base">Tratamiento:</span> {result?.treatment}
         </p>
         <div className="flex">
           <button
             onClick={() => setShowModal(true)}
-            className="bg-green-500 text-sm text-white px-4 py-1 rounded mt-4"
+            className="bg-green-500 text-white px-4 text-xs font-semibold py-1 rounded mt-4"
           >
             {result?.img === "results.svg"
               ? "Agregar Imagen"
               : "Cambiar Imagen"}
-          </button>
-          <button
-            onClick={() => setShowModalPDF(true)}
-            className="bg-blue-500 text-white px-4 ml-4 text-sm py-1 rounded mt-4"
-          >
-            Agregar PDF
           </button>
         </div>
         <Modal
@@ -68,20 +63,14 @@ export default function Result({ id }) {
           />
         </Modal>
       </div>
-      {result?.img.includes("pdf") ? (
-        <div className="flex flex-col w-full justify-center items-center content-center">
-          <SinglePage pdf={showImage(result?.img)} />
+      {result?.img !== "results.svg" && (
+        <div className="flex justify-center items-center w-full content-center">
+          <img
+            className="rounded max-w-96 max-h-96"
+            alt=""
+            src={showImage(result?.img)}
+          />
         </div>
-      ) : (
-        result?.img !== "results.svg" && (
-          <div className="flex justify-center items-center w-full content-center">
-            <img
-              className="rounded max-w-96 max-h-96"
-              alt=""
-              src={showImage(result?.img)}
-            />
-          </div>
-        )
       )}
     </div>
   );

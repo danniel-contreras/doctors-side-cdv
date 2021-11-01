@@ -17,9 +17,9 @@ export const readQuotesByDoctor = (id) => {
   };
 };
 
-export const readQuotesByPatient = (id) => {
+export const readQuotesByPatient = (id,page) => {
   return (dispatch) => {
-    getQuotesByPatient(id).then((res) => {
+    getQuotesByPatient(id,page).then((res) => {
       if (!res.ok) {
         dispatch(readByPatient({}));
         return;

@@ -11,7 +11,7 @@ export default function PestControl({ id }) {
     return dispatch(readPestControlByPatient(id));
   }, [id, dispatch]);
   return (
-    <div className="grid grid-cols-1 w-full">
+    <div className="grid grid-cols-1 gap-4 w-full mt-6">
       {pestControls?.pestControl ? (
         pestControls?.pestControl.map((pest, index) => (
           <div key={pest.id} className=" shadow-md flex border rounded-lg my-3">
@@ -27,12 +27,12 @@ export default function PestControl({ id }) {
                   />
                 </div>
                 <div style={{ width: "90%" }} className="p-6">
-                  <p className="text-xl font-thin">
-                    <span className="font-normal">Duracion:</span>{" "}
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Duracion:</span>{" "}
                     {pest.duration}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">
                       Tipo de control de plagas:
                     </span>{" "}
                     {pest.pestControlType?.type}
@@ -42,12 +42,13 @@ export default function PestControl({ id }) {
             ) : (
               <>
                 <div style={{ width: "90%" }} className="p-6">
-                  <p className="text-xl font-thin">
-                    <span className="font-normal">Fecha:</span> {pest.duration}
+                <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Duracion:</span>{" "}
+                    {pest.duration}
                   </p>
-                  <p className="text-xl font-thin mt-3">
-                    <span className="font-normal">
-                      Tipo de desparacitacion:
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">
+                      Tipo de control de plagas:
                     </span>{" "}
                     {pest.pestControlType?.type}
                   </p>
@@ -66,7 +67,7 @@ export default function PestControl({ id }) {
           </div>
         ))
       ) : (
-        <p className="text-xl font-thin">
+        <p className="text-xs font-semibold text-gray-600">
           No hay control de plagas que mostrar...{" "}
         </p>
       )}

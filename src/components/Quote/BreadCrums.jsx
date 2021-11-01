@@ -94,19 +94,6 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
               Control de plagas
             </span>
           </li>
-          <li>
-            <span className="mx-4">/</span>
-          </li>
-          <li onClick={handleShowCP} className="cursor-pointer">
-            <span
-              className={
-                "text-blue-500 text-base " +
-                (showCP ? "font-medium" : "font-thin")
-              }
-            >
-              Servicios clinicos
-            </span>
-          </li>
           {/* patient?.sexesId === 2 && (
             <>
               <li>
@@ -144,7 +131,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           {quote.state && showForm  && (
             <Form setShowForm={setShowForm} patientsId={patientsId} quote={quote} id={id} />
           )}
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de consultas del paciente
           </p>
           <QuoteResult quoteId={id} id={patientsId} />
@@ -153,7 +140,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
       {showVac && (
         <div>
           <VaccinationForm id={id} patientsId={patientsId} />
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de vacunaciones del paciente
           </p>
           <Vaccinations id={patientsId} />
@@ -162,7 +149,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
       {showCP && (
         <div>
           <PestControlForm patientsId={patientsId} />
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de controles de plagas del paciente
           </p>
           <PestControl id={patientsId} />
@@ -171,7 +158,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
       {showDesp && (
         <div>
           <DewormingForm patientsId={patientsId} />
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de desparacitaciones del paciente
           </p>
           <Deworming id={patientsId} />

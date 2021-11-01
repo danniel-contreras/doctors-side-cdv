@@ -57,8 +57,8 @@ export default function BreadCrums({ id }) {
           <li onClick={handleShowCG} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
-                (showCG ? "font-medium" : "font-thin")
+                "text-blue-500 text-normal " +
+                (showCG ? "font-semibold" : "font-normal")
               }
             >
               Consulta general
@@ -70,8 +70,8 @@ export default function BreadCrums({ id }) {
           <li onClick={handleShowVac} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
-                (showVac ? "font-medium" : "font-thin")
+                "text-blue-500 text-normal " +
+                (showVac ? "font-semibold" : "font-normal")
               }
             >
               Vacunacion
@@ -83,8 +83,8 @@ export default function BreadCrums({ id }) {
           <li onClick={handleShowDesp} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
-                (showDesp ? "font-medium" : "font-thin")
+                "text-blue-500 text-normal " +
+                (showDesp ? "font-semibold" : "font-normal")
               }
             >
               Desparacitacion
@@ -96,31 +96,18 @@ export default function BreadCrums({ id }) {
           <li onClick={handleShowCP} className="cursor-pointer">
             <span
               className={
-                "text-blue-500 text-xl " +
-                (showCP ? "font-medium" : "font-thin")
+                "text-blue-500 text-normal " +
+                (showCP ? "font-semibold" : "font-normal")
               }
             >
               Control de plagas
-            </span>
-          </li>
-          <li>
-            <span className="mx-4">/</span>
-          </li>
-          <li onClick={handleShowSC} className="cursor-pointer">
-            <span
-              className={
-                "text-blue-500 text-xl " +
-                (showSC ? "font-medium" : "font-thin")
-              }
-            >
-              Servicios clinicos
             </span>
           </li>
         </ol>
       </nav>
       {showCG && (
         <div>
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de consultas del paciente
           </p>
           <QuoteResult id={id} />
@@ -128,7 +115,7 @@ export default function BreadCrums({ id }) {
       )}
       {showVac && (
         <div>
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de vacunaciones del paciente
           </p>
           <Vaccinations id={id} />
@@ -136,7 +123,7 @@ export default function BreadCrums({ id }) {
       )}
       {showCP && (
         <div>
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de controles de plagas del paciente
           </p>
           <PestControl id={id} />
@@ -144,18 +131,10 @@ export default function BreadCrums({ id }) {
       )}
       {showDesp && (
         <div>
-          <p className="text-2xl font-thin mt-12">
+          <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de desparacitaciones del paciente
           </p>
           <Deworming id={id} />
-        </div>
-      )}
-       {showSC && (
-        <div>
-          <p className="text-2xl font-thin mt-12">
-            Listado de servicos clinicos del paciente
-          </p>
-          <ClinicalServices id={id} />
         </div>
       )}
     </div>

@@ -12,11 +12,14 @@ export default function Info({ id }) {
     <div className="flex flex-col">
       {patient && (
         <>
-          <span className="font-thin text-gray-700  mt-3 text-base">
-            <span className="font-normal">Edad:</span> {patient?.patients?.age}
+          <span className="font-normal text-gray-600  mt-3 text-sm">
+            <span className="font-semibold text-base">Edad:</span>{" "}
+            {patient?.patients?.age}
           </span>
-          <span className="font-thin text-gray-700 mt-3 text-base">
-            <span className="font-normal text-gray-700">Dueño de la mascota:</span>{" "}
+          <span className="font-normal text-gray-600  mt-3 text-sm">
+            <span className="font-semibold text-base">
+              Dueño de la mascota:
+            </span>{" "}
             {patient?.patients?.customers?.names}{" "}
             {patient?.patients?.customers?.lastname}
           </span>
