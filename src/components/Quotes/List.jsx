@@ -7,9 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const List = ({ quotes }) => {
-  console.log(quotes)
+  console.log(quotes);
   return (
-    <>     {quotes && quotes.length ? (
+    <>
+      {" "}
+      {quotes && quotes.length ? (
         <div className="grid grid-cols-4 gap-5">
           {quotes.map((quote) => (
             <div
@@ -26,7 +28,10 @@ const List = ({ quotes }) => {
                 {quote.patients?.names}
               </span>
               <span className="font-normal text-sm mt-1">
-                <span className="font-semibold text-base">Tipo de consulta: </span> {quote.quotesType?.type}
+                <span className="font-semibold text-base">
+                  Tipo de consulta:{" "}
+                </span>{" "}
+                {quote.quotesType?.type}
               </span>
               <span className="text-sm font-semibold mt-2">
                 {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
@@ -37,18 +42,18 @@ const List = ({ quotes }) => {
                 <span className=" font-semibold text-base">Estado:</span>{" "}
                 {quote.state ? (
                   <span>
-                    Pendiente
-                    <FontAwesomeIcon
-                      className="text-gray-500 ml-2"
-                      icon={faClock}
-                    />
-                  </span>
-                ) : (
-                  <span>
                     Completada
                     <FontAwesomeIcon
                       className="text-green-500 ml-4"
                       icon={faCheck}
+                    />
+                  </span>
+                ) : (
+                  <span>
+                    Pendiente
+                    <FontAwesomeIcon
+                      className="text-gray-500 ml-2"
+                      icon={faClock}
                     />
                   </span>
                 )}

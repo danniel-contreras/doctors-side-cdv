@@ -128,7 +128,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
       </nav>
       {showCG && (
         <div>
-          {quote.state && showForm  && (
+          {!quote.state && showForm  && (
             <Form setShowForm={setShowForm} patientsId={patientsId} quote={quote} id={id} />
           )}
           <p className="text-normal font-semibold text-gray-600 mt-12">

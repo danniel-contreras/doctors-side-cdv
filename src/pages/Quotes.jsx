@@ -16,7 +16,7 @@ export default function Quotes() {
   const auth = useSelector((state) => state.auth);
   const quotes = useSelector((state) => state.quotes.data);
   const [dates, setDates] = useState({ initial: "", final: "" });
-  const [state, setState] = useState(true);
+  const [state, setState] = useState(false);
   const [quotesState, setQuotesState] = useState();
   useEffect(() => {
     return dispatch(readDoctorById(auth.user?.userid));
@@ -27,11 +27,11 @@ export default function Quotes() {
   useEffect(() => {
     const readQuotes = () => {
       if (doctors) {
-        dispatch(readQuotesByInterval(doctors.doctor?.id, state ? 0 : 1));
+        dispatch(readQuotesByInterval(doctors.doctor?.id, state ? 1 : 0));
       }
     };
     return readQuotes();
-  }, [doctors, dispatch, state, quotes]);
+  }, [doctors, dispatch, state]);
 
   const handleChange = (option) => {
     const quotesA = filterDates(quotes.quotes, option);
