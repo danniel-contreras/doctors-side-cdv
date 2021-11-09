@@ -32,7 +32,7 @@ export default function Layout({ children }) {
     return dispatch(readEmployeById(auth?.user?.userid));
   }, [dispatch, auth]);
   return (
-    <div className="w-screen h-screen bg-gray-400 p-8">
+    <div className="w-screen h-screen bg-gray-400">
       <div className=" bg-white h-full flex flex-col rounded shadow">
         <div
           style={{ background: "rgba(62,196,182,1)" }}

@@ -25,6 +25,7 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
           Success("Se completo la consulta");
           dispatch(readQuotesByPatient(patientsId));
           setShowForm(false);
+          window.location.reload()
         });
       });
     },

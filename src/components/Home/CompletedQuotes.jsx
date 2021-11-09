@@ -43,7 +43,7 @@ const QuoteList = ({ quotes }) => {
           </div>
         ))
       ) : (
-        <p className="text-base font-thin">No has completado ninguna cita...</p>
+        <p className="text-xs font-semibold">No has completado ninguna cita...</p>
       )}
     </>
   );

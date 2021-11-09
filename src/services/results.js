@@ -18,7 +18,7 @@ export const getResultsByQuote = async (id) => {
 };
 
 export const editQuote = async (id, quote) => {
-  const data = { ...quote, state: 0 };
+  const data = { ...quote, state: true };
   const response = await fetch(`${API}/quotes/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", token: getToken() },

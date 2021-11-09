@@ -7,7 +7,6 @@ import { showImage, showPDF } from "../services/patients";
 import Info from "../components/Quote/Info";
 import BreadCrums from "../components/Patients/BreadCrums";
 import SinglePage from "../components/Quote/Results/pdf/Single";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 export default function Patient() {
   const { id } = useParams();
@@ -41,6 +40,10 @@ export default function Patient() {
               <p className="font-normal text-gray-600  mt-3 text-sm">
                 <span className="font-semibold text-base">Raza:</span>{" "}
                 {patient?.patients?.breeds?.type}
+              </p>
+              <p className="font-normal text-gray-600  mt-3 text-sm">
+                <span className="font-semibold text-base">Peso:</span>{" "}
+                {patient?.patients?.weight}
               </p>
               <p className="font-normal text-gray-600  mt-3 text-sm">
                 <span className="font-semibold text-base">

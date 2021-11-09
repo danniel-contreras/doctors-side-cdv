@@ -12,7 +12,7 @@ export default function QuoteResult({ id }) {
     return dispatch(readQuotesByPatient(id, page));
   }, [id, dispatch, page]);
 
-  const completed = quotes?.quotes && quotes?.quotes?.filter((qt) => !qt.state);
+  const completed = quotes?.quotes && quotes?.quotes?.filter((qt) => qt.state);
   return (
     <>
       <div className="grid grid-cols-1 gap-4 w-full mt-6">

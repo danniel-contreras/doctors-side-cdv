@@ -67,7 +67,7 @@ const List = ({ quotes }) => {
           ))}{" "}
         </div>
       ) : (
-        <p className="text-base font-thin">
+        <p className="text-xs font-semibold ">
           No se ah registrado ninguna cita...
         </p>
       )}

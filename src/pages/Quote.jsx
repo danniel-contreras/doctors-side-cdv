@@ -21,10 +21,12 @@ const Quote = () => {
     dispatch(readQuoteById(id));
   }, [id, dispatch]);
   const newqt = quote ? quote.quotes : {};
+  console.log(quote)
   const router = useHistory();
   const goBack = () => {
     router.goBack();
   };
+  console.log(newqt)
   return (
     <Layout>
       <div className="px-8">
