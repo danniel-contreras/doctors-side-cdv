@@ -1,12 +1,37 @@
 import { useFormik } from "formik";
+import { useMemo, useEffect, useCallback } from "react";
 import * as yup from "yup";
 import { addNewResult, editQuote } from "../../services/results";
 import { Success } from "../Global/Alerts/Success";
 import { useDispatch } from "react-redux";
 import { readQuotesByPatient } from "../../redux/actions/quotes";
+import io from "socket.io-client";
+import { SOCKET_URL } from "../../utils/constant";
+import { dateFormat, returnTime } from "../../utils/dates";
 
 export default function Form({ id, quote, patientsId, setShowForm }) {
+  console.log(dateFormat());
   const dispatch = useDispatch();
+  const serverURL = SOCKET_URL;
+  const socket = useMemo(
+    () =>
+      io.connect(serverURL, {
+        transports: ["websocket"],
+      }),
+    [serverURL]
+  );
+  useEffect(() => {
+    socket.on("connect", () => {});
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("disconnect", () => {});
+  }, [socket]);
+
+  const callSocket = useCallback(() => {
+    socket.emit("new", "Se agrego el resultado");
+  }, [socket]);
+
   const formik = useFormik({
     initialValues: {
       symptomatology: "N/A",
@@ -18,14 +43,19 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
       diagnosis: yup.string().required("Debes escribir el diagnostico"),
       treatment: yup.string().required("Desde escribir el tratamiento"),
     }),
-    onSubmit: (values, { resetForm }) => {
-      const newValues = { ...values, date: Date.now(), quoteId: id };
+    onSubmit: (values) => {
+      const newValues = {
+        ...values,
+        date: `${dateFormat()}${returnTime()}`,
+        quoteId: id,
+      };
       addNewResult(newValues).then(() => {
         editQuote(id, quote).then(() => {
+          callSocket();
           Success("Se completo la consulta");
           dispatch(readQuotesByPatient(patientsId));
           setShowForm(false);
-          window.location.reload()
+          window.location.reload();
         });
       });
     },
@@ -60,7 +90,7 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
         </div>
         <div className="p-6">
           <div className="flex flex-col">
-          <label className="font-semibold text-xs text-gray-600">
+            <label className="font-semibold text-xs text-gray-600">
               Diagnostico
             </label>
             <textarea
@@ -83,7 +113,7 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
         </div>
         <div className="p-6">
           <div className="flex flex-col">
-          <label className="font-semibold text-xs text-gray-600">
+            <label className="font-semibold text-xs text-gray-600">
               Tratamiento
             </label>
             <textarea

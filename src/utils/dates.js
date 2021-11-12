@@ -72,3 +72,36 @@ export const getEspecificDate = (date, quotes) => {
     );
   return filterQuotes;
 };
+
+export const returnTime = () => {
+  const date = new Date();
+  if (date.getHours() < 10) {
+    if (date.getMinutes() < 10) {
+      return `T0${date.getHours()}:0${date.getMinutes()}`;
+    }
+    return `T0${date.getHours()}:${date.getMinutes()}`;
+  }
+  if (date.getMinutes() < 10) {
+    return `T${date.getHours()}:0${date.getMinutes()}`;
+  }
+  return `T${date.getHours()}:${date.getMinutes()}`;
+};
+
+export const dateFormat = () => {
+  const date = new Date();
+
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+
+  if (month < 10) {
+    if (day < 10) {
+      return `${year}-0${month}-0${day}`;
+    }
+    return `${year}-0${month}-${day}`;
+  }
+  if (day < 10) {
+    return `${year}-${month}-0${day}`;
+  }
+  return `${year}-${month}-${day}`;
+};
