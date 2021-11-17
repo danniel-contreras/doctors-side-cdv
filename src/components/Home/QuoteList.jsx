@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { memo } from "react";
 
 const QuoteList = ({ quotes }) => {
-  console.log(quotes);
   const filterQuotes =
     quotes && quotes?.map((quote) => quote).filter((quote) => !quote?.state);
   return (
