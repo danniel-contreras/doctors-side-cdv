@@ -10,7 +10,6 @@ import { SOCKET_URL } from "../../utils/constant";
 import { dateFormat, returnTime } from "../../utils/dates";
 
 export default function Form({ id, quote, patientsId, setShowForm }) {
-  console.log(dateFormat());
   const dispatch = useDispatch();
   const serverURL = SOCKET_URL;
   const socket = useMemo(
@@ -28,15 +27,19 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
     socket.on("disconnect", () => {});
   }, [socket]);
 
-  const callSocket = useCallback(() => {
-    socket.emit("new", "Se agrego el resultado");
-  }, [socket]);
+  const callSocket = useCallback(
+    (data) => {
+      socket.emit("newAdmin", data);
+    },
+    [socket]
+  );
 
   const formik = useFormik({
     initialValues: {
       symptomatology: "N/A",
       diagnosis: "N/A",
       treatment: "N/A",
+      nexQuote: "0",
     },
     validationSchema: yup.object({
       symptomatology: yup.string().required("Debes escribir la sintomatologia"),
@@ -48,10 +51,14 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
         ...values,
         date: `${dateFormat()}${returnTime()}`,
         quoteId: id,
+        nexQuote:
+          values.nexQuote !== "0"
+            ? `${values.nexQuote}T08:00`
+            : values.nexQuote,
       };
       addNewResult(newValues).then(() => {
         editQuote(id, quote).then(() => {
-          callSocket();
+          callSocket(values.nexQuote);
           Success("Se completo la consulta");
           dispatch(readQuotesByPatient(patientsId));
           setShowForm(false);
@@ -131,6 +138,27 @@ export default function Form({ id, quote, patientsId, setShowForm }) {
             />
             {formik.errors.treatment && formik.touched.treatment && (
               <span className="text-red-400">{formik.errors.treatment}</span>
+            )}
+          </div>
+        </div>
+        <div className="p-6">
+          <div className="flex flex-col">
+            <label className="font-semibold text-xs text-gray-600">
+              Proxima consulta
+            </label>
+            <input
+              type="date"
+              name="nexQuote"
+              onChange={formik.handleChange}
+              className={
+                "border font-semibold text-xs text-gray-600 shadow-md rounded mt-1 outline-none px-2 py-1 " +
+                (formik.errors.nexQuote && formik.touched.nexQuote
+                  ? "border-red-400"
+                  : "border")
+              }
+            />
+            {formik.errors.nexQuote && formik.touched.nexQuote && (
+              <span className="text-red-400">{formik.errors.nexQuote}</span>
             )}
           </div>
         </div>

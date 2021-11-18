@@ -19,14 +19,6 @@ export default function Home() {
   const quotes = useSelector((state) => state.quotes.data);
   const [isReload, setisReload] = useState(false);
   const [online, setOnline] = useState(false);
-  const handleNotification = () => {
-    addNotification({
-      title: "Aviso!!!",
-      message: "Una nueva consulta ah sido agregada",
-      theme: "light",
-      native: true, // when using native, your OS will handle theming.
-    });
-  };
   //socket.io logic
   const serverURL = SOCKET_URL;
   const socket = useMemo(
@@ -45,11 +37,11 @@ export default function Home() {
 
   const callSocket = useCallback(() => {
     socket.on("reload", (data) => {
-      if(auth.user?.userid === data?.doctorId){
-        handleNotification()
-        setisReload(true)
+      if (auth.user?.userid === data?.doctorId) {
+        Success("Se agrego una nueva consulta");
+        setisReload(true);
       }
-      return
+      return;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);

@@ -16,6 +16,7 @@
     "autoprefixer": "9",
     "browser-image-compression": "^1.0.15",
     "compressorjs": "^1.0.7",
+    "cra-append-sw": "^2.7.0",
     "date-fns": "^2.23.0",
     "formik": "^2.2.9",
     "js-image-compressor": "^2.0.0",
