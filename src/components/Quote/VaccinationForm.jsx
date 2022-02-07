@@ -16,6 +16,7 @@ export default function VaccinationForm({ id, patientsId }) {
   const vaccinationTypes = useSelector((state) => state.vaccinationType.data);
   const inputDose = useRef(null);
   const inputType = useRef(null);
+  const inputRef = useRef(null);
   useEffect(() => {
     dispatch(readVaccinationDoses());
     dispatch(readVaccinationTypes());
@@ -23,7 +24,11 @@ export default function VaccinationForm({ id, patientsId }) {
   }, [dispatch]);
 
   const formik = useFormik({
-    initialValues: { vaccinationDoseId: "", vaccinationTypeId: "" },
+    initialValues: {
+      vaccinationDoseId: "",
+      vaccinationTypeId: "",
+      reinforcement: "N/A",
+    },
     validationSchema: yup.object({
       vaccinationDoseId: yup
         .number()
@@ -31,14 +36,24 @@ export default function VaccinationForm({ id, patientsId }) {
       vaccinationTypeId: yup
         .number()
         .required("Debes seleccionar el tipo de vacuna"),
+      reinforcement: yup.string().required("El refuerzo es requerido"),
     }),
     onSubmit: (values, { resetForm }) => {
-      const newValues = { ...values, date: new Date(), patientsId };
+      const newValues = {
+        ...values,
+        date: new Date(),
+        patientsId,
+        reinforcement:
+          values.reinforcement === "N/A"
+            ? values.reinforcement
+            : new Date(values.reinforcement),
+      };
       addNewVaccination(newValues).then(() => {
         Success("Se agrego la vacunacion");
         dispatch(addVaccination(newValues, patientsId));
-        inputDose.current.value = "DEFAULT"
-        inputType.current.value = "DEFAULT"
+        inputDose.current.value = "DEFAULT";
+        inputType.current.value = "DEFAULT";
+        inputRef.current.value = "";
       });
     },
   });
@@ -63,12 +78,20 @@ export default function VaccinationForm({ id, patientsId }) {
                   : "border")
               }
             >
-              <option className="font-semibold text-xs text-gray-600" disabled value={"DEFAULT"}>
+              <option
+                className="font-semibold text-xs text-gray-600"
+                disabled
+                value={"DEFAULT"}
+              >
                 Selecciona el tipo de vacuna
               </option>
               {vaccinationTypes &&
                 vaccinationTypes.map((vct) => (
-                  <option className="font-semibold text-xs text-gray-600" value={vct.id} key={vct.id}>
+                  <option
+                    className="font-semibold text-xs text-gray-600"
+                    value={vct.id}
+                    key={vct.id}
+                  >
                     {vct.type}
                   </option>
                 ))}
@@ -97,12 +120,20 @@ export default function VaccinationForm({ id, patientsId }) {
               }
               defaultValue={"DEFAULT"}
             >
-              <option className="font-semibold text-xs text-gray-600" disabled value={"DEFAULT"}>
+              <option
+                className="font-semibold text-xs text-gray-600"
+                disabled
+                value={"DEFAULT"}
+              >
                 Selecciona la dosis de la vacuna
               </option>
               {vaccinationDoses &&
                 vaccinationDoses.map((vcd) => (
-                  <option className="font-semibold text-xs text-gray-600" value={vcd.id} key={vcd.id}>
+                  <option
+                    className="font-semibold text-xs text-gray-600"
+                    value={vcd.id}
+                    key={vcd.id}
+                  >
                     {vcd.type}
                   </option>
                 ))}
@@ -113,6 +144,30 @@ export default function VaccinationForm({ id, patientsId }) {
                   {formik.errors.vaccinationDoseId}
                 </span>
               )}
+          </div>
+        </div>
+        <div className="px-6 pb-4">
+          <div className="flex flex-col">
+            <label className="font-semibold text-xs text-gray-600">
+              Refuerzo
+            </label>
+            <input
+              onChange={formik.handleChange}
+              type="date"
+              name="reinforcement"
+              ref={inputRef}
+              className={
+                "border px-2 py-1 shadow-md outline-none rounded font-semibold text-xs text-gray-600 mt-1 " +
+                (formik.errors.reinforcement && formik.touched.reinforcement
+                  ? "border-red-400"
+                  : "border")
+              }
+            />
+            {formik.errors.reinforcement && formik.touched.reinforcement && (
+              <span className="text-red-400">
+                {formik.errors.reinforcement}
+              </span>
+            )}
           </div>
         </div>
       </div>

@@ -94,36 +94,6 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
               Control de plagas
             </span>
           </li>
-          {/* patient?.sexesId === 2 && (
-            <>
-              <li>
-                <span className="mx-4">/</span>
-              </li>
-              <li onClick={handleShowCP} className="cursor-pointer">
-                <span
-                  className={
-                    "text-blue-500 text-xl " +
-                    (showCP ? "font-medium" : "font-thin")
-                  }
-                >
-                  Cruse
-                </span>
-              </li>
-              <li>
-                <span className="mx-4">/</span>
-              </li>
-              <li onClick={handleShowCP} className="cursor-pointer">
-                <span
-                  className={
-                    "text-blue-500 text-xl " +
-                    (showCP ? "font-medium" : "font-thin")
-                  }
-                >
-                  
-                </span>
-              </li>
-            </>
-                )*/}
         </ol>
       </nav>
       {showCG && (

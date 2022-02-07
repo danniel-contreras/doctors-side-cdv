@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { readDewormingsByPatient } from "../../../redux/actions/deworming";
 import { formatRelative, subDays } from "date-fns";
 import { es } from "date-fns/locale";
-import { formatDate } from "../../../utils/dates";
 
 const Deworming = ({ id }) => {
   const dewormings = useSelector((state) => state.deworming.data);
@@ -46,6 +45,18 @@ const Deworming = ({ id }) => {
                     </span>{" "}
                     {dwm.dewormingType?.type}
                   </p>
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Refuerzo:</span>
+                    {dwm.reinforcement === "N/A"
+                      ? dwm.reinforcement
+                      : formatRelative(
+                          subDays(new Date(dwm.reinforcement), 0),
+                          new Date(),
+                          {
+                            locale: es,
+                          }
+                        )}
+                  </p>
                 </div>
               </>
             ) : (
@@ -66,6 +77,18 @@ const Deworming = ({ id }) => {
                       Tipo de desparacitacion:
                     </span>{" "}
                     {dwm.dewormingType?.type}
+                  </p>
+                  <p className="text-sm font-normal">
+                    <span className="font-semibold text-base">Refuerzo:</span>
+                    {dwm.reinforcement === "N/A"
+                      ? dwm.reinforcement
+                      : formatRelative(
+                          subDays(new Date(dwm.reinforcement), 0),
+                          new Date(),
+                          {
+                            locale: es,
+                          }
+                        )}
                   </p>
                 </div>
                 <div

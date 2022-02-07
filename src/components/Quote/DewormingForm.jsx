@@ -1,4 +1,4 @@
-import { useEffect,useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,20 +12,30 @@ import { Success } from "../Global/Alerts/Success";
 export default function DewormingForm({ patientsId }) {
   const dewormingTypes = useSelector((state) => state.dewormingType.data);
   const dispatch = useDispatch();
-  const inputType = useRef(null)
+  const inputType = useRef(null);
+  const inputRef = useRef(null);
   const formik = useFormik({
-    initialValues: { dewormingTypeId: "" },
+    initialValues: { dewormingTypeId: "", reinforcement: "N/A" },
     validationSchema: yup.object({
       dewormingTypeId: yup
         .number()
         .required("Desde seleccionar el tipo de desparacitacion"),
     }),
     onSubmit: (values) => {
-      const newValues = { ...values, date: new Date(), patientsId };
+      const newValues = {
+        ...values,
+        date: new Date(),
+        patientsId,
+        reinforcement:
+          values.reinforcement === "N/A"
+            ? values.reinforcement
+            : new Date(values.reinforcement),
+      };
       addNewDeworming(newValues).then(() => {
         dispatch(addDeworming(newValues, patientsId));
         Success("Se guardo la desparacitacion");
-        inputType.current.value = "DEFAULT"
+        inputType.current.value = "DEFAULT";
+        inputRef.current.value = "";
       });
     },
   });
@@ -35,7 +45,7 @@ export default function DewormingForm({ patientsId }) {
   }, [dispatch]);
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="grid grid-cols-1 mt-4">
+      <div className="grid grid-cols-2 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
             <label className="font-semibold text-xs text-gray-600">Dosis</label>
@@ -51,7 +61,11 @@ export default function DewormingForm({ patientsId }) {
                   : "border")
               }
             >
-              <option className="text-xs font-semibold" value={"DEFAULT"} disabled>
+              <option
+                className="text-xs font-semibold"
+                value={"DEFAULT"}
+                disabled
+              >
                 Selecciona el tipo de desparacitacion
               </option>
               {dewormingTypes &&
@@ -67,6 +81,30 @@ export default function DewormingForm({ patientsId }) {
                   {formik.errors.dewormingTypeId}
                 </span>
               )}
+          </div>
+        </div>
+        <div className="p-6">
+          <div className="flex flex-col">
+            <label className="font-semibold text-xs text-gray-600">
+              Refuerzo
+            </label>
+            <input
+              onChange={formik.handleChange}
+              type="date"
+              name="reinforcement"
+              ref={inputRef}
+              className={
+                "border px-2 py-1 shadow-md outline-none rounded font-semibold text-xs text-gray-600 mt-1 " +
+                (formik.errors.reinforcement && formik.touched.reinforcement
+                  ? "border-red-400"
+                  : "border")
+              }
+            />
+            {formik.errors.reinforcement && formik.touched.reinforcement && (
+              <span className="text-red-400">
+                {formik.errors.reinforcement}
+              </span>
+            )}
           </div>
         </div>
       </div>

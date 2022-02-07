@@ -14,6 +14,7 @@ const Vaccinations = ({ id }) => {
   useEffect(() => {
     return dispatch(readVaccinationsByPatient(id, page));
   }, [dispatch, id, page]);
+  console.log(vaccinations);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
       <div className="w-full border my-3" />
@@ -52,6 +53,18 @@ const Vaccinations = ({ id }) => {
                     <span className="font-semibold text-base">Dosis:</span>
                     {vac.vaccinationDose?.type}
                   </p>
+                  <p className="text-sm font-normal mt-3">
+                    <span className="font-semibold text-base">Refuerzo:</span>
+                    {vac.reinforcement === "N/A"
+                      ? vac.reinforcement
+                      : formatRelative(
+                          subDays(new Date(vac.reinforcement), 0),
+                          new Date(),
+                          {
+                            locale: es,
+                          }
+                        )}
+                  </p>
                 </div>
               </>
             ) : (
@@ -76,6 +89,18 @@ const Vaccinations = ({ id }) => {
                   <p className="text-sm font-normal mt-3">
                     <span className="font-semibold text-base">Dosis:</span>
                     {vac.vaccinationDose?.type}
+                  </p>
+                  <p className="text-sm font-normal mt-3">
+                    <span className="font-semibold text-base">Refuerzo:</span>
+                    {vac.reinforcement === "N/A"
+                      ? vac.reinforcement
+                      : formatRelative(
+                          subDays(new Date(vac.reinforcement), 0),
+                          new Date(),
+                          {
+                            locale: es,
+                          }
+                        )}
                   </p>
                 </div>
                 <div
