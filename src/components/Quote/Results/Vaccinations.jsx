@@ -72,13 +72,15 @@ const Vaccinations = ({ id }) => {
                 <div style={{ width: "90%" }} className="p-6">
                   <p className="text-sm font-normal">
                     <span className="font-semibold text-base">Fecha:</span>{" "}
-                    {formatRelative(
-                      subDays(new Date(vac.date), 0),
-                      new Date(),
-                      {
-                        locale: es,
-                      }
-                    )}
+                    {vac.reinforcement === "N/A" || vac.reinforcement === ""
+                      ? "N/A"
+                      : formatRelative(
+                          subDays(new Date(vac.reinforcement), 0),
+                          new Date(),
+                          {
+                            locale: es,
+                          }
+                        )}
                   </p>
                   <p className="text-sm font-normal mt-3">
                     <span className="font-semibold text-base">
@@ -92,8 +94,8 @@ const Vaccinations = ({ id }) => {
                   </p>
                   <p className="text-sm font-normal mt-3">
                     <span className="font-semibold text-base">Refuerzo:</span>
-                    {vac.reinforcement === "N/A"
-                      ? vac.reinforcement
+                    {vac.reinforcement === "N/A" || vac.reinforcement === ""
+                      ? "N/A"
                       : formatRelative(
                           subDays(new Date(vac.reinforcement), 0),
                           new Date(),

@@ -47,8 +47,8 @@ const Deworming = ({ id }) => {
                   </p>
                   <p className="text-sm font-normal">
                     <span className="font-semibold text-base">Refuerzo:</span>
-                    {dwm.reinforcement === "N/A"
-                      ? dwm.reinforcement
+                    {dwm.reinforcement === "N/A" || dwm.reinforcement === ""
+                      ? "N/A"
                       : formatRelative(
                           subDays(new Date(dwm.reinforcement), 0),
                           new Date(),
@@ -62,7 +62,7 @@ const Deworming = ({ id }) => {
             ) : (
               <>
                 <div style={{ width: "90%" }} className="p-6">
-                <p className="text-sm font-normal">
+                  <p className="text-sm font-normal">
                     <span className="font-semibold text-base">Fecha:</span>{" "}
                     {formatRelative(
                       subDays(new Date(dwm.date), 0),
@@ -80,8 +80,8 @@ const Deworming = ({ id }) => {
                   </p>
                   <p className="text-sm font-normal">
                     <span className="font-semibold text-base">Refuerzo:</span>
-                    {dwm.reinforcement === "N/A"
-                      ? dwm.reinforcement
+                    {dwm.reinforcement === "N/A" || dwm.reinforcement === ""
+                      ? "N/A"
                       : formatRelative(
                           subDays(new Date(dwm.reinforcement), 0),
                           new Date(),
