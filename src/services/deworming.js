@@ -10,8 +10,8 @@ export const addNewDeworming = async (values) => {
   return response.json();
 };
 
-export const getDewormingByPatient = async (id) => {
-  const response = await fetch(`${API}/deworming/patient/${id}`, {
+export const getDewormingByPatient = async (id, page = 1) => {
+  const response = await fetch(`${API}/deworming/patient/${id}?page=${page}&take=10`, {
     headers: { token: getToken() },
   });
   return response.json();

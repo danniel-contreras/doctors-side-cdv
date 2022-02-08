@@ -16,7 +16,7 @@ export const getQUoteById = async (id) => {
 };
 
 export const getQuotesByPatient = async (id,page) => {
-  const response = await fetch(`${API}/quotes/patients/${id}?page=${page}`, {
+  const response = await fetch(`${API}/quotes/patients/${id}?page=${page}&take=10`, {
     headers: { token: getToken() },
   });
   return response.json();

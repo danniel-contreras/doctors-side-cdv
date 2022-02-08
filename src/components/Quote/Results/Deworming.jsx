@@ -1,17 +1,19 @@
 import { faNotesMedical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { readDewormingsByPatient } from "../../../redux/actions/deworming";
 import { formatRelative, subDays } from "date-fns";
 import { es } from "date-fns/locale";
+import Pagination from "../../Global/Pagination";
 
 const Deworming = ({ id }) => {
   const dewormings = useSelector((state) => state.deworming.data);
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
-    return dispatch(readDewormingsByPatient(id));
-  }, [id, dispatch]);
+    return dispatch(readDewormingsByPatient(id, page));
+  }, [id, dispatch, page]);
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
       {dewormings?.deworming ? (
@@ -109,6 +111,7 @@ const Deworming = ({ id }) => {
           No hay desparacitaciones que mostrar...{" "}
         </p>
       )}
+      <Pagination data={dewormings} method={setPage} />
     </div>
   );
 };

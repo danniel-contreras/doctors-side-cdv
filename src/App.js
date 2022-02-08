@@ -8,7 +8,12 @@ function App() {
   return (
     <Provider store={store}>
       <IsAuth />
-      <Toaster position="top-right" />
+      <Toaster
+        toastOptions={{
+          success: { duration: 5000 },
+        }}
+        position="top-right"
+      />
     </Provider>
   );
 }

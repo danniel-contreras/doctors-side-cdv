@@ -4,9 +4,9 @@ import {
 } from "../../services/pest-control";
 import { types } from "../types/pest-control-types";
 
-export const readPestControlByPatient = (id) => {
+export const readPestControlByPatient = (id, page = 1) => {
   return (dispatch) => {
-    getPestControlByPatient(id).then((res) => {
+    getPestControlByPatient(id, page).then((res) => {
       if (res.msg) {
         dispatch(readByPatient({}));
         return;

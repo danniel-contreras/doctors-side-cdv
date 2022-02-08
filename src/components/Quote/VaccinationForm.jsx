@@ -46,7 +46,7 @@ export default function VaccinationForm({ id, patientsId }) {
         reinforcement:
           values.reinforcement === "N/A"
             ? values.reinforcement
-            : new Date(values.reinforcement),
+            : `${values.reinforcement}T08:00`,
       };
       addNewVaccination(newValues).then(() => {
         Success("Se agrego la vacunacion");

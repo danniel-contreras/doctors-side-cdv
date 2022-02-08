@@ -4,9 +4,9 @@ import {
 } from "../../services/deworming";
 import { types } from "../types/deworming-types";
 
-export const readDewormingsByPatient = (id) => {
+export const readDewormingsByPatient = (id, page = 1) => {
   return (dispatch) => {
-    getDewormingByPatient(id).then((res) => {
+    getDewormingByPatient(id, page).then((res) => {
       if (res.msg) {
         dispatch(readByPatient({}));
         return;

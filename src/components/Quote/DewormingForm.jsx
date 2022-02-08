@@ -29,7 +29,7 @@ export default function DewormingForm({ patientsId }) {
         reinforcement:
           values.reinforcement === "N/A"
             ? values.reinforcement
-            : new Date(values.reinforcement),
+            : `${values.reinforcement}T08:00`,
       };
       addNewDeworming(newValues).then(() => {
         dispatch(addDeworming(newValues, patientsId));

@@ -10,10 +10,13 @@ export const addNewPestControl = async (values) => {
   return response.json();
 };
 
-export const getPestControlByPatient = async (id) => {
-  const response = await fetch(`${API}/pestControl/patient/${id}`, {
-    headers: { token: getToken() },
-  });
+export const getPestControlByPatient = async (id, page = 1) => {
+  const response = await fetch(
+    `${API}/pestControl/patient/${id}?page=${page}&take=10`,
+    {
+      headers: { token: getToken() },
+    }
+  );
   return response.json();
 };
 

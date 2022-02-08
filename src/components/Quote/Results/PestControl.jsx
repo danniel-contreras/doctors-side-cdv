@@ -1,15 +1,18 @@
 import { faNotesMedical } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { readPestControlByPatient } from "../../../redux/actions/pest-control";
+import Pagination from "../../Global/Pagination";
 
 export default function PestControl({ id }) {
+  const [page, setPage] = useState(1);
   const pestControls = useSelector((state) => state.pestControl.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    return dispatch(readPestControlByPatient(id));
-  }, [id, dispatch]);
+    return dispatch(readPestControlByPatient(id,page));
+  }, [id, dispatch,page]);
+  
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
       {pestControls?.pestControl ? (
@@ -71,6 +74,7 @@ export default function PestControl({ id }) {
           No hay control de plagas que mostrar...{" "}
         </p>
       )}
+      <Pagination data={pestControls} method={setPage}/>
     </div>
   );
 }

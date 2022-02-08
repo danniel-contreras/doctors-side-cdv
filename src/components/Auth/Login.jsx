@@ -36,7 +36,6 @@ const Login = ({ setIsLoading }) => {
             dispatch(newLogin(token));
             Success("Los datos son correctos bienvenido!!");
             setIsLoading(true);
-            console.log("is Admin");
             return;
           }
         });
@@ -45,9 +44,10 @@ const Login = ({ setIsLoading }) => {
             dispatch(newLogin(token));
             Success("Los datos son correctos bienvenido!!");
             setIsLoading(true);
-            return;
+          } else {
+            Error("No estas autorizado para acceder");
           }
-          Error("No estas autorizado para acceder");
+          return;
         });
       });
     },
