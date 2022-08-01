@@ -65,7 +65,7 @@ export default function Patient() {
             {patient?.patients?.expPdf === "expediente.pdf" ? (
               ""
             ) : (
-              <SinglePage pdf={showPDF(patient?.patients?.expPdf)} />
+              <SinglePage pdf={"https://sfo3.digitaloceanspaces.com/patients/pdf/" + patient?.patients?.expPdf} />
             )}
           </div>
         </div>
