@@ -1,4 +1,4 @@
-import { faSyringe } from "@fortawesome/free-solid-svg-icons";
+import { faSyringe, faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +32,7 @@ const Vaccinations = ({ id }) => {
                     className="text-2xl text-white cursor-pointer"
                   />
                 </div>
-                <div style={{ width: "90%" }} className="p-6">
+                <div style={{ width: "80%" }} className="p-6">
                   <p className="text-sm font-normal">
                     <span className="font-semibold text-base">Fecha:</span>{" "}
                     {formatRelative(
@@ -66,10 +66,32 @@ const Vaccinations = ({ id }) => {
                         )}
                   </p>
                 </div>
+                <div
+                  style={{ width: "10%" }}
+                  className="flex justify-center items-center "
+                >
+                  <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                  <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
+                    <FontAwesomeIcon icon={faPen} />
+                  </button>
+                </div>
               </>
             ) : (
               <>
-                <div style={{ width: "90%" }} className="p-6">
+                <div
+                  style={{ width: "10%" }}
+                  className="flex mx-3 justify-center items-center "
+                >
+                  <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                  <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
+                    <FontAwesomeIcon icon={faPen} />
+                  </button>
+                </div>
+                <div style={{ width: "80%" }} className="p-6">
                   <p className="text-sm font-normal">
                     <span className="font-semibold text-base">Fecha:</span>{" "}
                     {vac.reinforcement === "N/A" || vac.reinforcement === ""

@@ -1,5 +1,10 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faChevronUp,
+  faTrash,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Result from "./Result";
 import { formatRelative, subDays } from "date-fns";
@@ -13,14 +18,11 @@ export default function QuoteInfo({ index, quote }) {
       setShowResult(false);
     }
   }, []);
-  const clickListener = useCallback(
-    (e) => {
-      if (!ref.current?.contains(e.target)) {
-        setShowResult(false); // using optional chaining here, change to onClose && onClose(), if required
-      }
-    },
-    []
-  );
+  const clickListener = useCallback((e) => {
+    if (!ref.current?.contains(e.target)) {
+      setShowResult(false); // using optional chaining here, change to onClose && onClose(), if required
+    }
+  }, []);
   useEffect(() => {
     // Attach the listeners on component mount.
     document.addEventListener("click", clickListener);
@@ -30,7 +32,7 @@ export default function QuoteInfo({ index, quote }) {
       document.removeEventListener("click", clickListener);
       document.removeEventListener("keyup", escapeListener);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div ref={ref} className="flex">
@@ -46,7 +48,7 @@ export default function QuoteInfo({ index, quote }) {
               className="text-xl text-white cursor-pointer"
             />
           </div>
-          <div style={{ width: "90%" }} className="p-6">
+          <div style={{ width: "80%" }} className="p-6">
             <p className="text-sm font-normal text-gray-600">
               <span className="font-semibold text-base">Fecha:</span>{" "}
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
@@ -54,14 +56,37 @@ export default function QuoteInfo({ index, quote }) {
               })}
             </p>
             <p className="text-sm font-normal text-gray-600">
-              <span className="font-semibold text-base">Problema:</span> {quote.issue}
+              <span className="font-semibold text-base">Problema:</span>{" "}
+              {quote.issue}
             </p>
             {showResult && <Result id={quote.id} />}
+          </div>
+          <div
+            style={{ width: "10%" }}
+            className="flex justify-center items-center "
+          >
+            <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+            <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
+              <FontAwesomeIcon icon={faPen} />
+            </button>
           </div>
         </>
       ) : (
         <>
-           <div style={{ width: "90%" }} className="p-6">
+          <div
+            style={{ width: "10%" }}
+            className="flex mx-4 justify-center items-center "
+          >
+            <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+            <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
+              <FontAwesomeIcon icon={faPen} />
+            </button>
+          </div>
+          <div style={{ width: "80%" }} className="p-6">
             <p className="text-sm font-normal text-gray-600">
               <span className="font-semibold text-base">Fecha:</span>{" "}
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
@@ -69,7 +94,8 @@ export default function QuoteInfo({ index, quote }) {
               })}
             </p>
             <p className="text-sm font-normal text-gray-600">
-              <span className="font-semibold text-base">Problema:</span> {quote.issue}
+              <span className="font-semibold text-base">Problema:</span>{" "}
+              {quote.issue}
             </p>
             {showResult && <Result id={quote.id} />}
           </div>
