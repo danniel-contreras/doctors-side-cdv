@@ -3,10 +3,10 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layout/Layout";
 import { readPatientById } from "../redux/actions/patients";
-import { showImage, showPDF } from "../services/patients";
 import Info from "../components/Quote/Info";
 import BreadCrums from "../components/Patients/BreadCrums";
 import SinglePage from "../components/Quote/Results/pdf/Single";
+import ShowImage from "../components/Patients/ShowImage";
 
 export default function Patient() {
   const { id } = useParams();
@@ -29,11 +29,7 @@ export default function Patient() {
             </p>
 
             <div className="shadow border w-36 mt-4">
-              <img
-                className=" p-2"
-                src={"https://sfo3.digitaloceanspaces.com/patients/img/" + patient?.patients?.img}
-                alt="null"
-              />
+              <ShowImage name={patient?.patients?.img} cssClass="p-2" />
             </div>
             <div>
               <Info id={patient?.patients?.id} />
