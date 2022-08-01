@@ -17,7 +17,7 @@ const QuoteList = ({ quotes }) => {
           >
             <div className="w-20 shadow rounded  p-3">
               <img
-                src={showImage(quote.patients && quote.patients?.img)}
+                src={"https://sfo3.digitaloceanspaces.com/patients/img/" + quote.patients?.img}
                 alt="null"
               />
             </div>
