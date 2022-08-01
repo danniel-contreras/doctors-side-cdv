@@ -12,7 +12,7 @@ export default function List({ patients }) {
             <div>
               <img
                 className=" w-20 border p-1"
-                src={showImage(patient?.img)}
+                src={"https://sfo3.digitaloceanspaces.com/patients/img/" + patient?.img}
                 alt="none"
               />
             </div>
