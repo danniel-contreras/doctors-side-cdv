@@ -1,20 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { showImage } from "../../services/patients";
+import ShowImage from "./ShowImage";
 
 export default function List({ patients }) {
-  console.log(patients)
+  console.log(patients);
   return (
     <div className="grid grid-cols-5 gap-5 mt-8 ">
       {patients?.patients &&
         patients?.patients.map((patient) => (
-          <div key={patient?.id} className="px-5 py-3 bg-white shadow-md rounded border">
+          <div
+            key={patient?.id}
+            className="px-5 py-3 bg-white shadow-md rounded border"
+          >
             <div>
-              <img
-                className=" w-20 border p-1"
-                src={"https://sfo3.digitaloceanspaces.com/patients/img/" + patient?.img}
-                alt="none"
-              />
+              <ShowImage cssClass="w-20 border p-1" name={patient?.img} />
             </div>
             <div>
               <p className="font-normal text-xs mt-2">

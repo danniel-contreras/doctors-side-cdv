@@ -5,6 +5,7 @@ import { es } from "date-fns/locale";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
+import ShowImage from "../Patients/ShowImage";
 
 const List = ({ quotes }) => {
   console.log(quotes);
@@ -19,10 +20,7 @@ const List = ({ quotes }) => {
               className="bg-gray-50 shadow border flex flex-col rounded w-full p-6"
             >
               <div className="w-20 shadow rounded  p-3">
-                <img
-                  src={"https://sfo3.digitaloceanspaces.com/patients/img/" + quote.patients?.img}
-                  alt="null"
-                />
+                <ShowImage name={quote.patients?.img} />
               </div>
               <span className="text-nomal font-semibold mt-3">
                 {quote.patients?.names}

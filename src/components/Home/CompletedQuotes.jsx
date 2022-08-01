@@ -1,8 +1,8 @@
 import { formatRelative, subDays } from "date-fns";
 import { es } from "date-fns/locale";
-import { showImage } from "../../services/patients";
 import { Link } from "react-router-dom";
 import { memo } from "react";
+import ShowImage from "../Patients/ShowImage";
 
 const QuoteList = ({ quotes }) => {
   const filterQuotes =
@@ -16,10 +16,7 @@ const QuoteList = ({ quotes }) => {
             className="bg-white border shadow-md flex flex-col rounded w-full p-6"
           >
             <div className="w-20 shadow rounded  p-3">
-              <img
-                src={"https://sfo3.digitaloceanspaces.com/patients/img/" + quote.patients?.img}
-                alt="null"
-              />
+             <ShowImage name={quote.patients?.img} />
             </div>
             <span className="text-base font-semibold mt-4">
               {quote.patients?.names}
