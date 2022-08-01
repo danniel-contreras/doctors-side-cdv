@@ -38,7 +38,7 @@ const Quote = () => {
             <div className="shadow-md border w-36 my-4">
               <img
                 className=" p-4"
-                src={showImage(newqt.patients?.img)}
+                src={"https://sfo3.digitaloceanspaces.com/patients/img/" + newqt.patients?.img}
                 alt="null"
               />
             </div>
