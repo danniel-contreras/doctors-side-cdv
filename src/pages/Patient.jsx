@@ -31,7 +31,7 @@ export default function Patient() {
             <div className="shadow border w-36 mt-4">
               <img
                 className=" p-2"
-                src={showImage(patient?.patients?.img)}
+                src={"https://sfo3.digitaloceanspaces.com/patients/img/" + patient?.patients?.img}
                 alt="null"
               />
             </div>
