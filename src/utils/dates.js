@@ -21,6 +21,9 @@ export const filterDates = (quotes, option) => {
   if (Number(option) === 4) {
     tomorrow.setDate(tomorrow.getDate() + 32);
   }
+  if(Number(option) === 5){
+    return caducateDates(quotes)
+  }
   const salesfilter =
     quotes &&
     quotes.filter(
@@ -71,6 +74,22 @@ export const getEspecificDate = (date, quotes) => {
         new Date(qt?.date).getDate() === day
     );
   return filterQuotes;
+};
+
+export const caducateDates = (quotes) => {
+  console.log(quotes)
+  const date = new Date().getDate();
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+  const filtered =
+    quotes &&
+    quotes.filter(
+      (qt) =>
+        new Date(qt?.date).getFullYear() <= year &&
+        new Date(qt?.date).getMonth() <= month &&
+        new Date(qt?.date).getDate() < date && !qt?.state
+    );
+  return filtered;
 };
 
 export const returnTime = () => {

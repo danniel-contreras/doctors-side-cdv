@@ -21,6 +21,5 @@ export const showPDF = (name) => {
 };
 export const showImage = async (name) => {
   const res = axios.get(`${API}/patients/view-img?name=${name}`);
-  console.log(res)
  return res;
 };

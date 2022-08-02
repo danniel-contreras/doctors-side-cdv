@@ -17,6 +17,7 @@ import { pestControlReducer } from "./reducers/pest-control";
 import { clinicalServiceReducer } from "./reducers/clinical-service";
 import { serviceReducer } from "./reducers/service.reducer";
 import { userReducer } from "./reducers/employee.reducer";
+import { quoteTypeReducer } from "./reducers/quote-types.reducer";
 
 const reducers = combineReducers({
   auth: authReducer,
@@ -35,7 +36,8 @@ const reducers = combineReducers({
   pestControl: pestControlReducer,
   clinicalService: clinicalServiceReducer,
   service: serviceReducer,
-  employee:userReducer
+  employee: userReducer,
+  quoteType: quoteTypeReducer,
 });
 
 const composeEnhancers =

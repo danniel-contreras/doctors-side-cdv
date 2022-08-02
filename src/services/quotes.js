@@ -28,3 +28,15 @@ export const getQuotesInterval = async (id, state) => {
   });
   return response.json();
 };
+
+export const addNewQuote = async (data) => {
+  const response = await fetch(`${API}/quotes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};

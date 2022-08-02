@@ -3,8 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Quotes/List";
 import Layout from "../layout/Layout";
 import { readDoctorById } from "../redux/actions/doctors";
-import { readQuotesByInterval } from "../redux/actions/quotes";
-import { filterDates, getEspecificDate, intervalDates } from "../utils/dates";
+import { readQuotesByDoctor, readQuotesByInterval } from "../redux/actions/quotes";
+import {
+  caducateDates,
+  filterDates,
+  getEspecificDate,
+  intervalDates,
+} from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
 
 export default function Quotes() {
@@ -27,7 +32,8 @@ export default function Quotes() {
   useEffect(() => {
     const readQuotes = () => {
       if (doctors) {
-        dispatch(readQuotesByInterval(doctors.doctor?.id, state ? 1 : 0));
+        dispatch(readQuotesByDoctor(doctors.doctor?.id));
+        setQuotesState(filterDates(quotes?.quotes, 1))
       }
     };
     return readQuotes();
@@ -36,7 +42,7 @@ export default function Quotes() {
   const handleChange = (option) => {
     const quotesA = filterDates(quotes.quotes, option);
     setQuotesState(quotesA);
-    if (Number(option) === 5) {
+    if (Number(option) === 6) {
       setQuotesState(quotes?.quotes);
     }
   };
@@ -54,7 +60,6 @@ export default function Quotes() {
   const especificDate = (date) => {
     setQuotesState(getEspecificDate(date, quotes?.quotes));
   };
-  console.log(quotes)
   return (
     <Layout>
       <div className="px-6 flex flex-col">
@@ -108,7 +113,9 @@ export default function Quotes() {
                 Filtrar
               </button>
             </div>
-            <label className="font-semibold text-xs whitespace-nowrap mt-1 ml-4 text-gray-600">Rangos</label>
+            <label className="font-semibold text-xs whitespace-nowrap mt-1 ml-4 text-gray-600">
+              Rangos
+            </label>
             <select
               onChange={(e) => handleChange(e.currentTarget.value)}
               ref={select}
@@ -122,7 +129,8 @@ export default function Quotes() {
               <option value={2}>Consultas entre 5 dias</option>
               <option value={3}>Consultas entre una semana</option>
               <option value={4}>Consultas entre un mes</option>
-              <option value={5}>Todas las consultas</option>
+              <option value={5}>Consultas caducadas</option>
+              <option value={6}>Todas las consultas</option>
             </select>
           </div>
         </div>
