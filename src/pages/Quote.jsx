@@ -37,7 +37,7 @@ const Quote = () => {
         </span>
         <div className="flex flex-col xl:flex-row mt-4">
           <div className="pr-20 w-full">
-            <div className="shadow-md border w-36 my-4">
+            <div className="w-64">
               <ShowImage cssClass="p-4" name={newqt.patients?.img} />
             </div>
             <PatientInfo id={newqt.patientsId} />

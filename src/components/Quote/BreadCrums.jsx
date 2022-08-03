@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import DewormingForm from "./DewormingForm";
 import Form from "./Form";
 import PestControlForm from "./PestControlForm";
@@ -7,8 +7,33 @@ import PestControl from "./Results/PestControl";
 import QuoteResult from "./Results/QuoteResult";
 import Vaccinations from "./Results/Vaccinations";
 import VaccinationForm from "./VaccinationForm";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  readVaccinationDoses,
+  readVaccinationTypes,
+} from "../../redux/actions/vaccination";
+import { readPestControlTypes } from "../../redux/actions/pest-control";
+import { readDewormingsTypes } from "../../redux/actions/deworming";
 
 export default function BreadCrums({ id, patientsId, quote, patient }) {
+
+ //** Redux */
+ const dispatch = useDispatch();
+ const dewormingTypes = useSelector((state) => state.dewormingType.data);
+ const pestControlTypes = useSelector((state) => state.pestControlType.data);
+ const vaccinationDoses = useSelector((state) => state.vaccinationDose.data);
+ const vaccinationTypes = useSelector((state) => state.vaccinationType.data);
+
+ useEffect(() => {
+   dispatch(readVaccinationDoses());
+   dispatch(readVaccinationTypes());
+   dispatch(readPestControlTypes());
+   dispatch(readDewormingsTypes());
+   return;
+ }, [dispatch]);
+
+ /** */
+
   const [showForm, setShowForm] = useState(true);
   const [showCG, setShowCG] = useState(true);
   const [showVac, setShowVac] = useState(false);
@@ -113,7 +138,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de vacunaciones del paciente
           </p>
-          <Vaccinations id={patientsId} />
+          <Vaccinations vaccinationTypes={vaccinationTypes} vaccinationDoses={vaccinationDoses} id={patientsId} />
         </div>
       )}
       {showCP && (
@@ -122,7 +147,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de controles de plagas del paciente
           </p>
-          <PestControl id={patientsId} />
+          <PestControl pestControlTypes={pestControlTypes} id={patientsId} />
         </div>
       )}
       {showDesp && (
@@ -131,7 +156,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
           <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de desparacitaciones del paciente
           </p>
-          <Deworming id={patientsId} />
+          <Deworming dewormingTypes={dewormingTypes} id={patientsId} />
         </div>
       )}
     </>

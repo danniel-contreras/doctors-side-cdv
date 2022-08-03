@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { readQuotesByPatient } from "../../../redux/actions/quotes";
 import Pagination from "../../Global/Pagination";
 import QuoteInfo from "./QuoteInfo";
+import Lottie from "lottie-react";
+import CuteDog from "../../../assets/animations/animation-for-website.json";
 
 export default function QuoteResult({ id }) {
   const dispatch = useDispatch();
@@ -17,18 +19,28 @@ export default function QuoteResult({ id }) {
     <>
       <div className="grid grid-cols-1 gap-4 w-full mt-6">
         {completed && completed.length ? (
-          completed.map((quote, index) => (
-            <div key={quote.id} className=" shadow-md border rounded-lg">
-              <QuoteInfo index={index} quote={quote} />
-            </div>
-          ))
+          <>
+            {completed.map((quote, index) => (
+              <div key={quote.id} className=" shadow-md border rounded-lg">
+                <QuoteInfo index={index} quote={quote} />
+              </div>
+            ))}
+            <Pagination data={quotes} method={setPage} />
+          </>
         ) : (
-          <p className="text-xs font-semibold text-gray-600">
-            No hay consultas que mostrar...{" "}
-          </p>
+          <div className="w-full flex justify-center">
+            <div>
+              <Lottie
+                animationData={CuteDog}
+                className="w-44"
+                loop={true}
+                autoplay={true}
+              />
+              <p className="text-cxl font-thin">Aun no tienes resultados!!!</p>
+            </div>
+          </div>
         )}
       </div>
-      <Pagination data={quotes} method={setPage} />
     </>
   );
 }

@@ -48,7 +48,7 @@ const QuoteList = ({ quotes }) => {
           <div className="w-full flex justify-center mt-12">
             <div className="flex flex-col">
               <Lottie
-                className="w-44"
+                className="w-32"
                 animationData={HappyCat}
                 loop={true}
                 autoPlay={true}

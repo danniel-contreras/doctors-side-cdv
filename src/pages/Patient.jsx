@@ -28,7 +28,7 @@ export default function Patient() {
               </span>
             </p>
 
-            <div className="shadow border w-36 mt-4">
+            <div className="w-64">
               <ShowImage name={patient?.patients?.img} cssClass="p-2" />
             </div>
             <div>
