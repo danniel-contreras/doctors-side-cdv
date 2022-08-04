@@ -1,5 +1,6 @@
 import { API } from "../utils/constant";
 import { getToken } from "./token";
+import axios from "axios";
 
 export const addNewResult = async (values) => {
   const response = await fetch(`${API}/results`, {
@@ -29,8 +30,9 @@ export const editQuote = async (id, quote) => {
 
 export const addPhotoToResult = async (file, id) => {
   const formData = new FormData();
-  formData.append("foto", file);
-  const response = await fetch(`${API}/results/image/${id}`, {
+  formData.append("upload", file);
+  formData.append("resultsId", id);
+  const response = await fetch(`${API}/photo`, {
     headers: { token: getToken() },
     method: "POST",
     body: formData,
@@ -49,4 +51,14 @@ export const putResult = async (values) => {
     body: JSON.stringify(values),
   });
   return response.json();
+};
+
+export const getPhotos = async (result,page=1) => {
+  const response = await fetch(`${API}/photo/result?id=${result}&page=${page}`);
+  return response.json();
+};
+
+export const getUrlPhoto = async (name) => {
+  const res = axios.get(`${API}/photo?name=${name}`);
+  return res;
 };

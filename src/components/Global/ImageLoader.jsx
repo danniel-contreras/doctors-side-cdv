@@ -3,7 +3,7 @@ import { useIntersection } from "../../hooks/useObserver";
 import classnames from "classnames";
 import "./ImageLoader.css";
 
-const ImageLoader = ({ url, thumb, width, height }) => {
+const ImageLoader = ({ url, thumb, width, height,cssClass }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const imgRef = useRef();
@@ -28,7 +28,7 @@ const ImageLoader = ({ url, thumb, width, height }) => {
           <img
             className={classnames("image", "thumb", {
               ["isLoaded"]: !!isLoaded,
-            })}
+            }) }
             src={thumb}
           />
           <img
