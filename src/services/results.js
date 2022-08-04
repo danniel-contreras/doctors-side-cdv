@@ -41,3 +41,12 @@ export const addPhotoToResult = async (file, id) => {
 export const showImage = (name) => {
   return `${API}/results/view-image?name=${name}`;
 };
+
+export const putResult = async (values) => {
+  const response = await fetch(`${API}/results/${values.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", token: getToken() },
+    body: JSON.stringify(values),
+  });
+  return response.json();
+};

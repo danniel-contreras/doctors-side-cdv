@@ -26,3 +26,12 @@ export const getPestControlTypes = async () => {
   });
   return response.json();
 };
+
+export const putPestControl = async (values) => {
+  const response = await fetch(`${API}/pestControl/${values.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", token: getToken() },
+    body: JSON.stringify(values),
+  });
+  return response.json();
+};

@@ -12,13 +12,13 @@ const QuoteList = ({ quotes }) => {
   return (
     <>
       {filterQuotes && filterQuotes.length ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-4 gap-5 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5 mt-4">
           {filterQuotes.map((quote) => (
             <div
               key={quote.id}
               className="bg-white border shadow-md flex flex-col rounded w-full p-6"
             >
-              <div className="shadow rounded  p-3">
+              <div>
                 <ShowImage name={quote.patients?.img} />
               </div>
               <span className="text-base font-semibold mt-4">

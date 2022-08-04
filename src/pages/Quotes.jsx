@@ -1,9 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Quotes/List";
 import Layout from "../layout/Layout";
 import { readDoctorById } from "../redux/actions/doctors";
-import { readQuotesByDoctor, readQuotesByInterval } from "../redux/actions/quotes";
+import {
+  readQuotesByDoctor,
+  readQuotesByInterval,
+} from "../redux/actions/quotes";
 import {
   caducateDates,
   filterDates,
@@ -11,6 +14,8 @@ import {
   intervalDates,
 } from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
+import QuoteList from "../components/Home/QuoteList";
+import CompletedQuotes from "../components/Home/CompletedQuotes";
 
 export default function Quotes() {
   const select = useRef(null);
@@ -21,7 +26,7 @@ export default function Quotes() {
   const auth = useSelector((state) => state.auth);
   const quotes = useSelector((state) => state.quotes.data);
   const [dates, setDates] = useState({ initial: "", final: "" });
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(true);
   const [quotesState, setQuotesState] = useState();
   useEffect(() => {
     return dispatch(readDoctorById(auth.user?.userid));
@@ -33,11 +38,10 @@ export default function Quotes() {
     const readQuotes = () => {
       if (doctors) {
         dispatch(readQuotesByDoctor(doctors.doctor?.id));
-        setQuotesState(filterDates(quotes?.quotes, 1))
       }
     };
     return readQuotes();
-  }, [doctors, dispatch, state]);
+  }, [doctors, dispatch]);
 
   const handleChange = (option) => {
     const quotesA = filterDates(quotes.quotes, option);
@@ -60,6 +64,18 @@ export default function Quotes() {
   const especificDate = (date) => {
     setQuotesState(getEspecificDate(date, quotes?.quotes));
   };
+
+  useEffect(() => {
+    const filter = () => {
+      if (state) {
+        setQuotesState(filterDates(quotes?.quotes, 1));
+        return;
+      }
+      setQuotesState(quotes?.quotes);
+    };
+    return filter();
+  }, [state, quotes]);
+
   return (
     <Layout>
       <div className="px-6 flex flex-col">
@@ -142,7 +158,7 @@ export default function Quotes() {
                 type="checkbox"
                 nameName="toggle"
                 id="toggle"
-                defaultChecked={state}
+                defaultChecked={!state}
                 onChange={() => setState(!state)}
                 className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
               />
@@ -152,12 +168,35 @@ export default function Quotes() {
               ></label>
             </div>
             <span className="font-semibold text-xs mt-1">
-              {state ? "Completadas" : "Pendientes"}
+              {state
+                ? "Mostrar todas las consultas"
+                : "Mostrar las consultas del dia"}
             </span>
           </div>
         </div>
         <div className="mt-10">
-          <List quotes={quotesState ? quotesState : quotes?.quotes} />
+          {state ? (
+            <>
+              <p className="mb-4 text-base font-semibold">Citas pendientes</p>
+              <Suspense
+                fallback={
+                  <p className="mt-4 text-xl font-thin">Cargando....</p>
+                }
+              >
+                <QuoteList quotes={filterDates(quotes?.quotes, 1)} />
+              </Suspense>
+              <p className="text-xl font-semibold my-4">Citas completadas</p>
+              <Suspense
+                fallback={
+                  <p className="mt-4 text-xl font-thin">Cargando....</p>
+                }
+              >
+                <CompletedQuotes quotes={filterDates(quotes?.quotes, 1)} />
+              </Suspense>
+            </>
+          ) : (
+            <List quotes={quotesState ? quotesState : quotes?.quotes} />
+          )}
         </div>
       </div>
     </Layout>

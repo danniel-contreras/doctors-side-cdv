@@ -2,8 +2,6 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import {
   faChevronDown,
   faChevronUp,
-  faTrash,
-  faPen,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Result from "./Result";
@@ -34,6 +32,8 @@ export default function QuoteInfo({ index, quote }) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+
   return (
     <div ref={ref} className="flex">
       {index % 2 === 0 || index === 0 ? (
@@ -48,7 +48,7 @@ export default function QuoteInfo({ index, quote }) {
               className="text-xl text-white cursor-pointer"
             />
           </div>
-          <div style={{ width: "80%" }} className="p-6">
+          <div style={{ width: "90%" }} className="p-6">
             <p className="text-sm font-normal text-gray-600">
               <span className="font-semibold text-base">Fecha:</span>{" "}
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
@@ -61,32 +61,10 @@ export default function QuoteInfo({ index, quote }) {
             </p>
             {showResult && <Result id={quote.id} />}
           </div>
-          <div
-            style={{ width: "10%" }}
-            className="flex justify-center items-center "
-          >
-            <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-            <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
-              <FontAwesomeIcon icon={faPen} />
-            </button>
-          </div>
         </>
       ) : (
         <>
-          <div
-            style={{ width: "10%" }}
-            className="flex mx-4 justify-center items-center "
-          >
-            <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
-              <FontAwesomeIcon icon={faTrash} />
-            </button>
-            <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
-              <FontAwesomeIcon icon={faPen} />
-            </button>
-          </div>
-          <div style={{ width: "80%" }} className="p-6">
+          <div style={{ width: "90%" }} className="p-6">
             <p className="text-sm font-normal text-gray-600">
               <span className="font-semibold text-base">Fecha:</span>{" "}
               {formatRelative(subDays(new Date(quote.date), 0), new Date(), {
@@ -111,6 +89,7 @@ export default function QuoteInfo({ index, quote }) {
           </div>
         </>
       )}
+      
     </div>
   );
 }

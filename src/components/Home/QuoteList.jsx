@@ -18,7 +18,7 @@ const QuoteList = ({ quotes }) => {
               key={quote.id}
               className="bg-white border shadow-md flex flex-col rounded w-full p-6"
             >
-              <div className="shadow rounded  p-3">
+              <div>
                 <ShowImage name={quote.patients?.img} />
               </div>
               <span className="text-base font-semibold mt-4">
