@@ -10,23 +10,49 @@ import { readPestControlByPatient } from "../../../redux/actions/pest-control";
 import Pagination from "../../Global/Pagination";
 import Lottie from "lottie-react";
 import CuteDog from "../../../assets/animations/animation-for-website.json";
-import Modal from "../../Global/Modal"
+import Modal from "../../Global/Modal";
 import PestControlEditForm from "./Edit/PestControlEditForm";
+import { Success } from "../../Global/Alerts/Success";
+import { Error } from "../../Global/Alerts/Error";
+import { deletePestControl } from "../../../services/pest-control";
 
 export default function PestControl({ id, pestControlTypes }) {
   const [page, setPage] = useState(1);
-  const [showModal, setShowModal] = useState(false)
-  const [pestcontrol, setPestcontrol] = useState()
+  const [showModal, setShowModal] = useState(false);
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [pestcontrol, setPestcontrol] = useState();
   const pestControls = useSelector((state) => state.pestControl.data);
   const dispatch = useDispatch();
   useEffect(() => {
     return dispatch(readPestControlByPatient(id, page));
   }, [id, dispatch, page]);
 
-  const editPest = (pest)=>{
-     setShowModal(!showModal)
-     setPestcontrol(pest)
-  }
+  const editPest = (pest) => {
+    setShowModal(!showModal);
+    setPestcontrol(pest);
+  };
+
+  const deletePest = (pest) => {
+    setShowModalDelete(true);
+    setPestcontrol(pest);
+  };
+
+  const handleDelete = () => {
+    const data = {
+      id: pestcontrol?.id,
+      state: false,
+    };
+    deletePestControl(data)
+      .then(() => {
+        dispatch(readPestControlByPatient(id, 1));
+        Success("Se ah elimino el registro");
+        setShowModalDelete(false);
+      })
+      .catch((error) => {
+        console.log(error)
+        Error("Ah ocurrido un error inesperado");
+      });
+  };
 
   return (
     <>
@@ -67,10 +93,16 @@ export default function PestControl({ id, pestControlTypes }) {
                       style={{ width: "10%" }}
                       className="flex justify-center items-center "
                     >
-                      <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                      <button
+                        onClick={() => deletePest(pest)}
+                        className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500"
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </button>
-                      <button onClick={()=>editPest(pest)} className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
+                      <button
+                        onClick={() => editPest(pest)}
+                        className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500"
+                      >
                         <FontAwesomeIcon icon={faPen} />
                       </button>
                     </div>
@@ -81,11 +113,17 @@ export default function PestControl({ id, pestControlTypes }) {
                       style={{ width: "10%" }}
                       className="flex mx-4 justify-center items-center "
                     >
-                      <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                      <button
+                        onClick={() => deletePest(pest)}
+                        className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500"
+                      >
                         <FontAwesomeIcon icon={faTrash} />
                       </button>
                       <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
-                        <FontAwesomeIcon onClick={()=>editPest(pest)} icon={faPen} />
+                        <FontAwesomeIcon
+                          onClick={() => editPest(pest)}
+                          icon={faPen}
+                        />
                       </button>
                     </div>
                     <div style={{ width: "80%" }} className="p-6">
@@ -116,8 +154,39 @@ export default function PestControl({ id, pestControlTypes }) {
               </div>
             ))}
           </div>
-          <Modal setShowModal={setShowModal} showModal={showModal} title="Actualizar control de plagas">
-              <PestControlEditForm setShowModal={setShowModal} pest={pestcontrol} pestControlTypes={pestControlTypes}/>
+          <Modal
+            setShowModal={setShowModal}
+            showModal={showModal}
+            title="Actualizar control de plagas"
+          >
+            <PestControlEditForm
+              setShowModal={setShowModal}
+              pest={pestcontrol}
+              pestControlTypes={pestControlTypes}
+            />
+          </Modal>
+          <Modal
+            setShowModal={setShowModalDelete}
+            showModal={showModalDelete}
+            title="Eliminar control de plagas"
+          >
+            <div>
+              <p>¿Estas seguro de eliminar este registro?</p>
+              <div className="grid grid-cols-2 gap-6 mt-3">
+                <button
+                  onClick={handleDelete}
+                  className="bg-blue-500 text-white px-6 py-2 text-sm rounded"
+                >
+                  Si, eliminar
+                </button>
+                <button
+                  onClick={() => setShowModalDelete(false)}
+                  className="bg-red-500 text-white px-6 py-2 text-sm rounded"
+                >
+                  No, cancelar
+                </button>
+              </div>
+            </div>
           </Modal>
           <Pagination data={pestControls} method={setPage} />
         </>

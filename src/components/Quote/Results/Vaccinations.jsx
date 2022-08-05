@@ -9,12 +9,16 @@ import Modal from "../../Global/Modal";
 import VacinationEditForm from "./Edit/VacinationEditForm";
 import Lottie from "lottie-react";
 import CuteDog from "../../../assets/animations/animation-for-website.json";
+import { deleteVaccination } from "../../../services/vaccination";
+import { Success } from "../../Global/Alerts/Success";
+import { Error } from "../../Global/Alerts/Error";
 
 const Vaccinations = ({ id, vaccinationDoses, vaccinationTypes }) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [vaccination, setVaccination] = useState();
+  const [modalDelete, setModalDelete] = useState(false);
   const vaccinations = useSelector((state) => state.vaccination.data);
   useEffect(() => {
     return dispatch(readVaccinationsByPatient(id, page));
@@ -23,6 +27,24 @@ const Vaccinations = ({ id, vaccinationDoses, vaccinationTypes }) => {
   const vaccinationEdit = (vacc) => {
     setVaccination(vacc);
     setShowModal(!showModal);
+  };
+  const vaccinationDelete = (vacc) => {
+    setVaccination(vacc);
+    setModalDelete(!modalDelete);
+  };
+
+  const handleDelete = () => {
+    const data = {
+      id: vaccination?.id,
+      state: false,
+    };
+    deleteVaccination(data).then(()=>{
+      dispatch(readVaccinationsByPatient(id, page))
+      setModalDelete(false)
+      Success("Se elimino la vacunacion")
+    }).catch(()=>{
+      Error("Ah ocurrido un error inesperado")
+    })
   };
 
   return (
@@ -69,7 +91,10 @@ const Vaccinations = ({ id, vaccinationDoses, vaccinationTypes }) => {
                     style={{ width: "10%" }}
                     className="flex justify-center items-center "
                   >
-                    <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                    <button
+                      onClick={() => vaccinationDelete(vac)}
+                      className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500"
+                    >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <button
@@ -86,7 +111,10 @@ const Vaccinations = ({ id, vaccinationDoses, vaccinationTypes }) => {
                     style={{ width: "10%" }}
                     className="flex mx-3 justify-center items-center "
                   >
-                    <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                    <button
+                      onClick={() => vaccinationDelete(vac)}
+                      className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500"
+                    >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <button
@@ -158,6 +186,23 @@ const Vaccinations = ({ id, vaccinationDoses, vaccinationTypes }) => {
           vaccinationTypes={vaccinationTypes}
           setShowModal={setShowModal}
         />
+      </Modal>
+      <Modal
+        setShowModal={setModalDelete}
+        showModal={modalDelete}
+        title="Eliminar vacunacion"
+      >
+        <div>
+          <p>¿Estas seguro de eliminar este registro?</p>
+          <div className="grid grid-cols-2 gap-6 mt-3">
+            <button onClick={handleDelete} className="bg-blue-500 text-white px-6 py-2 text-sm rounded">
+              Si, eliminar
+            </button>
+            <button onClick={()=>setModalDelete(false)} className="bg-red-500 text-white px-6 py-2 text-sm rounded">
+              No, cancelar
+            </button>
+          </div>
+        </div>
       </Modal>
     </div>
   );

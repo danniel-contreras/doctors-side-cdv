@@ -21,7 +21,7 @@ export default function ShowResultImage({ name, cssClass }) {
     <TransformWrapper>
       {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
         <>
-          <div className="flex items-center justify-center">
+          <div className="flex justify-center">
             <button className="bg-green-500 text-white text-xl px-4 py-1 rounded-md m-4" onClick={() => zoomIn()}>
               <FontAwesomeIcon icon={faPlus}/>
             </button>

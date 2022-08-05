@@ -35,3 +35,12 @@ export const putPestControl = async (values) => {
   });
   return response.json();
 };
+
+export const deletePestControl = async (values) => {
+  const response = await fetch(`${API}/pestControl/delete`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", token: getToken() },
+    body: JSON.stringify(values),
+  });
+  return response.json();
+};

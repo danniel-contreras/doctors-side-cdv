@@ -40,3 +40,12 @@ export const putVaccination = async (values) => {
   });
   return response.json();
 };
+
+export const deleteVaccination = async (values) => {
+  const response = await fetch(`${API}/vaccination/delete`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", token: getToken() },
+    body: JSON.stringify(values),
+  });
+  return response.json();
+};

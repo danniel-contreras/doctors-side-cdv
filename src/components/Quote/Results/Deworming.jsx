@@ -13,11 +13,15 @@ import Modal from "../../Global/Modal";
 import DewormingEditForm from "./Edit/DewormingEditForm";
 import Lottie from "lottie-react";
 import CuteDog from "../../../assets/animations/animation-for-website.json";
+import { deleteDeworming } from "../../../services/deworming";
+import { Success } from "../../Global/Alerts/Success";
+import { Error } from "../../Global/Alerts/Error";
 
 const Deworming = ({ id, dewormingTypes }) => {
   const dewormings = useSelector((state) => state.deworming.data);
   const [page, setPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
   const [deworming, setDeworming] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,6 +31,27 @@ const Deworming = ({ id, dewormingTypes }) => {
   const editDeworming = (dwm) => {
     setDeworming(dwm);
     setShowModal(!showModal);
+  };
+
+  const delDeworming = (dwm) => {
+    setDeworming(dwm);
+    setModalDelete(!modalDelete);
+  };
+
+  const handleDelete = () => {
+    const data = {
+      id: deworming?.id,
+      state: false,
+    };
+    deleteDeworming(data)
+      .then((res) => {
+        setModalDelete(false);
+        Success("Se elimino correctamente");
+        dispatch(readDewormingsByPatient(id, 1));
+      })
+      .catch(() => {
+        Error("Ah ocurrido un error inesperado");
+      });
   };
   return (
     <div className="grid grid-cols-1 gap-4 w-full mt-6">
@@ -67,7 +92,10 @@ const Deworming = ({ id, dewormingTypes }) => {
                     style={{ width: "10%" }}
                     className="flex justify-center items-center "
                   >
-                    <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                    <button
+                      onClick={() => delDeworming(dwm)}
+                      className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500"
+                    >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <button
@@ -84,7 +112,10 @@ const Deworming = ({ id, dewormingTypes }) => {
                     style={{ width: "10%" }}
                     className="flex mx-4 justify-center items-center "
                   >
-                    <button className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500">
+                    <button
+                      onClick={() => delDeworming(dwm)}
+                      className="w-10 h-10 flex justify-center rounded-full text-white p-3 bg-red-500"
+                    >
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                     <button className="w-10 mx-5 h-10 flex justify-center rounded-full text-white p-3 bg-green-500">
@@ -151,6 +182,29 @@ const Deworming = ({ id, dewormingTypes }) => {
           dwm={deworming}
           dewormingTypes={dewormingTypes}
         />
+      </Modal>
+      <Modal
+        setShowModal={setModalDelete}
+        showModal={modalDelete}
+        title="Eliminar desparacitacion"
+      >
+        <div>
+          <p>¿Estas seguro de eliminar este registro?</p>
+          <div className="grid grid-cols-2 gap-6 mt-3">
+            <button
+              onClick={handleDelete}
+              className="bg-blue-500 text-white px-6 py-2 text-sm rounded"
+            >
+              Si, eliminar
+            </button>
+            <button
+              onClick={() => setModalDelete(false)}
+              className="bg-red-500 text-white px-6 py-2 text-sm rounded"
+            >
+              No, cancelar
+            </button>
+          </div>
+        </div>
       </Modal>
     </div>
   );

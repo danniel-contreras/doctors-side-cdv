@@ -17,7 +17,8 @@ export const getAllPatients = async (page, name, custom, limit) => {
   return response.json();
 };
 export const showPDF = (name) => {
-  return `${API}/patients/view-pdf?name=${name}`;
+  const res = axios.get(`${API}/patients/view-pdf?name=${name}`);
+  return res
 };
 export const showImage = async (name) => {
   const res = axios.get(`${API}/patients/view-img?name=${name}`);
