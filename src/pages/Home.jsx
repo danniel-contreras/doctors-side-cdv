@@ -1,16 +1,24 @@
-import { useEffect, useMemo, useState, useCallback } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readDoctorById } from "../redux/actions/doctors";
 import { readQuotesByDoctor } from "../redux/actions/quotes";
 import io from "socket.io-client";
-import QuoteList from "../components/Home/QuoteList";
-import CompletedQuotes from "../components/Home/CompletedQuotes";
 import { Success } from "../components/Global/Alerts/Success";
 import { SOCKET_URL } from "../utils/constant";
 import { filterDates } from "../utils/dates";
-import Page from "./Page";
-import addNotification from "react-push-notification";
+//** Lazy components */
+const QuoteList = lazy(() => import("../components/Home/QuoteList"));
+const CompletedQuotes = lazy(() =>
+  import("../components/Home/CompletedQuotes")
+);
 
 export default function Home() {
   //redux logic
@@ -79,13 +87,17 @@ export default function Home() {
     <Layout>
       <div className="home mx-10">
         <p className="mb-4 text-base font-semibold">Citas pendientes</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
+        <Suspense
+          fallback={<p className="mt-4 text-xl font-thin">Cargando....</p>}
+        >
           <QuoteList quotes={filterDates(quotes?.quotes, 1)} />
-        </div>
-        <p className="text-base font-semibold my-4">Citas completadas</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-4">
+        </Suspense>
+        <p className="text-xl font-semibold my-4">Citas completadas</p>
+        <Suspense
+          fallback={<p className="mt-4 text-xl font-thin">Cargando....</p>}
+        >
           <CompletedQuotes quotes={filterDates(quotes?.quotes, 1)} />
-        </div>
+        </Suspense>
       </div>
     </Layout>
   );

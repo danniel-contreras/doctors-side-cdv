@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import InputSearch from "../components/Global/SearchInput";
-import List from "../components/Patients/List";
 import Layout from "../layout/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { readAllPatients } from "../redux/actions/patients";
-import Pagination from "../components/Global/Pag";
+import Loader from "../components/Global/Loader";
+const List = lazy(() => import("../components/Patients/List"));
+const Pagination = lazy(() => import("../components/Global/Pag"));
 
 export default function Patients() {
   const [page, setPage] = useState(1);
@@ -13,7 +14,7 @@ export default function Patients() {
   const patients = useSelector((state) => state.patient.data);
 
   useEffect(() => {
-    return dispatch(readAllPatients(page, search.name, search.custom, 8));
+    return dispatch(readAllPatients(page, search.name, search.custom, 20));
   }, [dispatch, page, search]);
   return (
     <Layout>
@@ -35,15 +36,19 @@ export default function Patients() {
             }
           />
         </div>
-        <List patients={patients} />
-        <Pagination
-          last={patients?.totalpages}
-          className="pagination-bar"
-          onPageChange={setPage}
-          totalCount={patients?.totalItems}
-          currentPage={patients?.currentPage}
-          pageSize={patients?.take}
-        />
+        <Suspense fallback={<Loader />}>
+          <div>
+            <List patients={patients} />
+            <Pagination
+              last={patients?.totalpages}
+              className="pagination-bar"
+              onPageChange={setPage}
+              totalCount={patients?.totalItems}
+              currentPage={patients?.currentPage}
+              pageSize={patients?.take}
+            />
+          </div>
+        </Suspense>
       </div>
     </Layout>
   );

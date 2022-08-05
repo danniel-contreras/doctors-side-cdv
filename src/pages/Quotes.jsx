@@ -1,11 +1,21 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import List from "../components/Quotes/List";
 import Layout from "../layout/Layout";
 import { readDoctorById } from "../redux/actions/doctors";
-import { readQuotesByInterval } from "../redux/actions/quotes";
-import { filterDates, getEspecificDate, intervalDates } from "../utils/dates";
+import {
+  readQuotesByDoctor,
+  readQuotesByInterval,
+} from "../redux/actions/quotes";
+import {
+  caducateDates,
+  filterDates,
+  getEspecificDate,
+  intervalDates,
+} from "../utils/dates";
 import { Warning } from "../components/Global/Alerts/Warning";
+import QuoteList from "../components/Home/QuoteList";
+import CompletedQuotes from "../components/Home/CompletedQuotes";
 
 export default function Quotes() {
   const select = useRef(null);
@@ -16,7 +26,7 @@ export default function Quotes() {
   const auth = useSelector((state) => state.auth);
   const quotes = useSelector((state) => state.quotes.data);
   const [dates, setDates] = useState({ initial: "", final: "" });
-  const [state, setState] = useState(false);
+  const [state, setState] = useState(true);
   const [quotesState, setQuotesState] = useState();
   useEffect(() => {
     return dispatch(readDoctorById(auth.user?.userid));
@@ -27,16 +37,16 @@ export default function Quotes() {
   useEffect(() => {
     const readQuotes = () => {
       if (doctors) {
-        dispatch(readQuotesByInterval(doctors.doctor?.id, state ? 1 : 0));
+        dispatch(readQuotesByDoctor(doctors.doctor?.id));
       }
     };
     return readQuotes();
-  }, [doctors, dispatch, state]);
+  }, [doctors, dispatch]);
 
   const handleChange = (option) => {
     const quotesA = filterDates(quotes.quotes, option);
     setQuotesState(quotesA);
-    if (Number(option) === 5) {
+    if (Number(option) === 6) {
       setQuotesState(quotes?.quotes);
     }
   };
@@ -54,7 +64,18 @@ export default function Quotes() {
   const especificDate = (date) => {
     setQuotesState(getEspecificDate(date, quotes?.quotes));
   };
-  console.log(quotes)
+
+  useEffect(() => {
+    const filter = () => {
+      if (state) {
+        setQuotesState(filterDates(quotes?.quotes, 1));
+        return;
+      }
+      setQuotesState(quotes?.quotes);
+    };
+    return filter();
+  }, [state, quotes]);
+
   return (
     <Layout>
       <div className="px-6 flex flex-col">
@@ -108,7 +129,9 @@ export default function Quotes() {
                 Filtrar
               </button>
             </div>
-            <label className="font-semibold text-xs whitespace-nowrap mt-1 ml-4 text-gray-600">Rangos</label>
+            <label className="font-semibold text-xs whitespace-nowrap mt-1 ml-4 text-gray-600">
+              Rangos
+            </label>
             <select
               onChange={(e) => handleChange(e.currentTarget.value)}
               ref={select}
@@ -122,7 +145,8 @@ export default function Quotes() {
               <option value={2}>Consultas entre 5 dias</option>
               <option value={3}>Consultas entre una semana</option>
               <option value={4}>Consultas entre un mes</option>
-              <option value={5}>Todas las consultas</option>
+              <option value={5}>Consultas caducadas</option>
+              <option value={6}>Todas las consultas</option>
             </select>
           </div>
         </div>
@@ -134,7 +158,7 @@ export default function Quotes() {
                 type="checkbox"
                 nameName="toggle"
                 id="toggle"
-                defaultChecked={state}
+                defaultChecked={!state}
                 onChange={() => setState(!state)}
                 className="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"
               />
@@ -144,12 +168,35 @@ export default function Quotes() {
               ></label>
             </div>
             <span className="font-semibold text-xs mt-1">
-              {state ? "Completadas" : "Pendientes"}
+              {state
+                ? "Mostrar todas las consultas"
+                : "Mostrar las consultas del dia"}
             </span>
           </div>
         </div>
         <div className="mt-10">
-          <List quotes={quotesState ? quotesState : quotes?.quotes} />
+          {state ? (
+            <>
+              <p className="mb-4 text-base font-semibold">Citas pendientes</p>
+              <Suspense
+                fallback={
+                  <p className="mt-4 text-xl font-thin">Cargando....</p>
+                }
+              >
+                <QuoteList quotes={filterDates(quotes?.quotes, 1)} />
+              </Suspense>
+              <p className="text-xl font-semibold my-4">Citas completadas</p>
+              <Suspense
+                fallback={
+                  <p className="mt-4 text-xl font-thin">Cargando....</p>
+                }
+              >
+                <CompletedQuotes quotes={filterDates(quotes?.quotes, 1)} />
+              </Suspense>
+            </>
+          ) : (
+            <List quotes={quotesState ? quotesState : quotes?.quotes} />
+          )}
         </div>
       </div>
     </Layout>

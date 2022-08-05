@@ -12,3 +12,22 @@
     @apply: bg-green-400;
     background-color: #68d391;
   }
+
+  .slider-container {
+    display: flex;
+    width: 100%;
+    height: 400px;
+    overflow-x: scroll;
+  
+    /* Vamos a añadir esto 👇 */
+    scroll-snap-type: x mandatory;
+  }
+  
+  .slider-container img {
+    flex: 0 0 100%;
+    width: 100%;
+    object-fit: cover;
+  
+    /* Vamos a añadir esto 👇 */
+    scroll-snap-align: center;
+  }

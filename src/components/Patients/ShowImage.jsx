@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { showImage } from "../../services/patients";
+import ImageLoader from "../Global/ImageLoader";
 
 export default function ShowImage({ name, cssClass }) {
   const [imgUrl, setImgUrl] = useState("");
@@ -14,5 +15,7 @@ export default function ShowImage({ name, cssClass }) {
   useEffect(() => {
     return getUrl(name);
   }, [name]);
-  return <img src={imgUrl} className={cssClass} alt="null"></img>;
+  return (
+    <ImageLoader width={100} height={100} url={imgUrl} cssClass={cssClass} />
+  );
 }

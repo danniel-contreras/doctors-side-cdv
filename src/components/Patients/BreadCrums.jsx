@@ -1,22 +1,42 @@
-import { useState } from "react";
-import ClinicalServices from "../Quote/Results/ClinicalServices";
+import { useState, useEffect } from "react";
 import Deworming from "../Quote/Results/Deworming";
 import PestControl from "../Quote/Results/PestControl";
 import QuoteResult from "../Quote/Results/QuoteResult";
 import Vaccinations from "../Quote/Results/Vaccinations";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  readVaccinationDoses,
+  readVaccinationTypes,
+} from "../../redux/actions/vaccination";
+import { readPestControlTypes } from "../../redux/actions/pest-control";
+import { readDewormingsTypes } from "../../redux/actions/deworming";
 
 export default function BreadCrums({ id }) {
+  //** Redux */
+  const dispatch = useDispatch();
+  const dewormingTypes = useSelector((state) => state.dewormingType.data);
+  const pestControlTypes = useSelector((state) => state.pestControlType.data);
+  const vaccinationDoses = useSelector((state) => state.vaccinationDose.data);
+  const vaccinationTypes = useSelector((state) => state.vaccinationType.data);
+
+  useEffect(() => {
+    dispatch(readVaccinationDoses());
+    dispatch(readVaccinationTypes());
+    dispatch(readPestControlTypes());
+    dispatch(readDewormingsTypes());
+    return;
+  }, [dispatch]);
+
+  /** */
   const [showCG, setShowCG] = useState(true);
   const [showVac, setShowVac] = useState(false);
   const [showDesp, setShowDesp] = useState(false);
   const [showCP, setShowCP] = useState(false);
-  const [showSC, setShowSC] = useState(false);
   const handleShowCG = () => {
     setShowCG(true);
     setShowVac(false);
     setShowDesp(false);
     setShowCP(false);
-    setShowSC(false);
   };
 
   const handleShowVac = () => {
@@ -24,7 +44,6 @@ export default function BreadCrums({ id }) {
     setShowVac(true);
     setShowDesp(false);
     setShowCP(false);
-    setShowSC(false);
   };
 
   const handleShowDesp = () => {
@@ -32,7 +51,6 @@ export default function BreadCrums({ id }) {
     setShowVac(false);
     setShowDesp(true);
     setShowCP(false);
-    setShowSC(false);
   };
 
   const handleShowCP = () => {
@@ -40,15 +58,6 @@ export default function BreadCrums({ id }) {
     setShowVac(false);
     setShowDesp(false);
     setShowCP(true);
-    setShowSC(false);
-  };
-
-  const handleShowSC = () => {
-    setShowCG(false);
-    setShowVac(false);
-    setShowDesp(false);
-    setShowCP(false);
-    setShowSC(true);
   };
   return (
     <div>
@@ -118,7 +127,11 @@ export default function BreadCrums({ id }) {
           <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de vacunaciones del paciente
           </p>
-          <Vaccinations id={id} />
+          <Vaccinations
+            vaccinationTypes={vaccinationTypes}
+            vaccinationDoses={vaccinationDoses}
+            id={id}
+          />
         </div>
       )}
       {showCP && (
@@ -126,7 +139,7 @@ export default function BreadCrums({ id }) {
           <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de controles de plagas del paciente
           </p>
-          <PestControl id={id} />
+          <PestControl pestControlTypes={pestControlTypes} id={id} />
         </div>
       )}
       {showDesp && (
@@ -134,7 +147,7 @@ export default function BreadCrums({ id }) {
           <p className="text-normal font-semibold text-gray-600 mt-12">
             Listado de desparacitaciones del paciente
           </p>
-          <Deworming id={id} />
+          <Deworming dewormingTypes={dewormingTypes} id={id} />
         </div>
       )}
     </div>

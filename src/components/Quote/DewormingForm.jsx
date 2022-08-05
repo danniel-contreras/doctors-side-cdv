@@ -48,7 +48,7 @@ export default function DewormingForm({ patientsId }) {
       <div className="grid grid-cols-2 mt-4">
         <div className="p-6">
           <div className="flex flex-col">
-            <label className="font-semibold text-xs text-gray-600">Dosis</label>
+            <label className="font-semibold text-xs text-gray-600">Tipo de desparacitacion</label>
             <select
               onChange={formik.handleChange}
               defaultValue={"DEFAULT"}
