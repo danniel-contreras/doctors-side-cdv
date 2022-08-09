@@ -40,3 +40,15 @@ export const addNewQuote = async (data) => {
   });
   return response.json();
 };
+
+export const deleteQuote = async (data) => {
+  const response = await fetch(`${API}/results/delete`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      token: getToken(),
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
