@@ -69,11 +69,7 @@ export default function Patient() {
             </div>
           </div>
           <div className="flex max-w-full max-h-full flex-col items-center content-center justify-center">
-            {patient?.patients?.expPdf === "expediente.pdf" ? (
-              ""
-            ) : (
-              <SinglePage pdf={url} />
-            )}
+            <SinglePage pdf={url} />
           </div>
         </div>
         <BreadCrums id={patient?.patients?.id} />

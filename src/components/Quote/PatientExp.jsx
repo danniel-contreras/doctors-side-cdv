@@ -21,13 +21,5 @@ export default function PatientExp({ id }) {
     };
     return getUrl();
   }, [patient]);
-  return (
-    <>
-      {patient?.patients?.expPdf === "expediente.pdf" ? (
-        ""
-      ) : (
-        <SinglePage pdf={url} />
-      )}
-    </>
-  );
+  return <SinglePage pdf={url} />;
 }
