@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../layout/Layout";
@@ -7,15 +7,26 @@ import Info from "../components/Quote/Info";
 import BreadCrums from "../components/Patients/BreadCrums";
 import SinglePage from "../components/Quote/Results/pdf/Single";
 import ShowImage from "../components/Patients/ShowImage";
+import { showPDF } from "../services/patients";
 
 export default function Patient() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const patient = useSelector((state) => state.pt.data);
+  const [url, setUrl] = useState();
   useEffect(() => {
     return dispatch(readPatientById(id));
   }, [id, dispatch]);
-  console.log(patient);
+  useEffect(() => {
+    const getUrl = () => {
+      if (patient?.patients?.expPdf !== "expediente.pdf") {
+        showPDF(patient?.patients?.expPdf).then(({ data }) => {
+          setUrl(data);
+        });
+      }
+    };
+    return getUrl();
+  }, [patient]);
   return (
     <Layout>
       <div className="mx-8">
@@ -61,7 +72,7 @@ export default function Patient() {
             {patient?.patients?.expPdf === "expediente.pdf" ? (
               ""
             ) : (
-              <SinglePage pdf={"https://sfo3.digitaloceanspaces.com/patients/pdf/" + patient?.patients?.expPdf} />
+              <SinglePage pdf={url} />
             )}
           </div>
         </div>
