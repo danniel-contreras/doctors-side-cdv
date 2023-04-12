@@ -15,6 +15,7 @@ import PestControlEditForm from "./Edit/PestControlEditForm";
 import { Success } from "../../Global/Alerts/Success";
 import { Error } from "../../Global/Alerts/Error";
 import { deletePestControl } from "../../../services/pest-control";
+import { format } from "date-fns";
 
 export default function PestControl({ id, pestControlTypes }) {
   const [page, setPage] = useState(1);
@@ -76,6 +77,10 @@ export default function PestControl({ id, pestControlTypes }) {
                       />
                     </div>
                     <div style={{ width: "80%" }} className="p-6">
+                    <p className="text-sm font-normal">
+                      <span className="font-semibold text-base">Fecha:</span>{" "}
+                      {format(new Date(pest.date), "dd/MM/yyyy")}
+                    </p>
                       <p className="text-sm font-normal">
                         <span className="font-semibold text-base">
                           Duracion:
@@ -88,6 +93,12 @@ export default function PestControl({ id, pestControlTypes }) {
                         </span>{" "}
                         {pest.pestControlType?.type}
                       </p>
+                      <p className="text-sm font-normal">
+                      <span className="font-semibold text-base">Refuerzo:</span>
+                      {pest.reinforcement === "N/A" || pest.reinforcement === ""
+                        ? "N/A"
+                        : format(new Date(pest.reinforcement), "dd/MM/yyyy")}
+                    </p>
                     </div>
                     <div
                       style={{ width: "10%" }}
@@ -127,6 +138,10 @@ export default function PestControl({ id, pestControlTypes }) {
                       </button>
                     </div>
                     <div style={{ width: "80%" }} className="p-6">
+                    <p className="text-sm font-normal">
+                      <span className="font-semibold text-base">Fecha:</span>{" "}
+                      {format(new Date(pest.date), "dd/MM/yyyy")}
+                    </p>
                       <p className="text-sm font-normal">
                         <span className="font-semibold text-base">
                           Duracion:
@@ -139,6 +154,12 @@ export default function PestControl({ id, pestControlTypes }) {
                         </span>{" "}
                         {pest.pestControlType?.type}
                       </p>
+                      <p className="text-sm font-normal">
+                      <span className="font-semibold text-base">Refuerzo:</span>
+                      {pest.reinforcement === "N/A" || pest.reinforcement === ""
+                        ? "N/A"
+                        : format(new Date(pest.reinforcement), "dd/MM/yyyy")}
+                    </p>
                     </div>
                     <div
                       style={{ width: "10%" }}

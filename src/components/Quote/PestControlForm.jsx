@@ -13,6 +13,7 @@ export default function PestControlForm({ patientsId }) {
   const dispatch = useDispatch();
   const inputDuration = useRef(null);
   const inputType = useRef(null);
+  const inputRef = useRef(null);
   const pestControlTypes = useSelector((state) => state.pestControlType.data);
   const formik = useFormik({
     initialValues: { pestControlTypeId: "", duration: "" },
@@ -21,9 +22,15 @@ export default function PestControlForm({ patientsId }) {
       duration: yup
         .string()
         .required("Desde escribir la duracion del tratamiento"),
+        reinforcement: yup.string().required("El refuerzo es requerido"),
     }),
     onSubmit: (values) => {
-      const newValues = { ...values, date: new Date(), patientsId };
+      const newValues = { ...values, date: new Date(),
+        patientsId,
+        reinforcement:
+          values.reinforcement === "N/A"
+            ? values.reinforcement
+            : `${values.reinforcement}T08:00`, };
       addNewPestControl(newValues).then(() => {
         Success("Se agrego el control de plagas");
         dispatch(addPestControl(newValues, patientsId));
@@ -101,6 +108,30 @@ export default function PestControlForm({ patientsId }) {
             />
             {formik.errors.duration && formik.touched.duration && (
               <span className="text-red-400">{formik.errors.duration}</span>
+            )}
+          </div>
+        </div>
+        <div className="px-6 pb-4">
+          <div className="flex flex-col">
+            <label className="font-semibold text-xs text-gray-600">
+              Refuerzo
+            </label>
+            <input
+              onChange={formik.handleChange}
+              type="date"
+              name="reinforcement"
+              ref={inputRef}
+              className={
+                "border px-2 py-1 shadow-md outline-none rounded font-semibold text-xs text-gray-600 mt-1 " +
+                (formik.errors.reinforcement && formik.touched.reinforcement
+                  ? "border-red-400"
+                  : "border")
+              }
+            />
+            {formik.errors.reinforcement && formik.touched.reinforcement && (
+              <span className="text-red-400">
+                {formik.errors.reinforcement}
+              </span>
             )}
           </div>
         </div>
