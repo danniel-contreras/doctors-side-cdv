@@ -116,7 +116,7 @@ export default function BreadCrums({ id, patientsId, quote, patient }) {
                 (showCP ? "font-medium" : "font-thin")
               }
             >
-              Control de plagas
+              Control de ectoparasitos
             </span>
           </li>
         </ol>

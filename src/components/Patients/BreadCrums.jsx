@@ -109,7 +109,7 @@ export default function BreadCrums({ id }) {
                 (showCP ? "font-semibold" : "font-normal")
               }
             >
-              Control de plagas
+              Control de ectoparasitos
             </span>
           </li>
         </ol>
@@ -137,7 +137,7 @@ export default function BreadCrums({ id }) {
       {showCP && (
         <div>
           <p className="text-normal font-semibold text-gray-600 mt-12">
-            Listado de controles de plagas del paciente
+            Listado de controles de ectoparasitos del paciente
           </p>
           <PestControl pestControlTypes={pestControlTypes} id={id} />
         </div>

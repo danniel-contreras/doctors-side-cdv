@@ -48,7 +48,7 @@ export default function PestControlForm({ patientsId }) {
         <div className="p-6">
           <div className="flex flex-col">
             <label className="font-semibold text-xs text-gray-600">
-              Tipo de control de plagas
+              Tipo de control de ectoparasitos
             </label>
             <select
               ref={inputType}
@@ -68,7 +68,7 @@ export default function PestControlForm({ patientsId }) {
                 value={"DEFAULT"}
                 disabled
               >
-                Selecciona el tipo de control de plagas
+                Selecciona el tipo de control de ectoparasitos
               </option>
               {pestControlTypes &&
                 pestControlTypes.map((pctypes) => (
@@ -104,7 +104,7 @@ export default function PestControlForm({ patientsId }) {
                   ? "border-red-400"
                   : "border")
               }
-              placeholder="Escribe la duracion del control de plagas"
+              placeholder="Escribe la duracion del control de ectoparasitos"
             />
             {formik.errors.duration && formik.touched.duration && (
               <span className="text-red-400">{formik.errors.duration}</span>

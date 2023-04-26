@@ -89,7 +89,7 @@ export default function PestControl({ id, pestControlTypes }) {
                       </p>
                       <p className="text-sm font-normal">
                         <span className="font-semibold text-base">
-                          Tipo de control de plagas:
+                          Tipo de control de ectoparasitos:
                         </span>{" "}
                         {pest.pestControlType?.type}
                       </p>
@@ -150,7 +150,7 @@ export default function PestControl({ id, pestControlTypes }) {
                       </p>
                       <p className="text-sm font-normal">
                         <span className="font-semibold text-base">
-                          Tipo de control de plagas:
+                          Tipo de control de ectoparasitos:
                         </span>{" "}
                         {pest.pestControlType?.type}
                       </p>
