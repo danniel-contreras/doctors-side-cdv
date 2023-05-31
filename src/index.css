@@ -41,3 +41,17 @@ code {
     opacity: 0;
   }
 }
+
+@font-face {
+  font-family: "Nunito-Bold";
+  src: url("./assets/fonts/Nunito-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Nunito-Regular";
+  src: url("./assets/fonts/Nunito-Regular.ttf");
+}
+
+body{
+  font-family: "Nunito-Regular" !important;
+}

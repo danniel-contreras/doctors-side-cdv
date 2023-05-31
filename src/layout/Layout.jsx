@@ -35,8 +35,7 @@ export default function Layout({ children }) {
     <div className="w-screen h-screen bg-gray-400">
       <div className=" bg-white h-full flex flex-col rounded shadow">
         <div
-          style={{ background: "rgba(62,196,182,1)" }}
-          className="w-full h-12 p-2 rounded-t"
+          className="w-full h-12 p-2 rounded-t bg-teal-500"
         >
           <span className="text-white text-base ml-4 font-bold">
             Clinica de Diagnostico Veterinario

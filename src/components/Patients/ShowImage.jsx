@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { Suspense, useEffect,lazy } from "react";
 import { useState } from "react";
 import { showImage } from "../../services/patients";
-import ImageLoader from "../Global/ImageLoader";
+const ImageLoader = lazy(() => import("../Global/ImageLoader"));
 
 export default function ShowImage({ name, cssClass }) {
   const [imgUrl, setImgUrl] = useState("");
@@ -16,6 +16,8 @@ export default function ShowImage({ name, cssClass }) {
     return getUrl(name);
   }, [name]);
   return (
-    <ImageLoader width={100} height={100} url={imgUrl} cssClass={cssClass} />
+    <Suspense fallback={<p>cargando</p>}>
+      <ImageLoader url={imgUrl} classname={cssClass} />
+    </Suspense>
   );
 }

@@ -24,47 +24,52 @@ const Login = ({ setIsLoading }) => {
       password: yup.string().required("La password es requerida"),
     }),
     onSubmit: (values) => {
-      login(values).then((res) => {
-        if (!res.token) {
-          Error("Correo o contraseña incorrecta");
-          return;
-        }
-        const token = res.token;
-        const user = decodeToken(token);
-        checkIsAdmin(user?.userid, token).then((res) => {
-          if (checkRole(res?.users) === 1) {
-            dispatch(newLogin(token));
-            Success("Los datos son correctos bienvenido!!");
-            setIsLoading(true);
+      login(values)
+        .then((res) => {
+          if (!res.token) {
+            Error("Correo o contraseña incorrecta");
             return;
           }
+          const token = res.token;
+          const user = decodeToken(token);
+          checkIsAdmin(user?.userid, token).then((res) => {
+
+            if (checkRole(res?.users) === 1) {
+              console.log("Admin:", res)
+              dispatch(newLogin(token));
+              Success("Los datos son correctos bienvenido!!");
+              setIsLoading(true);
+              return;
+            }
+          });
+          checkIsDoctor(user?.userid, res.token).then((res) => {
+            if (res.doctor) {
+              dispatch(newLogin(token));
+              Success("Los datos son correctos bienvenido!!");
+              setIsLoading(true);
+            }
+            return;
+          }).catch(()=>{
+            Error("No eres un doctor autorizado");
+          })
+        })
+        .catch(() => {
+          Error("Ah ocurrido un error inerperado");
         });
-        checkIsDoctor(user?.userid, res.token).then((res) => {
-          if (res.doctor) {
-            dispatch(newLogin(token));
-            Success("Los datos son correctos bienvenido!!");
-            setIsLoading(true);
-          } else {
-            Error("No estas autorizado para acceder");
-          }
-          return;
-        });
-      });
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="flex flex-col mt-8">
-        <label className="text-gray-500 text-xs font-medium">Email</label>
+        <label className="text-sm pb-1 font-medium text-gray-500">Email</label>
         <input
           name="email"
           onChange={formik.handleChange}
           type="text"
           placeholder="Escribe tu email"
           className={
-            "border-0 text-xs py-1 mt-2 border-b-2 w-full outline-none " +
-            (formik.errors.email ? "border-red-500" : "border-b-2")
+            "border-0 text-sm rounded-xl p-4 w-full bg-blue-100 outline-none "
           }
         />
         {formik.errors.email && (
@@ -72,15 +77,14 @@ const Login = ({ setIsLoading }) => {
         )}
       </div>
       <div className="flex flex-col mt-8">
-        <label className="text-gray-500 text-xs font-medium">Password</label>
+        <label className="text-sm pb-1 font-medium text-gray-500">Contraseña</label>
         <input
           name="password"
           onChange={formik.handleChange}
           type="password"
-          placeholder="Escribe tu password"
+          placeholder="Escribe tu contraseña"
           className={
-            "border-0 text-xs py-1 mt-2 border-b-2 w-full outline-none " +
-            (formik.errors.password ? "border-red-500" : "border-b-2")
+            "border-0 text-sm rounded-xl p-4 w-full bg-blue-100 outline-none "
           }
         />
         {formik.errors.password && (
@@ -89,8 +93,7 @@ const Login = ({ setIsLoading }) => {
       </div>
       <button
         type="submit"
-        className="text-white w-full rounded text-xs py-2 mt-4"
-        style={{ background: "rgba(62,196,182,1)" }}
+        className="w-full py-4 mt-4 text-sm font-semibold text-white rounded-xl bg-teal-500"
       >
         Iniciar Sesion
       </button>

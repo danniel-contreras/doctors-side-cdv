@@ -79,7 +79,7 @@ export default function PestControl({ id, pestControlTypes }) {
                     <div style={{ width: "80%" }} className="p-6">
                     <p className="text-sm font-normal">
                       <span className="font-semibold text-base">Fecha:</span>{" "}
-                      {format(new Date(pest.date), "dd/MM/yyyy")}
+                      {pest.date !== "N/A" ? format(new Date(pest.date), "dd/MM/yyyy") : "N/A"}
                     </p>
                       <p className="text-sm font-normal">
                         <span className="font-semibold text-base">

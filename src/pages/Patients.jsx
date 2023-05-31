@@ -20,7 +20,7 @@ export default function Patients() {
     <Layout>
       <div className="px-8">
         <p className="mb-4 text-3xl font-thin">Listado de pacientes</p>
-        <div style={{ width: "90%" }} className="grid grid-cols-2 gap-5">
+        <div style={{ width: "100%" }} className="grid grid-cols-2 gap-5">
           <InputSearch
             placeholder="Escribe el nombre de la mascota para buscar"
             label="Buscar por nombre del paciente"

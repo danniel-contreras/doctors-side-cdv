@@ -18,19 +18,19 @@ export default function Auth({setIsLoading}) {
       >
         <div
           style={{ borderRadius: "2rem" }}
-          className="bg-white w-80 h-full p-10"
+          className="bg-white w-96 h-auto p-10"
         >
           <div>
-            <p className="text-base grid grid-cols-1 font-bold text-blue-800">
+            <p className="text-lg grid grid-cols-1 font-bold text-blue-800">
               <span>
                 Clinica de
-                <span style={{ color: "rgba(62,196,182,1)" }}> Diagnostico</span>
+                <span className="text-teal-500"> Diagnostico</span>
               </span>
               <span>Veterinario</span>
             </p>
             <div className="mt-6">
                <div className="flex w-full justify-center">
-                    <img src={Well} className="w-36" alt="null"/>
+                    <img src={Well} className="w-44" alt="null"/>
                </div>
                <Login setIsLoading={setIsLoading} />
             </div>
